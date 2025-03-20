@@ -1,0 +1,26 @@
+#/////////////////////////////////////////////////////////////////////////////
+# DummyCO Projects
+#/////////////////////////////////////////////////////////////////////////////
+
+/Library/
+/DummyThaiCO_BurstDebugInformation_DoNotShip/
+/paragon_BackUpThisFolder_ButDontShipItWithYourGame/
+/Logs/
+
+*.apk
+DummyCO_BackUpThisFolder_ButDontShipItWithYourGame/
+Temp/
+ProjAndroid/
+.vs/
+Dummy Thai CO_BackUpThisFolder_ButDontShipItWithYourGame/
+.vs/DummyCO/
+*.vsidx
+TestSixiang_BackUpThisFolder_ButDontShipItWithYourGame/
+TestSlotNoel_BackUpThisFolder_ButDontShipItWithYourGame/
+TestSlot_BackUpThisFolder_ButDontShipItWithYourGame/
+ServerData/RubyBundle/
+
+.vscode/extensions.json
+.vscode/launch.json
+.vscode/settings.json
+
