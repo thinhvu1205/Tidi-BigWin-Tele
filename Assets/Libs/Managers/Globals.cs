@@ -21,37 +21,44 @@ namespace Globals
     public class CURRENT_VIEW
     {
         public const string LOGIN_VIEW = "LOGIN_VIEW",
-        LOBBY = "LOBBY",
-        PAYMENT = "PAYMENT",
-        MAIL = "MAIL",
-        PERSONAL = "PERSONAL",
-        CHAT_FRIEND = "CHAT_FRIEND",
-        RULE_VIEW = "RULE_VIEW",
-        GAMELIST_VIEW = "GAMELIST_VIEW",
-        FEEDBACK_VIEW = "FEEDBACK_VIEW",
-        NEWS_VIEW = "NEWS_VIEW",
-        SETTING_VIEW = "SETTING_VIEW",
-        JACKPOT_VIEW = "JACKPOT_VIEW",
-        GUIDE_INGAME = "GUIDE_INGAME",
-        COUNTDOWN = "COUNTDOWN",
-        REGISTER_VIEW = "REGISTER_VIEW",
-        RANK_VIEW = "RANK_VIEW",
-        INVITE_PLAYERVIEW = "INVITE_PLAYERVIEW",
-        DT_VIEW = "DT_VIEW",
-        KET_VIEW = "KET_VIEW",
-        CHATWORLD = "CHATWORLD",
-        TOP_VIEW = "TOP_VIEW",
-        FRIEND_VIEW = "FRIEND_VIEW",
-        INFO_FRIEND_VIEW = "INFO_FRIEND_VIEW",
-        CREATE_TABLE_GAME = "CREATE_TABLE_GAME",
-        GIFT_CODE_VIEW = "GIFT_CODE_VIEW",
-        MISSION_VIEW = "MISSION_VIEW",
-        SEND_GIFT_VIEW = "SEND_GIFT_VIEW",
-        MAIL_CHIP_VIEW = "MAIL_CHIP_VIEW",
-        FREECHIP_VIEW = "FREECHIP_VIEW",
-        PROFILE_VIEW = "PROFILE_VIEW",
-        TOPRICH_VIEW = "TOPRICH_VIEW",
-        LOTO = "LOTO";
+    LOBBY = "LOBBY",
+    PAYMENT = "PAYMENT",
+    MAIL = "MAIL",
+    PERSONAL = "PERSONAL",
+    CHAT_FRIEND = "CHAT_FRIEND",
+    RULE_VIEW = "RULE_VIEW",
+    GAMELIST_VIEW = "GAMELIST_VIEW",
+    FEEDBACK_VIEW = "FEEDBACK_VIEW",
+    NEWS_VIEW = "NEWS_VIEW",
+    SETTING_VIEW = "SETTING_VIEW",
+    JACKPOT_VIEW = "JACKPOT_VIEW",
+    GUIDE_INGAME = "GUIDE_INGAME",
+    COUNTDOWN = "COUNTDOWN",
+    REGISTER_VIEW = "REGISTER_VIEW",
+    RANK_VIEW = "RANK_VIEW",
+    INVITE_FRIEND_VIEW = "INVITE_FRIEND_VIEW",
+    INVITE_PLAYERVIEW = "INVITE_PLAYERVIEW",
+    DT_VIEW = "DT_VIEW",
+    KET_VIEW = "KET_VIEW",
+    CHATWORLD = "CHATWORLD",
+    TOP_VIEW = "TOP_VIEW",
+    FRIEND_VIEW = "FRIEND_VIEW",
+    INFO_FRIEND_VIEW = "INFO_FRIEND_VIEW",
+    CREATE_TABLE_GAME = "CREATE_TABLE_GAME",
+    GIFT_CODE_VIEW = "GIFT_CODE_VIEW",
+    MISSION_VIEW = "MISSION_VIEW",
+    GAME_VIEW = "GAME_VIEW",
+    SPECIAL_OFFER = "SPECIAL_OFFER",
+    SEND_GIFT_VIEW = "SEND_GIFT_VIEW",
+    MAIL_CHIP_VIEW = "MAIL_CHIP_VIEW",
+    FREECHIP_VIEW = "FREECHIP_VIEW",
+    PROFILE_VIEW = "PROFILE_VIEW",
+    TOPRICH_VIEW = "TOPRICH_VIEW",
+    CHECKPASS_VIEW = "CHECKPASS_VIEW",
+    INFO_PLAYER_VIEW = "INFO_PLAYER_VIEW",
+    GROUP_OPTION_INGAME = "GROUP_OPTION_INGAME",
+    LIST_PLAYER_VIEW = "LIST_PLAYER_VIEW",
+    LOTO = "LOTO";
 
 
         public static string currentView = "";
@@ -217,21 +224,6 @@ namespace Globals
         public const string getBonusGames = "getBonusGames";
         public const string buyBonusGame = "buyBonusGame";
         public const string exitGame = "exit";
-    }
-    public class TYPEWIN_BACCARAT
-    {
-        public const int BANKER = 1;
-        public const int PLAYER = 2;
-        public const int TIE = 3;
-        public const int PLAYER_P = 102;
-        public const int PLAYER_B = 12;
-        public const int PLAYER_PB = 112;
-        public const int BANKER_P = 101;
-        public const int BANKER_B = 11;
-        public const int BANKER_PB = 111;
-        public const int TIE_P = 103;
-        public const int TIE_B = 13;
-        public const int TIE_PB = 113;
     }
     public enum GAMEID
     {
@@ -426,56 +418,26 @@ namespace Globals
         public const string WIN_JACKPOT_START = "GameView/SiXiang/Sound/bgm_jackpot_start";
         public const string WIN_JACKPOT_END = "GameView/SiXiang/Sound/bgm_jackpot_end";
         public const string SCATTER_SPIN = "GameView/SiXiang/Sound/Scatter_spin";
-    }
-    public class SOUND_DUMMY
-    {
-        public const string BURNED = "Sounds/DUMMY/effect_burned";
-        public const string DUMMY = "Sounds/DUMMY/effect_dummy";
-        public const string FINISH = "Sounds/DUMMY/effect_finish";
-        public const string FULL_DUMMY = "Sounds/DUMMY/effect_fulldummy";
-        public const string KEEP_HEAD = "Sounds/DUMMY/effect_keephead";
-        public const string KNOCK_COLOR = "Sounds/DUMMY/effect_knockcolor";
-        public const string KNOCK_DARK = "Sounds/DUMMY/effect_knockdark";
-        public const string KNOCK_DARK_COLOR = "Sounds/DUMMY/effect_knockdarkcolor";
-        public const string KNOCK_OUT = "Sounds/DUMMY/effect_knockout";
-        public const string CHIABAI = "Sounds/DUMMY/effect_lc";
-        public const string MELD = "Sounds/DUMMY/effect_meld";
-        public const string SHOW = "Sounds/DUMMY/effect_show";
-    }
-    public class SOUND_DOMINO
-    {
-        public const string CHIP_WIN = "Sounds/Domino/chips_winner";
-        public const string REWARD = "Sounds/Domino/reward";
-        public const string FOLD = "Sounds/Domino/burned";
-        public const string SINGLE = "Sounds/Domino/fold";
-        public const string SHOW_RESULTS = "Sounds/Domino/PopUpOpen";
-        public const string CHIA_DOMINO = "Sounds/Domino/chiaDomino";
-        public const string DC_DOMINO = "Sounds/Domino/dominoAudio";
-    }
 
-    public class SOUND_BINH
-    {
-        public const string WIN_BANKER = "Sounds/Binh/win_banker";
-        public const string COMPARE_WIN = "Sounds/Binh/compare_win";
-        public const string COMPARE_LOSE = "Sounds/Binh/compare_lose";
-    }
 
-    public class SOUND_TONGITS
-    {
-        public const string TgFightMusic = "Sounds/Tongits/fight";
-        public const string TgFoldMusic = "Sounds/Tongits/fold";
-        public const string TgChallengetMusic = "Sounds/Tongits/challenge";
-        public const string TgBurnedMusic = "Sounds/Tongits/burned";
-        public const string TgTongitsMusic = "Sounds/Tongits/tongits";
-        public const string TgEatcardMusic = "Sounds/Tongits/eat_card";
     }
 
     public class User
     {
         public User() { }
+        //static User instance = null;
         public static User userMain = null;
         static public string AccessToken = "";
         static public string FacebookID;
+        //{
+        //    if (instance == null)
+        //        instance = new User();
+        //    return instance;
+        //}
+
+        //public int id;
+
+        //public string UserName = "";
         public string Password = "";
 
         public int Userid;
@@ -547,18 +509,19 @@ namespace Globals
         public static string username_normal = "";
         public static string password_normal = "";
         public static string chat_support_link = "https://m.me/100087270858966";
+        //public static string IP = "app1.topbangkokclub.com";
         public const string PORT = "443";
         public static bool isSound;
         public static bool isMusic;
         public static bool isVibration = true;
         public static bool invitePlayGame = true;
         public static bool isErrorNet = false;
-        public static string language = "EN";
+        public static string language = "THAI";
         public static bool isReconnect = false;
         public static LOGIN_TYPE typeLogin = LOGIN_TYPE.NORMAL;
 
         public static string curServerIp = "";
-        public static int curGameId = 0;
+        public static int curGameId = (int)GAMEID.SICBO;
         public static bool isBackGame = false;
         public static string TELEGRAM_TOKEN = "";
         public static string TELEGRAM_WALLET_ADDRESS = "";
@@ -581,6 +544,7 @@ namespace Globals
 
         public static string deviceId = "";
         public static string versionGame = Application.version;
+        // public static string publisher = "diamond_domino_slots_" + versionGame.Replace('.', '_');
         public static string publisher = "win777_unity_tele_100";
         public static string package_name = Application.identifier;
         public static string versionDevice = getVersionDevice();
@@ -647,8 +611,7 @@ namespace Globals
         public static JArray arrOnlistTrue = new JArray();
         public static JArray arrBannerLobby = new JArray();
 
-        public static List<int> listGamePlaynow = new List<int>() { (int)GAMEID.RONGHO, (int)GAMEID.BANDAR_QQ, (int)GAMEID.ROULETTE, (int)GAMEID.SLOT_SIXIANG, (int)GAMEID.SLOT20FRUIT, (int)GAMEID.SLOT_INCA, (int)GAMEID.SLOTNOEL, (int)GAMEID.SLOT_JUICY_GARDEN, (int)GAMEID.SLOTTARZAN, (int)GAMEID.XOCDIA, (int)GAMEID.BAUCUA, (int)GAMEID.MINE_FINDING };
-        public static List<int> listGameSlot = new List<int>() { (int)GAMEID.SLOT_SIXIANG, (int)GAMEID.SLOT_INCA, (int)GAMEID.SLOT20FRUIT, (int)GAMEID.SLOT_JUICY_GARDEN, (int)GAMEID.SLOTTARZAN, (int)GAMEID.SLOTNOEL };
+        public static List<int> listGamePlaynow = new() { (int)GAMEID.RONGHO, (int)GAMEID.BANDAR_QQ, (int)GAMEID.ROULETTE, (int)GAMEID.SLOT_SIXIANG, (int)GAMEID.SLOT20FRUIT, (int)GAMEID.SLOT_INCA, (int)GAMEID.SLOTNOEL, (int)GAMEID.SLOT_JUICY_GARDEN, (int)GAMEID.SLOTTARZAN, (int)GAMEID.XOCDIA, (int)GAMEID.BAUCUA, (int)GAMEID.MINE_FINDING };
 
 
         public static bool isShowTableWithGameId(int gameID)
@@ -708,37 +671,11 @@ namespace Globals
             PlayerPrefs.Save();
         }
 
-        public static void decodeCard(int code, ref int N, ref int S)
-        {
-            if (code == CODE_JOKER_RED || code == CODE_JOKER_BLACK)
-            {
-                S = code;
-                N = code;
-                return;
-            }
-            // // mỗi game có 1 điều decode # nhau
-            S = ((code - 1) / 13) + 1; //>=1 <=4
-            N = ((code - 1) % 13) + 2; // >=2 , <=14
-
-            if (curGameId == (int)GAMEID.LUCKY_89
-                || curGameId == (int)GAMEID.KEANG
-                || curGameId == (int)GAMEID.RONGHO)
-            {
-                N = ((code - 1) % 13) + 1;
-            }
-
-            if (curGameId == (int)GAMEID.TONGITS_JOKER ||
-                curGameId == (int)GAMEID.TONGITS11)
-            {
-                if (N == 14) N = 1;
-            }
-            //nameCard = N + getSuitInVN();
-        }
 
         public static byte[] getByte(string str)
         {
-            var result = Regex.Replace(str, @"[^\x00-\x7F]",
-                c => string.Format(@"\u{0:x4}", (int)c.Value[0]));
+            var result = Regex.Replace(str, @"[^\x00-\x7F]", c =>
+      string.Format(@"\u{0:x4}", (int)c.Value[0]));
             return Encoding.UTF8.GetBytes(result);
         }
 
@@ -751,23 +688,9 @@ namespace Globals
         public static string Base64Decode(string base64EncodedData)
         {
             return Encoding.UTF8.GetString(Convert.FromBase64String(base64EncodedData));
+            //return (new UTF8Encoding(false)).GetString(Convert.FromBase64String(base64EncodedData));
         }
 
-        public static bool checkContainBoundingBox(GameObject gameObject, PointerEventData eventData)
-        {
-            List<RaycastResult> results = new List<RaycastResult>();
-            EventSystem.current.RaycastAll(eventData, results);
-            foreach (var c in results)
-            {
-                Logging.Log("RaycastResult " + c.gameObject.name);
-                if (gameObject == c.gameObject)
-                {
-                    return true;
-                }
-            }
-
-            return false;
-        }
         public static void saveLoginAccount()
         {
             PlayerPrefs.SetString("username", user_name);
@@ -1024,14 +947,17 @@ namespace Globals
         }
         public static string FormatNumber(int number)
         {
+            //return o.toString().replace(/\B(?= (\d{ 3})+(? !\d))/ g, ",")
             return String.Format("{0:n0}", number);
         }
         public static string FormatNumber(long number)
         {
+            //return o.toString().replace(/\B(?= (\d{ 3})+(? !\d))/ g, ",")
             return String.Format("{0:n0}", number);
         }
         public static string FormatNumber(float number)
         {
+            //return o.toString().replace(/\B(?= (\d{ 3})+(? !\d))/ g, ",")
             return String.Format("{0:n0}", number);
         }
 
@@ -1080,35 +1006,7 @@ namespace Globals
 
             return image;
         }
-        public static Vector2 getPosInOtherNode(Vector2 nodePosition, GameObject otherNode)
-        {
-            return otherNode.transform.InverseTransformPoint(nodePosition);
-        }
 
-        public static Vector2 LineLineIntersection(Vector2 A, Vector2 A1, Vector2 B, Vector2 B1)
-        {
-            Vector2 intersectionPoint = new Vector2(0, 0);
-            Vector3 lineVec3 = B - A;
-            Vector3 crossVec1and2 = Vector3.Cross(A1, B1);
-            Vector3 crossVec3and2 = Vector3.Cross(lineVec3, B1);
-            float planarFactor = Vector3.Dot(lineVec3, crossVec1and2);
-            //is coplanar, and not parallel
-
-            if (Mathf.Abs(planarFactor) < 0.0001f
-                    && crossVec1and2.sqrMagnitude > 0.0001f)
-            {
-                float s = Vector3.Dot(crossVec3and2, crossVec1and2)
-                        / crossVec1and2.sqrMagnitude;
-                intersectionPoint = A + (A1 * s);
-                return intersectionPoint;
-            }
-            else
-            {
-                intersectionPoint = Vector2.zero;
-                return intersectionPoint;
-            }
-
-        }
         public static bool pLineIntersect(Vector2 A, Vector2 B, Vector2 C, Vector2 D, Vector2 retP)
         {
             if ((A.x == B.x && A.y == B.y) || (C.x == D.x && C.y == D.y))
@@ -1143,34 +1041,6 @@ namespace Globals
 
             return true;
         }
-        public static Vector2 pIntersectPoint(Vector2 A, Vector2 B, Vector2 C, Vector2 D)
-        {
-            Vector2 retP = Vector2.zero;
-            if (pLineIntersect(A, B, C, D, retP))
-            {
-                Vector2 P = Vector2.zero;
-                P.x = A.x + retP.x * (B.x - A.x);
-                P.y = A.y + retP.x * (B.y - A.y);
-                return P;
-            }
-
-            return Vector2.zero;
-        }
-
-        public static Button createNodeButton(Sprite _spriteFrame = null, string _title = "")
-        {
-            if (_spriteFrame == null) return null;
-            var nodeButton = Config.createSprite(_spriteFrame);
-            var btnCom = nodeButton.gameObject.AddComponent<Button>();
-            btnCom.interactable = true;
-            if (_title != "")
-            {
-                var lbCom = Config.createLabel(_title, 25);
-                lbCom.rectTransform.SetParent(nodeButton.rectTransform);
-            }
-
-            return btnCom;
-        }
 
 
         public static TextMeshProUGUI createLabel(string _string, int _fontSize, Transform parent = null)
@@ -1189,28 +1059,6 @@ namespace Globals
         }
         public static string url_log = "http://192.168.1.132:3000";
 
-        public static IEnumerator sendLog(string str, bool isDel)
-        {
-            WWWForm form = new WWWForm();
-            form.AddField("id", User.userMain.Userid);
-            form.AddField("name", User.userMain.Username);
-            if (!isDel)
-                form.AddField("data", str);
-
-            using (UnityWebRequest www = UnityWebRequest.Post(url_log + (isDel ? "clearlog" : "/savelog"), form))
-            {
-                yield return www.SendWebRequest();
-
-                if (www.result != UnityWebRequest.Result.Success)
-                {
-                    Debug.Log(www.error);
-                }
-                else
-                {
-                    Debug.Log("Form upload complete!");
-                }
-            }
-        }
 
 
         public class DataLoadImage
@@ -1266,6 +1114,11 @@ namespace Globals
                 dataLoadImage.callback = callback;
                 UIManager.instance.addJobLoadImage(dataLoadImage);
             }
+            //Texture2D texture = await GetRemoteTexture(url);
+            //if (callback != null)
+            //{
+            //    callback.Invoke(texture);
+            //}
         }
 
         public static async void loadImgFromUrlAsync(Image _sprite = null, string url = "", Action callback = null, bool isLoadBanner = false)
@@ -1289,10 +1142,25 @@ namespace Globals
                     {
                         callback.Invoke();
                     }
+                    //DataLoadImage dataLoadImage = new DataLoadImage();
+                    //dataLoadImage.nameSave = nameIMG;
+                    //dataLoadImage.www = UnityWebRequestTexture.GetTexture(url);
+                    //dataLoadImage.www.SendWebRequest();
+                    //dataLoadImage.sprite = _sprite;
+                    //dataLoadImage.callback2 = callback;
+                    //UIManager.instance.addJobLoadImage(dataLoadImage);
+
                 }
             }
             else
             {
+                //DataLoadImage dataLoadImage = new DataLoadImage();
+                //dataLoadImage.nameSave = "";
+                //dataLoadImage.www = UnityWebRequestTexture.GetTexture(url);
+                //dataLoadImage.www.SendWebRequest();
+                //dataLoadImage.sprite = _sprite;
+                //dataLoadImage.callback2 = callback;
+                //UIManager.instance.addJobLoadImage(dataLoadImage);
                 _sprite.sprite = await GetRemoteSprite(url);
                 if (callback != null)
                 {
@@ -1501,18 +1369,17 @@ namespace Globals
         {
             // isSound = (PlayerPrefs.GetInt("sound", 1) == 1);
             // isMusic = (PlayerPrefs.GetInt("music", 1) == 1);
-            // isVibration = (PlayerPrefs.GetInt("vibration", 1) == 1);
             isSound = false;
             isMusic = false;
-            isVibration = false;
+            isVibration = (PlayerPrefs.GetInt("vibration", 1) == 1);
         }
 
         public static void updateConfigSetting()
         {
-            // PlayerPrefs.SetInt("sound", isSound ? 1 : 0);
-            // PlayerPrefs.SetInt("music", isMusic ? 1 : 0);
-            // PlayerPrefs.SetInt("vibration", isVibration ? 1 : 0);
-            // PlayerPrefs.Save();
+            PlayerPrefs.SetInt("sound", isSound ? 1 : 0);
+            PlayerPrefs.SetInt("music", isMusic ? 1 : 0);
+            PlayerPrefs.SetInt("vibration", isVibration ? 1 : 0);
+            PlayerPrefs.Save();
         }
 
         public static string Utf16ToUtf8(string utf16String)
@@ -1785,7 +1652,7 @@ namespace Globals
             {
 
                 DailyPromotionSpecial = JObject.Parse((string)jsonData["DailyPromotionSpecial"]);
-                Logging.Log(DailyPromotionSpecial);
+                Globals.Logging.Log(DailyPromotionSpecial);
 
             }
 

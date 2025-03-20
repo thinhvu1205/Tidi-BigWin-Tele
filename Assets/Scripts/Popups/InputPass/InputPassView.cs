@@ -32,7 +32,10 @@ public class InputPassView : BaseView
     {
         tableID = _tableID;
     }
-
+    public void DoClickOpenKeyboard(TMP_InputField inputIF)
+    {
+        UIManager.instance.m_KeyboardCK.Show(inputIF, true);
+    }
     public void onClickConfirm()
     {
         SoundManager.instance.soundClick();

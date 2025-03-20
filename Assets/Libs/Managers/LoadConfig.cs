@@ -26,15 +26,15 @@ public class LoadConfig : MonoBehaviour
         config_info = "{\"gamenotification\":false,\"is_reg\":false,\"isShowLog\":false,\"is_login_guest\":true,\"is_login_fb\":true,\"time_request\":5,\"avatar_change\":2,\"avatar_count\":10,\"avatar_build\":\"https://cdn.tongitsonline.com/api/public/dl/ierd34s/images/avatar/%avaNO%.png?inline=true\",\"avatar_fb\":\"https://graph.facebook.com/v10.0/%fbID%/picture?width=200&height=200&redirect=true&access_token=%token%\",\"name_fb\":\"https://graph.facebook.com/%userID%/?fields=name&access_token=%token%\",\"contentChat\":\"https://cfg.jakartagames.net/contentChat\",\"bundleID\":\"diamond.domino.slots\",\"version\":\"1.00\",\"operatorID\":7000,\"os\":\"android_cocosjs\",\"publisher\":\"config_offline_android\",\"disID\":1005,\"fbprivateappid\":\"\",\"fanpageID\":\"\",\"groupID\":\"\",\"hotline\":\"\",\"listGame\":[{\"id\":8009,\"ip\":\"8.213.193.230\",\"ip_dm\":\"app1.jakartagames.net\",\"agSvipMin\":25000,\"v_tb\":2},{\"id\":8010,\"ip\":\"8.213.193.230\",\"ip_dm\":\"app1.jakartagames.net\",\"agSvipMin\":25000,\"v_tb\":2},{\"id\":8020,\"ip\":\"8.213.193.230\",\"ip_dm\":\"app1.jakartagames.net\",\"agSvipMin\":25000,\"v_tb\":2},{\"id\":8021,\"ip\":\"8.213.193.230\",\"ip_dm\":\"app1.jakartagames.net\",\"agSvipMin\":25000,\"v_tb\":2},{\"id\":8044,\"ip\":\"8.213.193.230\",\"ip_dm\":\"app1.jakartagames.net\",\"agSvipMin\":25000,\"v_tb\":2},{\"id\":8805,\"ip\":\"8.213.193.230\",\"ip_dm\":\"app1.jakartagames.net\",\"agSvipMin\":10000,\"v_tb\":2},{\"id\":8818,\"ip\":\"8.213.193.230\",\"ip_dm\":\"app1.jakartagames.net\",\"agSvipMin\":10000,\"v_tb\":2},{\"id\":9007,\"ip\":\"8.213.193.230\",\"ip_dm\":\"app1.jakartagames.net\",\"agSvipMin\":10000,\"v_tb\":2},{\"id\":9008,\"ip\":\"8.213.193.230\",\"ip_dm\":\"app1.jakartagames.net\",\"agSvipMin\":25000,\"v_tb\":2},{\"id\":9500,\"ip\":\"8.213.193.230\",\"ip_dm\":\"app1.jakartagames.net\",\"agSvipMin\":10000,\"v_tb\":2},{\"id\":9501,\"ip\":\"8.213.193.230\",\"ip_dm\":\"app1.jakartagames.net\",\"agSvipMin\":25000,\"v_tb\":2},{\"id\":9900,\"ip\":\"8.213.193.230\",\"ip_dm\":\"app1.jakartagames.net\",\"agSvipMin\":25000,\"v_tb\":2},{\"id\":9950,\"ip\":\"8.213.193.230\",\"ip_dm\":\"app1.jakartagames.net\",\"agSvipMin\":25000,\"v_tb\":2},{\"id\":9011,\"ip\":\"8.213.193.230\",\"ip_dm\":\"app1.jakartagames.net\",\"agSvipMin\":25000,\"v_tb\":2}],\"u_chat_fb\":\"\",\"infoUser\":\"https://cfg.jakartagames.net/infoUser\",\"umode\":0,\"uop1\":\"OK\",\"umsg\":\"\",\"utar\":\"\",\"uop2\":\"Cancel\",\"newest_versionUrl\":\"https://play.google.com/store/apps/details?id=diamond.domino.slots\"}";
         if (Application.platform == RuntimePlatform.Android)
         {
-            config_info = "{\"gamenotification\":false,\"is_reg\":false,\"isShowLog\":false,\"is_login_guest\":true,\"is_login_fb\":true,\"time_request\":5,\"avatar_change\":2,\"avatar_count\":10,\"avatar_build\":\"https://cdn.tongitsonline.com/api/public/dl/ierd34s/images/avatar/%avaNO%.png?inline=true\",\"avatar_fb\":\"https://graph.facebook.com/v10.0/%fbID%/picture?width=200&height=200&redirect=true&access_token=%token%\",\"name_fb\":\"https://graph.facebook.com/%userID%/?fields=name&access_token=%token%\",\"contentChat\":\"https://cfg.jakartagames.net/contentChat\",\"bundleID\":\"indo.test\",\"version\":\"1.00\",\"operatorID\":7000,\"os\":\"android_cocosjs\",\"publisher\":\"config_offline_android\",\"disID\":1005,\"fbprivateappid\":\"\",\"fanpageID\":\"\",\"groupID\":\"\",\"hotline\":\"\",\"listGame\":[{\"id\":8009,\"ip\":\"8.213.193.230\",\"ip_dm\":\"app1.jakartagames.net\",\"agSvipMin\":25000,\"v_tb\":2},{\"id\":8010,\"ip\":\"8.213.193.230\",\"ip_dm\":\"app1.jakartagames.net\",\"agSvipMin\":25000,\"v_tb\":2},{\"id\":8020,\"ip\":\"8.213.193.230\",\"ip_dm\":\"app1.jakartagames.net\",\"agSvipMin\":25000,\"v_tb\":2},{\"id\":8021,\"ip\":\"8.213.193.230\",\"ip_dm\":\"app1.jakartagames.net\",\"agSvipMin\":25000,\"v_tb\":2},{\"id\":8044,\"ip\":\"8.213.193.230\",\"ip_dm\":\"app1.jakartagames.net\",\"agSvipMin\":25000,\"v_tb\":2},{\"id\":8805,\"ip\":\"8.213.193.230\",\"ip_dm\":\"app1.jakartagames.net\",\"agSvipMin\":10000,\"v_tb\":2},{\"id\":8818,\"ip\":\"8.213.193.230\",\"ip_dm\":\"app1.jakartagames.net\",\"agSvipMin\":10000,\"v_tb\":2},{\"id\":9007,\"ip\":\"8.213.193.230\",\"ip_dm\":\"app1.jakartagames.net\",\"agSvipMin\":10000,\"v_tb\":2},{\"id\":9008,\"ip\":\"8.213.193.230\",\"ip_dm\":\"app1.jakartagames.net\",\"agSvipMin\":25000,\"v_tb\":2},{\"id\":9500,\"ip\":\"8.213.193.230\",\"ip_dm\":\"app1.jakartagames.net\",\"agSvipMin\":10000,\"v_tb\":2},{\"id\":9501,\"ip\":\"8.213.193.230\",\"ip_dm\":\"app1.jakartagames.net\",\"agSvipMin\":25000,\"v_tb\":2},{\"id\":9900,\"ip\":\"8.213.193.230\",\"ip_dm\":\"app1.jakartagames.net\",\"agSvipMin\":25000,\"v_tb\":2},{\"id\":9950,\"ip\":\"8.213.193.230\",\"ip_dm\":\"app1.jakartagames.net\",\"agSvipMin\":25000,\"v_tb\":2},{\"id\":9011,\"ip\":\"8.213.193.230\",\"ip_dm\":\"app1.jakartagames.net\",\"agSvipMin\":25000,\"v_tb\":2}],\"u_chat_fb\":\"\",\"infoUser\":\"https://cfg.jakartagames.net/infoUser\",\"umode\":0,\"uop1\":\"OK\",\"umsg\":\"\",\"utar\":\"\",\"uop2\":\"Cancel\",\"newest_versionUrl\":\"https://play.google.com/store/apps/details?id=indo.test\"}";
+            this.config_info = "{\"gamenotification\":false,\"is_reg\":false,\"isShowLog\":false,\"is_login_guest\":true,\"is_login_fb\":true,\"time_request\":5,\"avatar_change\":2,\"avatar_count\":10,\"avatar_build\":\"https://cdn.tongitsonline.com/api/public/dl/ierd34s/images/avatar/%avaNO%.png?inline=true\",\"avatar_fb\":\"https://graph.facebook.com/v10.0/%fbID%/picture?width=200&height=200&redirect=true&access_token=%token%\",\"name_fb\":\"https://graph.facebook.com/%userID%/?fields=name&access_token=%token%\",\"contentChat\":\"https://cfg.jakartagames.net/contentChat\",\"bundleID\":\"indo.test\",\"version\":\"1.00\",\"operatorID\":7000,\"os\":\"android_cocosjs\",\"publisher\":\"config_offline_android\",\"disID\":1005,\"fbprivateappid\":\"\",\"fanpageID\":\"\",\"groupID\":\"\",\"hotline\":\"\",\"listGame\":[{\"id\":8009,\"ip\":\"8.213.193.230\",\"ip_dm\":\"app1.jakartagames.net\",\"agSvipMin\":25000,\"v_tb\":2},{\"id\":8010,\"ip\":\"8.213.193.230\",\"ip_dm\":\"app1.jakartagames.net\",\"agSvipMin\":25000,\"v_tb\":2},{\"id\":8020,\"ip\":\"8.213.193.230\",\"ip_dm\":\"app1.jakartagames.net\",\"agSvipMin\":25000,\"v_tb\":2},{\"id\":8021,\"ip\":\"8.213.193.230\",\"ip_dm\":\"app1.jakartagames.net\",\"agSvipMin\":25000,\"v_tb\":2},{\"id\":8044,\"ip\":\"8.213.193.230\",\"ip_dm\":\"app1.jakartagames.net\",\"agSvipMin\":25000,\"v_tb\":2},{\"id\":8805,\"ip\":\"8.213.193.230\",\"ip_dm\":\"app1.jakartagames.net\",\"agSvipMin\":10000,\"v_tb\":2},{\"id\":8818,\"ip\":\"8.213.193.230\",\"ip_dm\":\"app1.jakartagames.net\",\"agSvipMin\":10000,\"v_tb\":2},{\"id\":9007,\"ip\":\"8.213.193.230\",\"ip_dm\":\"app1.jakartagames.net\",\"agSvipMin\":10000,\"v_tb\":2},{\"id\":9008,\"ip\":\"8.213.193.230\",\"ip_dm\":\"app1.jakartagames.net\",\"agSvipMin\":25000,\"v_tb\":2},{\"id\":9500,\"ip\":\"8.213.193.230\",\"ip_dm\":\"app1.jakartagames.net\",\"agSvipMin\":10000,\"v_tb\":2},{\"id\":9501,\"ip\":\"8.213.193.230\",\"ip_dm\":\"app1.jakartagames.net\",\"agSvipMin\":25000,\"v_tb\":2},{\"id\":9900,\"ip\":\"8.213.193.230\",\"ip_dm\":\"app1.jakartagames.net\",\"agSvipMin\":25000,\"v_tb\":2},{\"id\":9950,\"ip\":\"8.213.193.230\",\"ip_dm\":\"app1.jakartagames.net\",\"agSvipMin\":25000,\"v_tb\":2},{\"id\":9011,\"ip\":\"8.213.193.230\",\"ip_dm\":\"app1.jakartagames.net\",\"agSvipMin\":25000,\"v_tb\":2}],\"u_chat_fb\":\"\",\"infoUser\":\"https://cfg.jakartagames.net/infoUser\",\"umode\":0,\"uop1\":\"OK\",\"umsg\":\"\",\"utar\":\"\",\"uop2\":\"Cancel\",\"newest_versionUrl\":\"https://play.google.com/store/apps/details?id=indo.test\"}";
         }
         else if (Application.platform == RuntimePlatform.IPhonePlayer)
         {
-            config_info = @"{""gamenotification"":false,""allowPushOffline"":true,""is_reg"":false,""isShowLog"":true,""is_login_guest"":true,""is_login_fb"":true,""time_request"":5,""avatar_change"":2,""avatar_count"":10,""avatar_build"":""https://storage.googleapis.com/cdn.davaogames.com/img/avatar/%avaNO%.png"",""avatar_fb"":""https://graph.facebook.com/v10.0/%fbID%/picture?width=200&height=200&redirect=true&access_token=%token%"",""listGame"":[{""id"":8091,""ip"":""34.87.57.36"",""ip_dm"":""app2.davaogames.com"",""agSvipMin"":25000,""v_tb"":2},{""id"":8044,""ip"":""34.87.57.36"",""ip_dm"":""app2.davaogames.com"",""agSvipMin"":10000,""v_tb"":2},{""id"":8090,""ip"":""34.87.57.36"",""ip_dm"":""app2.davaogames.com"",""agSvipMin"":25000,""v_tb"":2},{""id"":8088,""ip"":""34.87.57.36"",""ip_dm"":""app2.davaogames.com"",""agSvipMin"":25000,""v_tb"":2},{""id"":6688,""ip"":""34.87.57.36"",""ip_dm"":""app2.davaogames.com"",""agSvipMin"":10000,""v_tb"":2},{""id"":9007,""ip"":""34.87.57.36"",""ip_dm"":""app2.davaogames.com"",""agSvipMin"":25000,""v_tb"":2},{""id"":8802,""ip"":""34.87.57.36"",""ip_dm"":""app2.davaogames.com"",""agSvipMin"":25000,""v_tb"":2},{""id"":8011,""ip"":""34.87.57.36"",""ip_dm"":""app2.davaogames.com"",""agSvipMin"":25000,""v_tb"":2},{""id"":8808,""ip"":""34.87.57.36"",""ip_dm"":""app2.davaogames.com"",""agSvipMin"":10000,""v_tb"":2},{""id"":8012,""ip"":""34.87.57.36"",""ip_dm"":""app2.davaogames.com"",""agSvipMin"":25000,""v_tb"":2},{""id"":9008,""ip"":""34.87.57.36"",""ip_dm"":""app2.davaogames.com"",""agSvipMin"":25000,""v_tb"":2},{""id"":9500,""ip"":""34.87.57.36"",""ip_dm"":""app2.davaogames.com"",""agSvipMin"":10000,""v_tb"":2},{""id"":8803,""ip"":""34.87.57.36"",""ip_dm"":""app2.davaogames.com"",""agSvipMin"":25000,""v_tb"":2},{""id"":8010,""ip"":""34.87.57.36"",""ip_dm"":""app2.davaogames.com"",""agSvipMin"":25000,""v_tb"":2},{""id"":1111,""ip"":""34.87.57.36"",""ip_dm"":""app2.davaogames.com"",""agSvipMin"":25000,""v_tb"":2},{""id"":8818,""ip"":""34.87.57.36"",""ip_dm"":""app2.davaogames.com"",""agSvipMin"":25000,""v_tb"":2}],""bundleID"":""bitbet.global.tongits"",""version"":""1.05"",""operatorID"":7000,""os"":""ios_cocosjs"",""publisher"":""config_offline_ios"",""disID"":1007,""fbprivateappid"":"""",""fanpageID"":"""",""groupID"":"""",""hotline"":"""",""u_chat_fb"":"""",""infoUser"":""https://n.cfg.davaogames.com/infoUser"",""umode"":0,""uop1"":""OK"",""umsg"":"""",""utar"":"""",""uop2"":""Cancel"",""newest_versionUrl"":""https://play.google.com/store/apps/details?id=bitbet.global.tongits""}';config_PM='[{""type"":""iap"",""title"":""iap"",""title_img"":""https://storage.googleapis.com/cdn.davaogames.com/img/shop/IAPIOS.png"",""items"":[{""url"":""bitbet.global.tongits.1"",""txtPromo"":""1USD=392,727Chips"",""txtChip"":""388,800Chips"",""txtBuy"":""0.99USD"",""txtBonus"":""0%"",""cost"":1},{""url"":""bitbet.global.tongits.2"",""txtPromo"":""1USD=390,754Chips"",""txtChip"":""777,600Chips"",""txtBuy"":""1.99USD"",""txtBonus"":""0%"",""cost"":2},{""url"":""bitbet.global.tongits.5"",""txtPromo"":""1USD=389,579Chips"",""txtChip"":""1,944,000Chips"",""txtBuy"":""4.99USD"",""txtBonus"":""0%"",""cost"":5},{""url"":""bitbet.global.tongits.10"",""txtPromo"":""1USD=486,486Chips"",""txtChip"":""4,860,000Chips"",""txtBuy"":""9.99USD"",""txtBonus"":""25%"",""cost"":10},{""url"":""bitbet.global.tongits.20"",""txtPromo"":""1USD=486,243Chips"",""txtChip"":""9,720,000Chips"",""txtBuy"":""19.99USD"",""txtBonus"":""25%"",""cost"":20},{""url"":""bitbet.global.tongits.50"",""txtPromo"":""1USD=486,097Chips"",""txtChip"":""24,300,000Chips"",""txtBuy"":""49.99USD"",""txtBonus"":""25%"",""cost"":50}]}]";
+            this.config_info = @"{""gamenotification"":false,""allowPushOffline"":true,""is_reg"":false,""isShowLog"":true,""is_login_guest"":true,""is_login_fb"":true,""time_request"":5,""avatar_change"":2,""avatar_count"":10,""avatar_build"":""https://storage.googleapis.com/cdn.davaogames.com/img/avatar/%avaNO%.png"",""avatar_fb"":""https://graph.facebook.com/v10.0/%fbID%/picture?width=200&height=200&redirect=true&access_token=%token%"",""listGame"":[{""id"":8091,""ip"":""34.87.57.36"",""ip_dm"":""app2.davaogames.com"",""agSvipMin"":25000,""v_tb"":2},{""id"":8044,""ip"":""34.87.57.36"",""ip_dm"":""app2.davaogames.com"",""agSvipMin"":10000,""v_tb"":2},{""id"":8090,""ip"":""34.87.57.36"",""ip_dm"":""app2.davaogames.com"",""agSvipMin"":25000,""v_tb"":2},{""id"":8088,""ip"":""34.87.57.36"",""ip_dm"":""app2.davaogames.com"",""agSvipMin"":25000,""v_tb"":2},{""id"":6688,""ip"":""34.87.57.36"",""ip_dm"":""app2.davaogames.com"",""agSvipMin"":10000,""v_tb"":2},{""id"":9007,""ip"":""34.87.57.36"",""ip_dm"":""app2.davaogames.com"",""agSvipMin"":25000,""v_tb"":2},{""id"":8802,""ip"":""34.87.57.36"",""ip_dm"":""app2.davaogames.com"",""agSvipMin"":25000,""v_tb"":2},{""id"":8011,""ip"":""34.87.57.36"",""ip_dm"":""app2.davaogames.com"",""agSvipMin"":25000,""v_tb"":2},{""id"":8808,""ip"":""34.87.57.36"",""ip_dm"":""app2.davaogames.com"",""agSvipMin"":10000,""v_tb"":2},{""id"":8012,""ip"":""34.87.57.36"",""ip_dm"":""app2.davaogames.com"",""agSvipMin"":25000,""v_tb"":2},{""id"":9008,""ip"":""34.87.57.36"",""ip_dm"":""app2.davaogames.com"",""agSvipMin"":25000,""v_tb"":2},{""id"":9500,""ip"":""34.87.57.36"",""ip_dm"":""app2.davaogames.com"",""agSvipMin"":10000,""v_tb"":2},{""id"":8803,""ip"":""34.87.57.36"",""ip_dm"":""app2.davaogames.com"",""agSvipMin"":25000,""v_tb"":2},{""id"":8010,""ip"":""34.87.57.36"",""ip_dm"":""app2.davaogames.com"",""agSvipMin"":25000,""v_tb"":2},{""id"":1111,""ip"":""34.87.57.36"",""ip_dm"":""app2.davaogames.com"",""agSvipMin"":25000,""v_tb"":2},{""id"":8818,""ip"":""34.87.57.36"",""ip_dm"":""app2.davaogames.com"",""agSvipMin"":25000,""v_tb"":2}],""bundleID"":""bitbet.global.tongits"",""version"":""1.05"",""operatorID"":7000,""os"":""ios_cocosjs"",""publisher"":""config_offline_ios"",""disID"":1007,""fbprivateappid"":"""",""fanpageID"":"""",""groupID"":"""",""hotline"":"""",""u_chat_fb"":"""",""infoUser"":""https://n.cfg.davaogames.com/infoUser"",""umode"":0,""uop1"":""OK"",""umsg"":"""",""utar"":"""",""uop2"":""Cancel"",""newest_versionUrl"":""https://play.google.com/store/apps/details?id=bitbet.global.tongits""}';this.config_PM='[{""type"":""iap"",""title"":""iap"",""title_img"":""https://storage.googleapis.com/cdn.davaogames.com/img/shop/IAPIOS.png"",""items"":[{""url"":""bitbet.global.tongits.1"",""txtPromo"":""1USD=392,727Chips"",""txtChip"":""388,800Chips"",""txtBuy"":""0.99USD"",""txtBonus"":""0%"",""cost"":1},{""url"":""bitbet.global.tongits.2"",""txtPromo"":""1USD=390,754Chips"",""txtChip"":""777,600Chips"",""txtBuy"":""1.99USD"",""txtBonus"":""0%"",""cost"":2},{""url"":""bitbet.global.tongits.5"",""txtPromo"":""1USD=389,579Chips"",""txtChip"":""1,944,000Chips"",""txtBuy"":""4.99USD"",""txtBonus"":""0%"",""cost"":5},{""url"":""bitbet.global.tongits.10"",""txtPromo"":""1USD=486,486Chips"",""txtChip"":""4,860,000Chips"",""txtBuy"":""9.99USD"",""txtBonus"":""25%"",""cost"":10},{""url"":""bitbet.global.tongits.20"",""txtPromo"":""1USD=486,243Chips"",""txtChip"":""9,720,000Chips"",""txtBuy"":""19.99USD"",""txtBonus"":""25%"",""cost"":20},{""url"":""bitbet.global.tongits.50"",""txtPromo"":""1USD=486,097Chips"",""txtChip"":""24,300,000Chips"",""txtBuy"":""49.99USD"",""txtBonus"":""25%"",""cost"":50}]}]";
         }
         else
         {
-            config_info = "{\"gamenotification\":false,\"is_reg\":false,\"isShowLog\":false,\"is_login_guest\":true,\"is_login_fb\":true,\"time_request\":5,\"avatar_change\":2,\"avatar_count\":10,\"avatar_build\":\"https://cdn.tongitsonline.com/api/public/dl/ierd34s/images/avatar/%avaNO%.png?inline=true\",\"avatar_fb\":\"https://graph.facebook.com/v10.0/%fbID%/picture?width=200&height=200&redirect=true&access_token=%token%\",\"name_fb\":\"https://graph.facebook.com/%userID%/?fields=name&access_token=%token%\",\"contentChat\":\"https://cfg.jakartagames.net/contentChat\",\"bundleID\":\"diamond.domino.slots\",\"version\":\"1.00\",\"operatorID\":7000,\"os\":\"android_cocosjs\",\"publisher\":\"config_offline_ios\",\"disID\":1005,\"fbprivateappid\":\"\",\"fanpageID\":\"\",\"groupID\":\"\",\"hotline\":\"\",\"listGame\":[{\"id\":8009,\"ip\":\"8.213.193.230\",\"ip_dm\":\"app1.jakartagames.net\",\"agSvipMin\":25000,\"v_tb\":2},{\"id\":8010,\"ip\":\"8.213.193.230\",\"ip_dm\":\"app1.jakartagames.net\",\"agSvipMin\":25000,\"v_tb\":2},{\"id\":8020,\"ip\":\"8.213.193.230\",\"ip_dm\":\"app1.jakartagames.net\",\"agSvipMin\":25000,\"v_tb\":2},{\"id\":8021,\"ip\":\"8.213.193.230\",\"ip_dm\":\"app1.jakartagames.net\",\"agSvipMin\":25000,\"v_tb\":2},{\"id\":8044,\"ip\":\"8.213.193.230\",\"ip_dm\":\"app1.jakartagames.net\",\"agSvipMin\":25000,\"v_tb\":2},{\"id\":8805,\"ip\":\"8.213.193.230\",\"ip_dm\":\"app1.jakartagames.net\",\"agSvipMin\":10000,\"v_tb\":2},{\"id\":8818,\"ip\":\"8.213.193.230\",\"ip_dm\":\"app1.jakartagames.net\",\"agSvipMin\":10000,\"v_tb\":2},{\"id\":9007,\"ip\":\"8.213.193.230\",\"ip_dm\":\"app1.jakartagames.net\",\"agSvipMin\":10000,\"v_tb\":2},{\"id\":9008,\"ip\":\"8.213.193.230\",\"ip_dm\":\"app1.jakartagames.net\",\"agSvipMin\":25000,\"v_tb\":2},{\"id\":9500,\"ip\":\"8.213.193.230\",\"ip_dm\":\"app1.jakartagames.net\",\"agSvipMin\":10000,\"v_tb\":2},{\"id\":9501,\"ip\":\"8.213.193.230\",\"ip_dm\":\"app1.jakartagames.net\",\"agSvipMin\":25000,\"v_tb\":2},{\"id\":9900,\"ip\":\"8.213.193.230\",\"ip_dm\":\"app1.jakartagames.net\",\"agSvipMin\":25000,\"v_tb\":2},{\"id\":9950,\"ip\":\"8.213.193.230\",\"ip_dm\":\"app1.jakartagames.net\",\"agSvipMin\":25000,\"v_tb\":2},{\"id\":9011,\"ip\":\"8.213.193.230\",\"ip_dm\":\"app1.jakartagames.net\",\"agSvipMin\":25000,\"v_tb\":2}],\"u_chat_fb\":\"\",\"infoUser\":\"https://cfg.jakartagames.net/infoUser\",\"umode\":0,\"uop1\":\"OK\",\"umsg\":\"\",\"utar\":\"\",\"uop2\":\"Cancel\",\"newest_versionUrl\":\"https://play.google.com/store/apps/details?id=diamond.domino.slots\"}";
+            this.config_info = "{\"gamenotification\":false,\"is_reg\":false,\"isShowLog\":false,\"is_login_guest\":true,\"is_login_fb\":true,\"time_request\":5,\"avatar_change\":2,\"avatar_count\":10,\"avatar_build\":\"https://cdn.tongitsonline.com/api/public/dl/ierd34s/images/avatar/%avaNO%.png?inline=true\",\"avatar_fb\":\"https://graph.facebook.com/v10.0/%fbID%/picture?width=200&height=200&redirect=true&access_token=%token%\",\"name_fb\":\"https://graph.facebook.com/%userID%/?fields=name&access_token=%token%\",\"contentChat\":\"https://cfg.jakartagames.net/contentChat\",\"bundleID\":\"diamond.domino.slots\",\"version\":\"1.00\",\"operatorID\":7000,\"os\":\"android_cocosjs\",\"publisher\":\"config_offline_ios\",\"disID\":1005,\"fbprivateappid\":\"\",\"fanpageID\":\"\",\"groupID\":\"\",\"hotline\":\"\",\"listGame\":[{\"id\":8009,\"ip\":\"8.213.193.230\",\"ip_dm\":\"app1.jakartagames.net\",\"agSvipMin\":25000,\"v_tb\":2},{\"id\":8010,\"ip\":\"8.213.193.230\",\"ip_dm\":\"app1.jakartagames.net\",\"agSvipMin\":25000,\"v_tb\":2},{\"id\":8020,\"ip\":\"8.213.193.230\",\"ip_dm\":\"app1.jakartagames.net\",\"agSvipMin\":25000,\"v_tb\":2},{\"id\":8021,\"ip\":\"8.213.193.230\",\"ip_dm\":\"app1.jakartagames.net\",\"agSvipMin\":25000,\"v_tb\":2},{\"id\":8044,\"ip\":\"8.213.193.230\",\"ip_dm\":\"app1.jakartagames.net\",\"agSvipMin\":25000,\"v_tb\":2},{\"id\":8805,\"ip\":\"8.213.193.230\",\"ip_dm\":\"app1.jakartagames.net\",\"agSvipMin\":10000,\"v_tb\":2},{\"id\":8818,\"ip\":\"8.213.193.230\",\"ip_dm\":\"app1.jakartagames.net\",\"agSvipMin\":10000,\"v_tb\":2},{\"id\":9007,\"ip\":\"8.213.193.230\",\"ip_dm\":\"app1.jakartagames.net\",\"agSvipMin\":10000,\"v_tb\":2},{\"id\":9008,\"ip\":\"8.213.193.230\",\"ip_dm\":\"app1.jakartagames.net\",\"agSvipMin\":25000,\"v_tb\":2},{\"id\":9500,\"ip\":\"8.213.193.230\",\"ip_dm\":\"app1.jakartagames.net\",\"agSvipMin\":10000,\"v_tb\":2},{\"id\":9501,\"ip\":\"8.213.193.230\",\"ip_dm\":\"app1.jakartagames.net\",\"agSvipMin\":25000,\"v_tb\":2},{\"id\":9900,\"ip\":\"8.213.193.230\",\"ip_dm\":\"app1.jakartagames.net\",\"agSvipMin\":25000,\"v_tb\":2},{\"id\":9950,\"ip\":\"8.213.193.230\",\"ip_dm\":\"app1.jakartagames.net\",\"agSvipMin\":25000,\"v_tb\":2},{\"id\":9011,\"ip\":\"8.213.193.230\",\"ip_dm\":\"app1.jakartagames.net\",\"agSvipMin\":25000,\"v_tb\":2}],\"u_chat_fb\":\"\",\"infoUser\":\"https://cfg.jakartagames.net/infoUser\",\"umode\":0,\"uop1\":\"OK\",\"umsg\":\"\",\"utar\":\"\",\"uop2\":\"Cancel\",\"newest_versionUrl\":\"https://play.google.com/store/apps/details?id=diamond.domino.slots\"}";
         }
 
         var configOff = PlayerPrefs.GetString("config_save", "");
@@ -44,6 +44,7 @@ public class LoadConfig : MonoBehaviour
     void init()
     {
         Config.deviceId = SystemInfo.deviceUniqueIdentifier.Equals("n/a") ? "" : SystemInfo.deviceUniqueIdentifier;
+
     }
 
 
@@ -75,7 +76,7 @@ public class LoadConfig : MonoBehaviour
         // read results:
         if (www.result == UnityWebRequest.Result.ConnectionError || www.result == UnityWebRequest.Result.ProtocolError || www.result == UnityWebRequest.Result.DataProcessingError)
         {
-            Logging.Log("Error While Sending: " + www.error);
+            Globals.Logging.Log("Error While Sending: " + www.error);
             if (callbackError != null)
             {
                 callbackError.Invoke();
@@ -84,7 +85,7 @@ public class LoadConfig : MonoBehaviour
         }
         else
         {
-            Logging.Log("Received: " + www.downloadHandler.text);
+            Globals.Logging.Log("Received: " + www.downloadHandler.text);
             callback.Invoke(www.downloadHandler.text);
             www.Dispose();
         }
@@ -104,17 +105,17 @@ public class LoadConfig : MonoBehaviour
         //form.AddField("mcc", "[0,0]");
 
         JObject wWForm = new JObject();
-        wWForm["version"] = Config.versionGame + "";
-        wWForm["operatorID"] = Config.OPERATOR + "";
+        wWForm["version"] = Globals.Config.versionGame + "";
+        wWForm["operatorID"] = Globals.Config.OPERATOR + "";
         // wWForm["bundleID"] = "tongits11.game.cocos"; //old
         wWForm["bundleID"] = "win777.unity.tele"; //luồng vào từ telegram bằng WebGL
         // wWForm["bundleID"] = "win777.unity.apk"; //luồng vào bt
         wWForm["publisher"] = Config.publisher;
         wWForm["os"] = osName;
         wWForm["mcc"] = "[0,0]";
-        if (User.userMain != null)
+        if (Globals.User.userMain != null)
         {
-            wWForm["vip"] = User.userMain.VIP + "";
+            wWForm["vip"] = Globals.User.userMain.VIP + "";
         }
         return wWForm;
     }
@@ -122,13 +123,13 @@ public class LoadConfig : MonoBehaviour
     JObject createBodyJson()
     {
         var wWForm = createBodyJsonNormal();
-        if (User.userMain != null)
+        if (Globals.User.userMain != null)
         {
-            wWForm["id"] = User.userMain.Userid + "";
-            wWForm["ag"] = User.userMain.AG + "";
-            wWForm["lq"] = User.userMain.LQ + "";
-            wWForm["vip"] = User.userMain.VIP + "";
-            wWForm["group"] = (int)User.userMain.Group + "";
+            wWForm["id"] = Globals.User.userMain.Userid + "";
+            wWForm["ag"] = Globals.User.userMain.AG + "";
+            wWForm["lq"] = Globals.User.userMain.LQ + "";
+            wWForm["vip"] = Globals.User.userMain.VIP + "";
+            wWForm["group"] = (int)Globals.User.userMain.Group + "";
         }
         return wWForm;
     }
@@ -147,20 +148,21 @@ public class LoadConfig : MonoBehaviour
     public void getInfoUser(string _data0)
     {
         var wWForm = createBodyJson();
-        if (Config.data0)
+        if (Globals.Config.data0)
             wWForm["data0"] = _data0;
 
         Debug.Log("-=-=getInfoUser   " + wWForm.ToString());
-        //StartCoroutine(GetRequest(Config.infoUser, wWForm.ToString(), handleUserInfo));
-        ProgressHandle(Config.infoUser, wWForm.ToString(), handleUserInfo);
+        //StartCoroutine(GetRequest(Globals.Config.infoUser, wWForm.ToString(), handleUserInfo));
+        ProgressHandle(Globals.Config.infoUser, wWForm.ToString(), handleUserInfo);
     }
+
 
 
     public void getInfoBenefit(Action<string> callback)
     {
         var wWForm = createBodyJson();
-        //StartCoroutine(GetRequest(Config.infoBNF, wWForm.ToString(), callback));
-        ProgressHandle(Config.infoBNF, wWForm.ToString(), callback);
+        //StartCoroutine(GetRequest(Globals.Config.infoBNF, wWForm.ToString(), callback));
+        ProgressHandle(Globals.Config.infoBNF, wWForm.ToString(), callback);
     }
     public void getTextConfig(string _url, string _language, bool isInit)
     {
@@ -168,8 +170,8 @@ public class LoadConfig : MonoBehaviour
 
         ProgressHandle(_url, wWForm.ToString(), (string strData) =>
         {
-            //Logging.Log("___ language  " + _language);
-            //Logging.Log(_url + ": " + strData);
+            //Globals.Logging.Log("___ language  " + _language);
+            //Globals.Logging.Log(_url + ": " + strData);
             JObject jConfig = null;
             try
             {
@@ -177,14 +179,14 @@ public class LoadConfig : MonoBehaviour
             }
             catch (Exception e)
             {
-                Logging.LogException(e);
+                Globals.Logging.LogException(e);
             }
 
             if (jConfig == null) return;
             var key = "config_text_" + _language.ToUpper();
             PlayerPrefs.SetString(key, strData);
             if (isInit)
-                Config.loadTextConfig();
+                Globals.Config.loadTextConfig();
         });
     }
 
@@ -192,7 +194,7 @@ public class LoadConfig : MonoBehaviour
     {
         PlayerPrefs.SetString("config_save", strData);
         isLoadedConfig = true;
-        Logging.Log("-=-=handleConfigInfo: " + strData);
+        Globals.Logging.Log("-=-=handleConfigInfo: " + strData);
         JObject jConfig = null;
         try
         {
@@ -200,80 +202,80 @@ public class LoadConfig : MonoBehaviour
         }
         catch (Exception e)
         {
-            Logging.LogException(e);
+            Globals.Logging.LogException(e);
         }
 
         if (jConfig == null) return;
-        //Logging.Log("-=-=-=-=-=-=-=-=-= 1");
-        //Logging.Log(jConfig);
+        //Globals.Logging.Log("-=-=-=-=-=-=-=-=-= 1");
+        //Globals.Logging.Log(jConfig);
 
         if (jConfig.ContainsKey("gamenotification"))
-            Config.gamenotification = (bool)jConfig["gamenotification"];
+            Globals.Config.gamenotification = (bool)jConfig["gamenotification"];
         if (jConfig.ContainsKey("allowPushOffline"))
-            Config.allowPushOffline = (bool)jConfig["allowPushOffline"];
+            Globals.Config.allowPushOffline = (bool)jConfig["allowPushOffline"];
         if (jConfig.ContainsKey("is_reg"))
-            Config.is_reg = (bool)jConfig["is_reg"];
+            Globals.Config.is_reg = (bool)jConfig["is_reg"];
         if (jConfig.ContainsKey("isShowLog"))
-            Config.isShowLog = (bool)jConfig["isShowLog"];
+            Globals.Config.isShowLog = (bool)jConfig["isShowLog"];
         if (jConfig.ContainsKey("is_login_guest"))
-            Config.is_login_guest = (bool)jConfig["is_login_guest"];
+            Globals.Config.is_login_guest = (bool)jConfig["is_login_guest"];
         if (jConfig.ContainsKey("is_login_fb"))
-            Config.is_login_fb = (bool)jConfig["is_login_fb"];
+            Globals.Config.is_login_fb = (bool)jConfig["is_login_fb"];
         if (jConfig.ContainsKey("time_request"))
-            Config.time_request = (int)jConfig["time_request"];
+            Globals.Config.time_request = (int)jConfig["time_request"];
         if (jConfig.ContainsKey("avatar_change"))
-            Config.avatar_change = (int)jConfig["avatar_change"];
+            Globals.Config.avatar_change = (int)jConfig["avatar_change"];
         if (jConfig.ContainsKey("avatar_count"))
-            Config.avatar_count = (int)jConfig["avatar_count"];
+            Globals.Config.avatar_count = (int)jConfig["avatar_count"];
         if (jConfig.ContainsKey("avatar_build"))
-            Config.avatar_build = (string)jConfig["avatar_build"];
+            Globals.Config.avatar_build = (string)jConfig["avatar_build"];
         if (jConfig.ContainsKey("url_privacy_policy"))
-            Config.url_privacy_policy = (string)jConfig["url_privacy_policy"];
+            Globals.Config.url_privacy_policy = (string)jConfig["url_privacy_policy"];
         if (jConfig.ContainsKey("lotteryEnable"))
             Config.enableLottery = (bool)jConfig["lotteryEnable"];
         if (jConfig.ContainsKey("u_SIO"))
         {
-            Config.u_SIO = (string)jConfig["u_SIO"];
-            Logging.LogWarning("-=-=-u_SIO  " + Config.u_SIO);
+            Globals.Config.u_SIO = (string)jConfig["u_SIO"];
+            Globals.Logging.LogWarning("-=-=-u_SIO  " + Globals.Config.u_SIO);
             SocketIOManager.getInstance().intiSml();
             SocketIOManager.getInstance().startSIO();
         }
         else
         {
-            Config.u_SIO = "";
+            Globals.Config.u_SIO = "";
         }
 
         if (jConfig.ContainsKey("avatar_fb"))
-            Config.avatar_fb = (string)jConfig["avatar_fb"];
+            Globals.Config.avatar_fb = (string)jConfig["avatar_fb"];
         if (jConfig.ContainsKey("name_fb"))
-            Config.name_fb = (string)jConfig["name_fb"];
+            Globals.Config.name_fb = (string)jConfig["name_fb"];
         if (jConfig.ContainsKey("text"))
         {
-            Config.listTextConfig = jConfig["text"] as JArray;//arr
-            for (var i = 0; i < Config.listTextConfig.Count; i++)
+            Globals.Config.listTextConfig = jConfig["text"] as JArray;//arr
+            for (var i = 0; i < Globals.Config.listTextConfig.Count; i++)
             {
-                JObject itemLanguage = (JObject)Config.listTextConfig[i];
-                getTextConfig((string)itemLanguage["url"], (string)itemLanguage["lang"], i >= Config.listTextConfig.Count - 1);
+                JObject itemLanguage = (JObject)Globals.Config.listTextConfig[i];
+                getTextConfig((string)itemLanguage["url"], (string)itemLanguage["lang"], i >= Globals.Config.listTextConfig.Count - 1);
             }
         }
         if (jConfig.ContainsKey("disID"))
-            Config.disID = (int)jConfig["disID"];
+            Globals.Config.disID = (int)jConfig["disID"];
 
-        Logging.Log("-=-=disID   " + Config.disID);
+        Globals.Logging.Log("-=-=disID   " + Globals.Config.disID);
         if (jConfig.ContainsKey("fbprivateappid"))
-            Config.fbprivateappid = (string)jConfig["fbprivateappid"];
+            Globals.Config.fbprivateappid = (string)jConfig["fbprivateappid"];
         if (jConfig.ContainsKey("fanpageID"))
-            Config.fanpageID = (string)jConfig["fanpageID"];
+            Globals.Config.fanpageID = (string)jConfig["fanpageID"];
         else
-            Config.fanpageID = "";
+            Globals.Config.fanpageID = "";
         if (jConfig.ContainsKey("groupID"))
-            Config.groupID = (string)jConfig["groupID"];
+            Globals.Config.groupID = (string)jConfig["groupID"];
         else
-            Config.groupID = "";
+            Globals.Config.groupID = "";
         if (jConfig.ContainsKey("hotline"))
-            Config.hotline = (string)jConfig["hotline"];
+            Globals.Config.hotline = (string)jConfig["hotline"];
         else
-            Config.hotline = "";
+            Globals.Config.hotline = "";
 
         if (jConfig.ContainsKey("listGame"))
         {
@@ -300,36 +302,36 @@ public class LoadConfig : MonoBehaviour
             Config.listGame.AddRange(tempListGameJA);
         }
         Debug.Log("=-=-=-=-=-=-=-=-=- list agam");
-        Debug.Log(Config.listGame);
+        Debug.Log(Globals.Config.listGame);
         if (jConfig.ContainsKey("listTop"))
         {
-            Config.listRankGame = jConfig["listTop"] as JArray;//array
+            Globals.Config.listRankGame = jConfig["listTop"] as JArray;//array
         }
-        else Config.listRankGame.Clear();
+        else Globals.Config.listRankGame.Clear();
         if (jConfig.ContainsKey("u_chat_fb"))
-            Config.u_chat_fb = (string)jConfig["u_chat_fb"];
-        else Config.u_chat_fb = "";
+            Globals.Config.u_chat_fb = (string)jConfig["u_chat_fb"];
+        else Globals.Config.u_chat_fb = "";
         if (jConfig.ContainsKey("infoChip"))
         {
-            Config.infoChip = (string)jConfig["infoChip"];
+            Globals.Config.infoChip = (string)jConfig["infoChip"];
         }
         else
         {
-            Config.infoChip = "";
+            Globals.Config.infoChip = "";
         }
         if (jConfig.ContainsKey("infoDT"))
-            Config.infoDT = (string)jConfig["infoDT"];
-        else Config.infoDT = "";
+            Globals.Config.infoDT = (string)jConfig["infoDT"];
+        else Globals.Config.infoDT = "";
         if (jConfig.ContainsKey("infoBNF"))
         {
-            Config.infoBNF = (string)jConfig["infoBNF"];
+            Globals.Config.infoBNF = (string)jConfig["infoBNF"];
             getInfoBenefit((res) =>
             {
                 if (res == "") return;
                 var objData = JObject.Parse(res);
                 if (objData.ContainsKey("jackpot"))
                 {
-                    Config.listRuleJackPot.Clear();
+                    Globals.Config.listRuleJackPot.Clear();
 
                     var data = (JArray)objData["jackpot"];
 
@@ -349,38 +351,38 @@ public class LoadConfig : MonoBehaviour
                         }
                         item["listMark"] = arrMark;
                         item["listChip"] = arrChip;
-                        Config.listRuleJackPot.Add(item);
-                        Config.listVipBonusJackPot.Add(data[i]["bonus_vip"]);
+                        Globals.Config.listRuleJackPot.Add(item);
+                        Globals.Config.listVipBonusJackPot.Add(data[i]["bonus_vip"]);
                     }
                 }
 
                 if (objData.ContainsKey("agContactAd"))
-                    Config.agContactAd = (int)objData["agContactAd"];
+                    Globals.Config.agContactAd = (int)objData["agContactAd"];
                 if (objData.ContainsKey("agRename"))
-                    Config.agRename = (int)objData["agRename"];
+                    Globals.Config.agRename = (int)objData["agRename"];
 
             });
         }
         if (jConfig.ContainsKey("url_rule_js_new"))
-            Config.url_rule = (string)jConfig["url_rule_js_new"];
+            Globals.Config.url_rule = (string)jConfig["url_rule_js_new"];
         else
-            Config.url_rule = "";
+            Globals.Config.url_rule = "";
         if (jConfig.ContainsKey("url_help"))
-            Config.url_help = (string)jConfig["url_help"];
+            Globals.Config.url_help = (string)jConfig["url_help"];
         else
-            Config.url_help = "";
+            Globals.Config.url_help = "";
         if (jConfig.ContainsKey("url_rule_refGuide"))
-            Config.url_rule_refGuide = (string)jConfig["url_rule_refGuide"];
+            Globals.Config.url_rule_refGuide = (string)jConfig["url_rule_refGuide"];
         if (jConfig.ContainsKey("delayNoti"))
-            Config.delayNoti = jConfig["delayNoti"] as JArray;//array
-        Config.data0 = jConfig.ContainsKey("") ? (bool)jConfig["data0"] : false;
+            Globals.Config.delayNoti = jConfig["delayNoti"] as JArray;//array
+        Globals.Config.data0 = jConfig.ContainsKey("") ? (bool)jConfig["data0"] : false;
         if (jConfig.ContainsKey("infoUser"))
-            Config.infoUser = (string)jConfig["infoUser"];
+            Globals.Config.infoUser = (string)jConfig["infoUser"];
         else
-            Config.infoUser = "";
+            Globals.Config.infoUser = "";
 
         if (jConfig.ContainsKey("newest_versionUrl"))
-            Config.newest_versionUrl = (string)jConfig["newest_versionUrl"];
+            Globals.Config.newest_versionUrl = (string)jConfig["newest_versionUrl"];
         if (jConfig.ContainsKey("apkfull"))
             Config.ApkFullUrl = (string)jConfig["apkfull"];
         var umode = jConfig.ContainsKey("umode") ? (int)jConfig["umode"] : 0;
@@ -388,7 +390,7 @@ public class LoadConfig : MonoBehaviour
         var uop2 = jConfig.ContainsKey("uop2") ? (string)jConfig["uop2"] : "";
         var umsg = jConfig.ContainsKey("umsg") ? (string)jConfig["umsg"] : "";
         var utar = jConfig.ContainsKey("utar") ? (string)jConfig["utar"] : "";
-        //Logging.Log("dmmm    " + umode);
+        //Globals.Logging.Log("dmmm    " + umode);
         updateConfigUmode(umode, uop1, uop2, utar, umsg);
         PlayerPrefs.Save();
     }
@@ -396,7 +398,7 @@ public class LoadConfig : MonoBehaviour
     void handleUserInfo(string strData)
     {
         //-=-= handleUserInfo { "bundleID":"7E26B7BB-77C6-5938-AF2B-401DFB79724A","version":"1.00","operatorID":7000,"os":"android_unity","publisher":"dummy_co_1_10","disID":1006,"ketPhe":5,"is_dt":true,"ketT":true,"ket":true,"ismaqt":true,"is_bl_salert":true,"is_bl_fb":true,"is_xs":false}
-        Logging.Log("-=-=handleUserInfo " + strData);
+        Globals.Logging.Log("-=-=handleUserInfo " + strData);
         JObject jConfig = null;
         try
         {
@@ -404,27 +406,27 @@ public class LoadConfig : MonoBehaviour
         }
         catch (Exception e)
         {
-            Logging.LogException(e);
+            Globals.Logging.LogException(e);
         }
 
         if (jConfig == null) return;
-        Logging.Log("-------------------->Config Game<------------------>\n" + jConfig);
+        Globals.Logging.Log("-------------------->Config Game<------------------>\n" + jConfig);
 
         if (jConfig.ContainsKey("disID"))
-            Config.disID = (int)jConfig["disID"];
+            Globals.Config.disID = (int)jConfig["disID"];
 
-        Config.ketPhe = jConfig.ContainsKey("ketPhe") ? (int)jConfig["ketPhe"] : 10;
-        Config.is_dt = jConfig.ContainsKey("is_dt") ? (bool)jConfig["is_dt"] : false;
-        Config.ketT = jConfig.ContainsKey("ketT") ? (bool)jConfig["ketT"] : false;
-        Config.ket = jConfig.ContainsKey("ket") ? (bool)jConfig["ket"] : false;
-        Config.ismaqt = jConfig.ContainsKey("ismaqt") ? (bool)jConfig["ismaqt"] : false;
-        Config.is_bl_salert = jConfig.ContainsKey("is_bl_salert") ? (bool)jConfig["is_bl_salert"] : false;
-        Config.is_bl_fb = jConfig.ContainsKey("is_bl_fb") ? (bool)jConfig["is_bl_fb"] : false;
-        Config.is_xs = jConfig.ContainsKey("is_xs") ? (bool)jConfig["is_xs"] : false;
-        Config.show_new_alert = jConfig.ContainsKey("show_new_alert") ? (bool)jConfig["show_new_alert"] : false;
+        Globals.Config.ketPhe = jConfig.ContainsKey("ketPhe") ? (int)jConfig["ketPhe"] : 10;
+        Globals.Config.is_dt = jConfig.ContainsKey("is_dt") ? (bool)jConfig["is_dt"] : false;
+        Globals.Config.ketT = jConfig.ContainsKey("ketT") ? (bool)jConfig["ketT"] : false;
+        Globals.Config.ket = jConfig.ContainsKey("ket") ? (bool)jConfig["ket"] : false;
+        Globals.Config.ismaqt = jConfig.ContainsKey("ismaqt") ? (bool)jConfig["ismaqt"] : false;
+        Globals.Config.is_bl_salert = jConfig.ContainsKey("is_bl_salert") ? (bool)jConfig["is_bl_salert"] : false;
+        Globals.Config.is_bl_fb = jConfig.ContainsKey("is_bl_fb") ? (bool)jConfig["is_bl_fb"] : false;
+        Globals.Config.is_xs = jConfig.ContainsKey("is_xs") ? (bool)jConfig["is_xs"] : false;
+        Globals.Config.show_new_alert = jConfig.ContainsKey("show_new_alert") ? (bool)jConfig["show_new_alert"] : false;
 
-        if (Config.TELEGRAM_TOKEN.Equals("") && UIManager.instance.gameView == null)
-            UIManager.instance.showLobbyScreen(true);
+        // if (Config.TELEGRAM_TOKEN.Equals("") && UIManager.instance.gameView == null)
+        //     UIManager.instance.showLobbyScreen(true);
     }
 
     void updateConfigUmode(int umode, string uop1, string uop2, string utar, string umsg)

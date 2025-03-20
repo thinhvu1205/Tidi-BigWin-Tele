@@ -192,7 +192,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 7499154508442906066, guid: 5c1fda0ad4d4f44bab9ec9fcc0048997, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 5c1fda0ad4d4f44bab9ec9fcc0048997, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -306,8 +306,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -4337941070042143135, guid: 64db34c06982143168530bfb21118151, type: 3}
-  m_Type: 0
+  m_Sprite: {fileID: 21300000, guid: 64db34c06982143168530bfb21118151, type: 3}
+  m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -1162,7 +1162,7 @@ GameObject:
   - component: {fileID: 7848818150569292590}
   - component: {fileID: 8585614549380830592}
   m_Layer: 5
-  m_Name: Button Open Keyboard
+  m_Name: Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -1844,8 +1844,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -4337941070042143135, guid: 64db34c06982143168530bfb21118151, type: 3}
-  m_Type: 0
+  m_Sprite: {fileID: 21300000, guid: 64db34c06982143168530bfb21118151, type: 3}
+  m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -3500,7 +3500,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &6063590153037649757
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3692,6 +3692,7 @@ MonoBehaviour:
   btnFanpage: {fileID: 6063590153037649756}
   btnLogout: {fileID: 6921386113451793842}
   btnDeleteAc: {fileID: 6522678293866073449}
+  m_ChangeLanguageD: {fileID: 448207770533627012}
 --- !u!114 &1378288888194405225
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3740,7 +3741,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &6063590153775499093
 RectTransform:
   m_ObjectHideFlags: 0
@@ -6555,8 +6556,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 7499154508442906066, guid: 5c1fda0ad4d4f44bab9ec9fcc0048997, type: 3}
-  m_Type: 0
+  m_Sprite: {fileID: 21300000, guid: 5c1fda0ad4d4f44bab9ec9fcc0048997, type: 3}
+  m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4

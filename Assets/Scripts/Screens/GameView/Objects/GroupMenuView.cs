@@ -11,7 +11,6 @@ public class GroupMenuView : BaseView
     public static GroupMenuView instance;
     [SerializeField] Button btnSetting;
     [SerializeField] Button btnChangeTable;
-    [SerializeField] Button btnFightTongits;
     [SerializeField] Button btnMusic;
     [SerializeField] Button btnSound;
     [SerializeField] Button btnRule;
@@ -49,16 +48,6 @@ public class GroupMenuView : BaseView
         {
             btnRule.gameObject.SetActive(false);
         }
-        if (curGameId == (int)GAMEID.TONGITS || curGameId == (int)GAMEID.TONGITS_OLD || curGameId == (int)GAMEID.TONGITS11 || curGameId == (int)GAMEID.TONGITS_JOKER)
-        {
-            btnFightTongits.transform.Find("on").GetComponent<Image>().sprite = TongitsView.IsFight ? listCheck[0] : listCheck[1];
-            btnSetting.gameObject.SetActive(false);
-            btnFightTongits.gameObject.SetActive(true);
-            btnMusic.gameObject.SetActive(true);
-            btnSound.gameObject.SetActive(true);
-            btnSound.transform.Find("on").GetComponent<Image>().sprite = Config.isSound ? listCheck[0] : listCheck[1];
-            btnMusic.transform.Find("on").GetComponent<Image>().sprite = Config.isMusic ? listCheck[0] : listCheck[1];
-        }
 
         background.GetComponent<LayoutSizeControl>().updateSizeContent();
         var sizee2 = background.GetComponent<RectTransform>().sizeDelta;
@@ -78,7 +67,15 @@ public class GroupMenuView : BaseView
         urlRule = urlRule.Replace("%language%", language);
         // https://conf.topbangkokclub.com/rule/index.html?gameid=%gameid%&language=%language%&list=true
         List<int> listGameOther = new List<int> { (int)GAMEID.SLOT20FRUIT, (int)GAMEID.SLOT_SIXIANG, (int)GAMEID.SLOT_INCA, (int)GAMEID.SLOTNOEL, (int)GAMEID.SLOTTARZAN, (int)GAMEID.LUCKY9, (int)GAMEID.SICBO, (int)GAMEID.SABONG, (int)GAMEID.SLOT_INCA, (int)GAMEID.GAOGEA, (int)GAMEID.SLOT_JUICY_GARDEN, (int)GAMEID.BANDAR_QQ, (int)GAMEID.LUCKY9 };
-        UIManager.instance.gameView.onClickRule();
+        if (listGameOther.Contains(curGameId))
+        {
+            UIManager.instance.gameView.onClickRule();
+        }
+        else
+        {
+            //require("Util").onCallWebView(urlRule);
+
+        }
     }
 
     public void onClickSetting()
@@ -88,12 +85,6 @@ public class GroupMenuView : BaseView
         UIManager.instance.openSetting();
     }
 
-    public void onClickFightConfirm()
-    {
-        SoundManager.instance.soundClick();
-        TongitsView.IsFight = !TongitsView.IsFight;
-        btnFightTongits.transform.Find("on").GetComponent<Image>().sprite = TongitsView.IsFight ? listCheck[0] : listCheck[1];
-    }
     public void onClickSound()
     {
         Config.isSound = !Config.isSound;
