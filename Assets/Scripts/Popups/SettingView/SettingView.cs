@@ -54,6 +54,31 @@ public class SettingView : BaseView
             deletion.Find("lbDelAc").GetComponent<TextMeshProUGUI>().color = Color.white;
             deletion.Find("btnDeleAc").GetComponent<Image>().color = Color.white;
         }
+        // m_ChangeLanguageD.onValueChanged.AddListener((index) =>
+        // {
+        //     Config.loadTextConfig(index == 0 ? "THAI" : "EN");
+        //     UIManager.instance.refreshUIFromConfig();
+        //     foreach (var item in FindObjectsByType<CCFS>(FindObjectsSortMode.None)) item.RefreshUI();
+        // });
+        // m_ChangeLanguageD.value = Config.language.Equals("EN") ? 1 : 0;
+    }
+    public void onClickFanpage()
+    {
+        SoundManager.instance.soundClick();
+        string linkPage = "https://www.facebook.com/profile.php?id=" + Globals.Config.fanpageID;
+        Application.OpenURL(linkPage);
+
+    }
+    public void onClickPolicy()
+    {
+        Application.OpenURL(Config.url_privacy_policy); //Config.url_privacy_policy
+    }
+    public void onClickGroup()
+    {
+        SoundManager.instance.soundClick();
+        string linkPage = "https://www.facebook.com/groups/" + Globals.Config.groupID;
+        Application.OpenURL(linkPage);
+
     }
     public void onClickSound()
     {

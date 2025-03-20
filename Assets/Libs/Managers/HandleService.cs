@@ -589,6 +589,10 @@ public class HandleService
                     if ((bool)jsonData["isSuccess"])
                     {
                         //cc.sys.localStorage.setItem("isLogOut", "true");
+                        if (SettingView.instance != null)
+                        {
+                            SettingView.instance.handleDeleteAcount();
+                        }
                         // GameManager.getInstance().onShowConfirmDialog("true");
                     }
                     else
