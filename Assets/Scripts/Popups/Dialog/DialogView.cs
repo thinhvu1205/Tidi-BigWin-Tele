@@ -28,16 +28,8 @@ public class DialogView : BaseView
     protected override void OnEnable()
     {
         base.OnEnable();
-        if (TableView.instance != null && TableView.instance.isHorizontal)
-        {
-            background.transform.localEulerAngles = new Vector3(0, 0, 270);
-            transform.localEulerAngles = new Vector3(0, 0, 0);
-        }
-        else
-        {
-            background.transform.localEulerAngles = new Vector3(0, 0, 0);
-            transform.localEulerAngles = new Vector3(0, 0, 0);
-        }
+        background.transform.localEulerAngles = new Vector3(0, 0, 0);
+        transform.localEulerAngles = new Vector3(0, 0, 0);
     }
 
     public void setMessage(string msg)

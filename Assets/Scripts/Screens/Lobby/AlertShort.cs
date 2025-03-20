@@ -113,10 +113,6 @@ public class AlertShort : MonoBehaviour
                     }
             }
         }
-        else if (TableView.instance != null && TableView.instance.gameObject.activeSelf)
-        {
-            posType = POSITION.CLOCK_2H30;
-        }
         return posType;
     }
 

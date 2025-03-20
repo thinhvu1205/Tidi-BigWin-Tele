@@ -10,14 +10,15 @@ using Globals;
 using TS.PageSlider;
 using System.Collections;
 
-
 public class LobbyView : BaseView
 {
     [SerializeField] List<Button> listTabs = new();
     [SerializeField]
-    GameObject objDot, btnBannerNews, m_ConfigOn, m_ConfigOff;
-    [SerializeField] TextMeshProUGUI lb_name, lb_id, lb_ag, lb_safe, lbTimeOnline;
+    GameObject objDot, icNotiMail, icNotiFree, icNotiMessage, btnBannerNews, m_ConfigOn, m_ConfigOff;
+    [SerializeField] TextMeshProUGUI lb_name, lb_id, lb_ag, lb_safe, lbTimeOnline, lbQuickGame;
     [SerializeField] Transform m_MiniGameIconTf, m_OnlySloticonTf;
+    [SerializeField] Button btnNext, btnPrevious;
+    [SerializeField] SkeletonGraphic animQuickPlay;
     [SerializeField] ScrollRect scrListGame;
     [SerializeField] Avatar avatar;
     [SerializeField] PageSlider bannerLobbyContainer;
@@ -25,12 +26,8 @@ public class LobbyView : BaseView
     private List<string> listShowPopupNoti = new();
     private Coroutine _GetInfoPusoyJackPotC;
     private int TabGame = 0;
-    private bool isRunStart;
+    private bool blockSpamTabGame, isHideBtnScroll, isRunStart;
 
-    public void DoClickDownloadGame()
-    {
-        Application.OpenURL(Config.ApkFullUrl);
-    }
     protected override void Start()
     {
         isRunStart = true;
@@ -43,8 +40,67 @@ public class LobbyView : BaseView
                 btn.onClick.RemoveAllListeners();
                 btn.onClick.AddListener(() =>
                 {
+                    OnClickTab(btn);
                 });
             }
+        }
+    }
+
+    void OnClickTab(Button btn)
+    {
+        SoundManager.instance.soundClick();
+        if (!blockSpamTabGame)
+        {
+            var indexTab = 0;
+            for (var i = 0; i < listTabs.Count; i++)
+            {
+                var gOn = listTabs[i].transform.GetChild(1);
+                if (btn == listTabs[i])
+                {
+                    indexTab = i;
+                    gOn.gameObject.SetActive(true);
+                }
+                else
+                {
+                    gOn.gameObject.SetActive(false);
+                }
+            }
+            TabGame = indexTab;
+            changeTabGame();
+            blockSpamTabGame = true;
+            DOTween.Kill("blockSpamTabGame");
+            DOTween.Sequence().AppendInterval(1.0f).AppendCallback(() =>
+            {
+                blockSpamTabGame = false;
+            }).SetId("blockSpamTabGame");
+        }
+    }
+    private void changeTabGame()
+    {
+        ContentSizeFitter gameTabsCSF = scrListGame.content.GetComponent<ContentSizeFitter>();
+        gameTabsCSF.enabled = true;
+        if (TabGame == 0)
+        {
+            for (int i = 0; i < scrListGame.content.childCount; i++)
+                scrListGame.content.GetChild(i).gameObject.SetActive(i != m_OnlySloticonTf.GetSiblingIndex());
+        }
+        else if (TabGame == 1)
+        {
+            for (int i = 0; i < scrListGame.content.childCount; i++)
+                scrListGame.content.GetChild(i).gameObject.SetActive(i == m_OnlySloticonTf.GetSiblingIndex());
+        }
+        if (!gameObject.activeSelf) return;
+        StartCoroutine(delay1FrameAndCheck()); //có trường hợp màn hình dài content nhỏ hơn viewport sẽ bị dồn lệch về 1 bên
+        IEnumerator delay1FrameAndCheck()
+        {
+            yield return null;
+            yield return null;
+            if (scrListGame.content.rect.width < scrListGame.viewport.rect.width)
+            {
+                gameTabsCSF.enabled = false;
+                scrListGame.content.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, scrListGame.viewport.rect.width);
+            }
+            scrListGame.content.anchoredPosition = Vector2.zero;
         }
     }
 
@@ -56,6 +112,7 @@ public class LobbyView : BaseView
         m_ConfigOff.SetActive(!Config.is_dt);
         if (Config.is_dt)
         {
+            OnClickTab(listTabs[TabGame]);
 
             if (bannerLobbyContainer.pageCount > 0)
             {
@@ -113,6 +170,8 @@ public class LobbyView : BaseView
             rt.offsetMax = new Vector2(-70, rt.offsetMax.y);
         }
     }
+
+
     float timeRun = 0;
     protected override void Update()
     {
@@ -133,6 +192,7 @@ public class LobbyView : BaseView
             }
         }
     }
+
 
     public void removeAllPopupNoti()
     {
@@ -196,11 +256,6 @@ public class LobbyView : BaseView
     }
     public void updateAvatar()
     {
-        //string fbId = "";
-        //if (Config.typeLogin == LOGIN_TYPE.FACEBOOK)
-        //{
-        //    fbId = User.FacebookID;
-        //}
         avatar.loadAvatar(User.userMain.Avatar, User.userMain.Username, User.FacebookID);
         avatar.setVip(User.userMain.VIP);
     }
@@ -210,19 +265,6 @@ public class LobbyView : BaseView
         foreach (Transform childTf in m_MiniGameIconTf) Destroy(childTf.gameObject);
         foreach (Transform childTf in m_OnlySloticonTf) Destroy(childTf.gameObject);
     }
-    private IEnumerator _GetJackpotPusoy()
-    {
-        while (User.userMain == null)
-        {
-            yield return new WaitForSeconds(.2f);
-        }
-        while (true)
-        {
-            SocketSend.sendUpdateJackpot((int)GAMEID.PUSOY);
-            yield return new WaitForSeconds(5);
-        }
-    }
-
 
     public bool isClicked = false;
 
@@ -231,6 +273,7 @@ public class LobbyView : BaseView
         checkShowPopupNoti();
         CURRENT_VIEW.setCurView(CURRENT_VIEW.GAMELIST_VIEW);
     }
+
 
 
     public void setTimeGetMoney()
@@ -250,7 +293,6 @@ public class LobbyView : BaseView
             });
         }
     }
-
 
     public void resetLogout()
     {

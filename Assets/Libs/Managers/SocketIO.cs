@@ -213,41 +213,6 @@ public class SocketIOManager
                         }
                         break;
                     }
-                case "banner":
-                    {
-                        JArray arrData = (JArray)data["data"];
-                        JArray arrOnlistFalse = new JArray();
-                        JArray arrOnlistTrue = new JArray();
-                        JArray arrBannerLobby = new JArray();
-
-                        for (var i = 0; i < arrData.Count; i++)
-                        {
-                            var item = (JObject)arrData[i];
-                            if (item.ContainsKey("urlImg") && !((string)item["urlImg"]).Equals(""))
-                            {
-                                if (item.ContainsKey("showByActionType") && (int)item["showByActionType"] == 9)
-                                {
-                                    arrBannerLobby.Add(item);
-                                }
-                                else if (item.ContainsKey("isOnList") && (bool)item["isOnList"])
-                                {
-                                    arrOnlistTrue.Add(item);
-                                }
-                                else
-                                {
-                                    arrOnlistFalse.Add(item);
-                                }
-                            }
-                        }
-
-                        if (arrBannerLobby.Count > 0)
-                        {
-                            Globals.Config.arrBannerLobby = arrBannerLobby;
-                        }
-                        //UIManager.instance.preLoadBaner(data.data);
-                        Globals.Config.arrOnlistTrue.Merge(arrOnlistTrue);
-                        break;
-                    }
                 case "getcf":
                     {
                         break;

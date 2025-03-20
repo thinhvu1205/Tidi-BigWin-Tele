@@ -379,6 +379,7 @@ public class SocketSend
             Globals.Config.curServerIp = severIp;
             // Globals.Config.curGameId = gameId;
         }
+
     }
 
     public static void sendSelectG2(int gameId)

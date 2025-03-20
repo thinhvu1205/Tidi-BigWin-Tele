@@ -10,10 +10,10 @@ using System.Collections.Generic;
 using UnityEngine.Networking;
 using static Globals.Config;
 using System.Linq;
+using Unity.Services.Core;
+using Unity.Services.Core.Environments;
 using System.Collections;
 using UnityEngine.Video;
-
-
 
 
 public class UIManager : MonoBehaviour
@@ -25,18 +25,18 @@ public class UIManager : MonoBehaviour
     [SerializeField] public Transform parentPopups, parentGame, parentBanner;
     public TMP_FontAsset fontDefault = null;
 
-
     public LoginView loginView;
     public LobbyView lobbyView;
-
 
     float timeShowLoad = 0;
 
     public SpriteAtlas avatarAtlas;
-    public CustomKeyboard m_KeyboardCK;
     [SerializeField] Sprite avtDefault;
+    [SerializeField] Canvas canvasGame;
     [HideInInspector] public GameView gameView;
     [SerializeField] AlertMessage alertMessage;
+    [SerializeField] VideoPlayer videoPlayer;
+    [SerializeField] GameObject videoBg;
 
     public List<DialogView> dialogPool = new List<DialogView>();
     public List<DialogView> listDialogOne = new List<DialogView>();
@@ -45,10 +45,7 @@ public class UIManager : MonoBehaviour
 
     void Awake()
     {
-        // Application.targetFrameRate = 60;
-
         instance = this;
-        // curGameId = PlayerPrefs.GetInt("curGameId", 0);
         curServerIp = PlayerPrefs.GetString("curServerIp", "");
         loadTextConfig();
         getConfigSetting();
@@ -57,23 +54,71 @@ public class UIManager : MonoBehaviour
         Input.multiTouchEnabled = false;
         Screen.sleepTimeout = SleepTimeout.NeverSleep;
     }
-    public IEnumerator loadVideoAsync(Action<VideoClip> cb)
-    {
-        ResourceRequest resourceRequest = Resources.LoadAsync<VideoClip>("GameView/SiXiang/intromp4");
-        yield return resourceRequest;
-        cb(resourceRequest.asset as VideoClip);
-        //loadAsyncTask.Start();
-    }
 
     void Start()
     {
         lobbyView.hide(false);
+        videoPlayer.Prepare();
+        if (Screen.width <= Screen.height)
+        {
+            RectTransform videoRT = videoPlayer.GetComponent<RectTransform>();
+            RectTransform bgVideoRT = videoBg.GetComponent<RectTransform>();
+            float ratio = Mathf.Max(Screen.width / 720f, Screen.height / 1280f);
+            videoRT.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, ratio * 1280);
+            videoRT.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, ratio * 720);
+            bgVideoRT.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, ratio * 1280);
+            bgVideoRT.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, ratio * 720);
+        }
     }
-    public void openSetting()
+    VideoPlayer.EventHandler videoStartedListener;
+    VideoPlayer.EventHandler videoEndedListener;
+    public void playVideoSiXiang()
     {
-        //UIManager.instance.showGame();
-        var settingView = Instantiate(loadPrefabPopup("PopupSetting"), parentPopups).GetComponent<SettingView>();
-        settingView.transform.localScale = Vector3.one;
+        if (!videoPlayer.isPlaying)
+        {
+            videoBg.SetActive(false);
+            videoBg.GetComponent<RawImage>().color = new Color32(255, 255, 225, 0);
+            videoPlayer.gameObject.SetActive(true);
+
+            videoPlayer.prepareCompleted += (vp) =>
+            {
+                Debug.Log("videoPlayer.prepareCompleted is run " + (float)videoPlayer.length);
+                videoPlayer.Play();
+
+                DOTween.Sequence().AppendInterval(1.4f).AppendCallback(() =>
+                {
+                    Debug.Log("showGame is run");
+                    showGame();
+                });
+            };
+
+            videoStartedListener = delegate
+            {
+                Debug.Log("videoStartedListener is run");
+                videoBg.SetActive(true);
+                videoBg.GetComponent<RawImage>().color = new Color32(255, 255, 225, 255);
+                videoPlayer.started -= videoStartedListener;
+            };
+
+            videoEndedListener = delegate
+            {
+                Debug.Log("videoEndedListener is run");
+                videoBg.SetActive(false);
+                videoPlayer.gameObject.SetActive(false);
+                videoPlayer.loopPointReached -= videoEndedListener;
+            };
+
+            videoPlayer.started += videoStartedListener;
+            videoPlayer.loopPointReached += videoEndedListener;
+
+            videoPlayer.errorReceived += (vp, message) =>
+            {
+                Debug.LogError("Error: " + message);
+                showGame();
+            };
+
+            videoPlayer.Prepare();
+        }
     }
 
 
@@ -83,9 +128,6 @@ public class UIManager : MonoBehaviour
 
         return avtDefault;
     }
-
-
-
     public bool isLoginShow()
     {
         return loginView.getIsShow();
@@ -127,20 +169,12 @@ public class UIManager : MonoBehaviour
         {
             gameView.thisPlayer.updateMoney();
         }
-        if (TableView.instance != null && TableView.instance.gameObject.activeSelf)
-        {
-            TableView.instance.updateAg();
-        }
     }
     public void showLoginScreen(bool isReconnect = false)
     {
 
         if (loginView.getIsShow()) return;
         Globals.Logging.Log("UImanager showLoginScreen");
-        //if (!isReconnect)
-        //{
-        //    WebSocketManager.getInstance().stop();
-        //}
         if (seqPing != null)
         {
             seqPing.Kill();
@@ -150,11 +184,6 @@ public class UIManager : MonoBehaviour
 
         lobbyView.hide(false);
 
-        if (TableView.instance != null)
-        {
-            Destroy(TableView.instance.gameObject);
-        }
-        TableView.instance = null;
 
         Globals.Logging.Log("gameView   " + (gameView != null));
         if (gameView != null)
@@ -193,11 +222,10 @@ public class UIManager : MonoBehaviour
         gameView = null;
         switch (curGameId)
         {
-            case (int)Globals.GAMEID.SICBO:
+            case (int)Globals.GAMEID.SLOT_SIXIANG:
                 {
-                    Globals.Logging.Log("showGame SICBO");
-                    gameView = Instantiate(loadPrefabGame("SicboView"), parentGame).GetComponent<SicboView>();
-                    //gameView.transform.eulerAngles = new Vector3(0, 0, -90);
+                    Globals.Logging.Log("showGame SLOT_SIXIANG");
+                    gameView = Instantiate(loadPrefabGame("SiXiangView"), parentGame).GetComponent<SiXiangView>();
                     break;
                 }
             default:
@@ -209,13 +237,8 @@ public class UIManager : MonoBehaviour
         if (gameView != null)
         {
             Globals.CURRENT_VIEW.setCurView(curGameId.ToString());
-            if (TableView.instance)
-                TableView.instance.hide(false);
-            //if (!isShowTableWithGameId(curGameId))
-            //{
             if (lobbyView.getIsShow())
                 lobbyView.hide(false);
-            //}
             gameView.transform.localScale = Vector3.one;
 
             destroyAllPopup();
@@ -234,6 +257,10 @@ public class UIManager : MonoBehaviour
         destroyAllChildren(parentPopups);
         destroyAllChildren(parentBanner);
     }
+    public void updateAvatar()
+    {
+        lobbyView.updateAvatar();
+    }
 
     public void updateVip()
     {
@@ -244,6 +271,14 @@ public class UIManager : MonoBehaviour
             gameView.updateVip();
         }
     }
+    public void updateInfo()
+    {
+        lobbyView.updateInfo();
+    }
+    public void updateCanInviteFriend()
+    {
+        lobbyView.updateCanInviteFriend();
+    }
     public void updateAG()
     {
         lobbyView.updateAg();
@@ -251,10 +286,10 @@ public class UIManager : MonoBehaviour
         {
             gameView.thisPlayer.updateMoney();
         }
-        if (TableView.instance != null && TableView.instance.gameObject.activeSelf)
-        {
-            TableView.instance.updateAg();
-        }
+    }
+    public void updateAGSafe()
+    {
+        lobbyView.updateAgSafe();
     }
 
     Sequence seqPing;
@@ -273,6 +308,10 @@ public class UIManager : MonoBehaviour
 
 
 
+    public void setTimeOnline()
+    {
+        lobbyView.setTimeGetMoney();
+    }
 
     public GameObject loadPrefabPopup(string name)
     {
@@ -434,6 +473,9 @@ public class UIManager : MonoBehaviour
 #endif
     }
 
+    public void showWebView(string url, string title = "")
+    {
+    }
     public void showToast(string msg, Transform tfParent)
     {
         showToast(msg, 2, tfParent);
@@ -484,52 +526,18 @@ public class UIManager : MonoBehaviour
         }).SetAutoKill(true);
     }
 
-    public void openFriendInfo()
-    {
-        var friendInfoView = Instantiate(loadPrefabPopup("PopupFriendInfo"), parentPopups).GetComponent<FriendInfoView>();
-        friendInfoView.transform.localScale = Vector3.one;
-    }
 
-    public void openCreateTableView()
-    {
-        var createTableView = Instantiate(loadPrefabPopup("PopupCreateTable"), parentPopups).GetComponent<CreateTableView>();
-        createTableView.transform.localScale = Vector3.one;
-    }
 
-    public void openInputPass(int tableID)
+
+    public void openSetting()
     {
-        var inputPassView = Instantiate(loadPrefabPopup("PopupInputPass"), parentPopups).GetComponent<InputPassView>();
-        inputPassView.setTableID(tableID);
-        inputPassView.transform.localScale = Vector3.one;
+        //curGameId = (int)Globals.GAMEID.KEANG;
+        //UIManager.instance.showGame();
+        var settingView = Instantiate(loadPrefabPopup("PopupSetting"), parentPopups).GetComponent<SettingView>();
+        settingView.transform.localScale = Vector3.one;
     }
 
 
-    public void openTableView()
-    {
-        if (TableView.instance == null)
-        {
-            //if (curGameId == (int)Globals.GAMEID.KEANG || curGameId == (int)Globals.GAMEID.DUMMY || curGameId == (int)Globals.GAMEID.SICBO)
-            //{
-            //    Instantiate(loadPrefab("Table/TableViewHorizontal"), transform).GetComponent<TableView>();
-            //}
-            //else
-            //{
-            TableView tableView = Instantiate(loadPrefab("Table/TableView"), transform).GetComponent<TableView>();
-            //}
-        }
-        else
-        {
-            TableView.instance.transform.SetParent(transform);
-            TableView.instance.show();
-        }
-        TableView.instance.transform.SetSiblingIndex(2);
-        TableView.instance.transform.localScale = Vector3.one;
-        lobbyView.hide(false);
-    }
-    //public void lobbyHide()
-    //{
-    //    lobbyView.hide(false);
-    //}
 
     public void showPopupWhenNotEnoughChip()
     {
@@ -604,7 +612,10 @@ public class UIManager : MonoBehaviour
     }
 
 
+
+
     public JArray arrayDataBannerIO;
+
 
 
     public void FixedUpdate()

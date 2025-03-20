@@ -142,11 +142,6 @@ public class HandleGame
         }
         switch (Globals.Config.curGameId)
         {
-            case (int)Globals.GAMEID.SICBO:
-                {
-                    HandleSicboView.processData(jData);
-                    break;
-                }
         }
     }
     public static void nextEvt()

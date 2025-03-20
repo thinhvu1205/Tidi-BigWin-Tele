@@ -65,6 +65,7 @@ public class AlertMessage : MonoBehaviour
             {
                 if (!gameObject.activeSelf)
                 {
+                    // UIManager.instance.showAlert(true);
                 }
             }
             if (!gameObject.activeSelf)
@@ -100,6 +101,7 @@ public class AlertMessage : MonoBehaviour
         {
             DOTween.Kill(lbAlert.transform);
             isRunning = false;
+            // UIManager.instance.showAlert(false);
             gameObject.SetActive(false);
         }
         //checkPosition();

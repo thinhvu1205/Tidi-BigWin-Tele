@@ -24,10 +24,6 @@ public class GameView : BaseView
     TextMeshProUGUI lbInfo;
 
     [SerializeField]
-    GameObject invitePrefab;
-    [SerializeField]
-    Transform inviteContainer;
-    [SerializeField]
     public Transform playerContainer;
     [SerializeField]
     TextMeshProUGUI txtGameName;
@@ -37,15 +33,16 @@ public class GameView : BaseView
     public int agTable;
     public int maxbet = 0;
 
+    // protected List<Card> cardPool = new List<Card>();
     protected List<JObject> listDelayEvt = new List<JObject>();
-    protected List<GameObject> listBtnInvite = new List<GameObject>();
+    // protected List<Card> cardsOnTable = new List<Card>();
+    // protected List<ChipBet> chipPool = new List<ChipBet>();
     public List<string> delayEvents = new List<string>();
     public STATE_GAME stateGame = STATE_GAME.WAITING;
     [HideInInspector]
     public JObject dataLeave;
     [HideInInspector]
     public string soundBg = SOUND_GAME.IN_GAME_COMMON;
-    public int GetCountListPosView() { return listPosView.Count; }
     protected override void Awake()
     {
         base.Awake();
@@ -62,16 +59,6 @@ public class GameView : BaseView
         else if (Config.curGameId == (int)GAMEID.SLOT_JUICY_GARDEN) soundBg = SOUND_SLOT.BG_JUICY_GARDEN;
         else if (Config.curGameId == (int)GAMEID.SLOT_SIXIANG) soundBg = SOUND_SLOT_BASE.BG_GAME;
         SoundManager.instance.playMusicInGame(soundBg);
-        for (var i = 0; i < listPosView.Count; i++)
-        {
-            if (i == 0) continue;
-            GameObject btnInvite;
-            btnInvite = Instantiate(invitePrefab, inviteContainer == null ? transform : inviteContainer);
-            btnInvite.transform.localScale = Vector3.one;
-            btnInvite.transform.localPosition = listPosView[i];
-            btnInvite.GetComponent<Button>().onClick.AddListener(() => { onClickInvite(); });
-            listBtnInvite.Add(btnInvite);
-        }
         if (txtGameName != null) txtGameName.text = Config.getTextConfig(Config.curGameId.ToString());
     }
 
@@ -86,31 +73,16 @@ public class GameView : BaseView
         Logging.Log("-=-=OnDestroy ");
         Config.lastGameIDSave = Config.curGameId;
         User.userMain.lastGameID = 0;
-        //foreach (var c in chipPool)
-        //{
-        //    Destroy(c.gameObject);
-        //}
         UIManager.instance.destroyAllPopup();
+        // chipPool.Clear();
         HandleGame.listDelayEvt.Clear();
         SoundManager.instance.playMusic();
         SoundManager.instance.stopAllCurrentEffect();
         SocketSend.sendUAG();
         SocketSend.getInfoSafe();
-        //if (!Globals.Config.listGamePlaynow.Contains(Globals.Config.curGameId)) //game ko phai playnow thi back ra tableview moi get farminfo con game playnow mac dinh lobbyview da send roi
-        //{
-        //}
         base.OnDestroy();
     }
 
-    public void onClickInvite()
-    {
-        SoundManager.instance.soundClick();
-        var subView = Instantiate(UIManager.instance.loadPrefabPopup("PopupInvite"), transform).GetComponent<InviteView>();
-        subView.setAgTable(agTable);
-        subView.transform.localScale = Vector3.one;
-        subView.transform.SetAsLastSibling();
-
-    }
 
     public virtual void onClickBack()
     {
@@ -130,19 +102,6 @@ public class GameView : BaseView
     }
 
 
-    public void onClickInfoPlayer(Player player, bool showActionButtons = true)
-    {
-        SoundManager.instance.soundClick();
-
-        if (stateGame == STATE_GAME.VIEWING && Config.curGameId != (int)GAMEID.SICBO) return;
-        var subView = Instantiate(UIManager.instance.loadPrefab("GameView/Objects/InfoPlayerInGame"), transform).GetComponent<InfoPlayerInGame>();
-        subView.transform.localScale = Vector3.one;
-        subView.transform.SetAsLastSibling();
-
-
-        subView.setInfo(player, showActionButtons);
-    }
-
     public void onClickShareScreen()
     {
         SoundManager.instance.soundClick();
@@ -150,6 +109,7 @@ public class GameView : BaseView
     }
     public void checkAutoExit()
     {
+        return;
         Globals.Logging.Log("Check Auto Exit:" + Config.isBackGame);
         if (Config.isBackGame)
         {
@@ -395,17 +355,6 @@ public class GameView : BaseView
         }
         //players = lTemp;
         updatePositionPlayerView();
-        //if (thisPlayer != null)
-        //	addChatJoin(thisPlayer.displayName);
-
-        //if (cc.sys.localStorage.getItem("isBack") == 'true')
-        //{
-        //	thisPlayer._playerView.icBack.node.active = true;
-        //}
-        //else
-        //{
-        //	thisPlayer._playerView.icBack.node.active = false;
-        //}
     }
 
 
@@ -465,39 +414,7 @@ public class GameView : BaseView
 
     }
 
-    void setTimeOut(System.Action callback, float time)
-    {
-        if (gameObject.activeSelf)
-        {
-            //coroutine = ExampleCoroutine(callback, time);
-            StartCoroutine(ExampleCoroutine(callback, time));
-        }
 
-    }
-    IEnumerator ExampleCoroutine(System.Action callback, float time)
-    {
-        //Print the time of when the function is first called.
-
-        //yield on a new YieldInstruction that waits for 5 seconds.
-        yield return new WaitForSeconds(time);
-
-        //After we have waited 5 seconds print the time again.
-        callback.Invoke();
-    }
-
-    //public void forceLeave()
-    //{
-    //    UIManager.instance.gameView = null;
-    //    Destroy(gameObject);
-    //    if (TableView.instance && Config.curGameId != (int)GAMEID.SLOTNOEL && TableView.instance && Config.curGameId != (int)GAMEID.SLOTTARZAN)
-    //    {
-    //        UIManager.instance.openTableView();
-    //    }
-    //    else
-    //    {
-    //        UIManager.instance.showLobbyScreen(false);
-    //    }
-    //}
 
     public void destroyThis()
     {
@@ -526,7 +443,6 @@ public class GameView : BaseView
             //if (TableView.instance && Config.curGameId != (int)GAMEID.SLOTNOEL && TableView.instance && Config.curGameId != (int)GAMEID.SLOTTARZAN)
             if (Config.isShowTableWithGameId(Config.curGameId) && User.userMain.VIP >= 1)
             {
-                UIManager.instance.openTableView();
             }
             else
             {
@@ -544,6 +460,24 @@ public class GameView : BaseView
                     if (transform)
                         onLeave();
                 });
+        }
+    }
+    public void congTienAm(string name, int money)
+    {
+        var pl = getPlayer(name);
+        //cc.NGWlog("cong tien AM trong gameVIew");
+        if (pl != null)
+        {
+            pl.ag += money;
+            pl.setAg();
+            pl.playerView.effectFlyMoney(money);
+            if (pl == thisPlayer)
+            {
+                User.userMain.AG += money;
+                var msg = Config.getTextConfig("nhan_ag_tu_server").Replace("%s", Config.FormatNumber(money)); ;
+                UIManager.instance.showToast(msg, transform);
+                //require('SMLSocketIO').getInstance().emitUpdateInfo();
+            }
         }
     }
     public void handleAutoExit(JObject data)
@@ -772,6 +706,28 @@ public class GameView : BaseView
 
         switch (Config.curGameId)
         {
+            // case (int)GAMEID.DUMMY:
+            //     {
+            //         return plView.GetComponent<PlayerViewDummy>();
+            //     }
+            // case (int)GAMEID.LUCKY_89:
+            //     {
+            //         return plView.GetComponent<PlayerViewLucky89>();
+            //     }
+            // case (int)GAMEID.KEANG:
+            //     {
+            //         return plView.GetComponent<PlayerViewKeang>();
+            //     }
+            //case (int)GAMEID.RONGHO:
+            //    {
+            //        plView.transform.localScale = new Vector2(0.8f, 0.8f);
+            //        return plView.GetComponent<PlayerViewDragonTiger>();
+            //    }
+            // case (int)GAMEID.SABONG:
+            //     {
+            //         plView.transform.localScale = new Vector2(.75f, .75f);
+            //         return plView.GetComponent<PlayerViewSabong>();
+            //     }
         }
 
         return plView.GetComponent<PlayerView>();

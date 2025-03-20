@@ -14,7 +14,6 @@ public class HandleData
     public static void handleLoginResponse(string strData)
     {
         Logging.LogWarning("-=- =handleLoginResponse:  " + strData);
-        //LoginResponsePacket packet = JsonConvert.DeserializeObject<LoginResponsePacket>(strData);
         LoginResponsePacket packet = JsonUtility.FromJson<LoginResponsePacket>(strData);
 
         if (packet.status == CMD.OK)
@@ -31,13 +30,9 @@ public class HandleData
 
             string data = Config.Base64Decode(packet.credentials);
             Logging.LogWarning("-=- =dang nhap thanh cong:  " + data);
-            //data = data.Replace("\"VIP\":2", "\"VIP\":0");
-            //Logging.LogWarning("-=- =dang nhap thanh cong2:  " + data);
             JObject obj = JObject.Parse(data);
             string strUser = (string)obj["data"];
             Logging.LogWarning(strUser);
-            //User.userMain = JsonUtility.FromJson<User>(strUser);
-            //{ "evt":"0","data":"{\"Userid\":5311,\"Username\":\"playforfun\",\"Tinyurl\":\"\",\"AG\":321194,\"LQ\":0,\"VIP\":1,\"MVip\":0,\"markLevel\":0,\"PD\":0,\"OD\":16,\"A\":26,\"NM\":0,\"ListDP\":\"500;500;500_0;100;100_0;100;100_0;\",\"NewAccFBInDevice\":0,\"chipbank\":0,\"gameid\":0,\"NumFriendMail\":0,\"gameNo\":0,\"Diamond\":0,\"vippoint\":1,\"vippointMax\":10,\"FacebookName\":\"\",\"displayName\":\"playforfun\",\"LQ0\":0.0,\"CO\":0.0,\"CO0\":0.0,\"LQSMS\":0.0,\"LQIAP\":0.0,\"LQOther\":0.0,\"BLQ1\":0.0,\"BLQ3\":0.0,\"BLQ5\":0.0,\"BLQ7\":0.0,\"AVG7\":0.0,\"Group\":0.0,\"CreateTime\":1620630212017,\"keyObjectInGame\":0,\"idChatContents\":[1,3,13,17,20,24,26,40,43,47],\"UsernameLQ\":\"\"}","time":1636367771387,"auth":""}
             JObject objUser = JObject.Parse(strUser);
 
             User.userMain = new User();
@@ -176,14 +171,6 @@ public class HandleData
         if ((string)data["status"] == "OK")
         {
 
-            //    NetworkManager.getInstance().listEvtGame.length = 0;
-            //    cc.NGWlog('========================== packet OnShowGame');
-
-            //    let dataJson = { };
-            //    dataJson.tableid = packet.tableid;
-            //    dataJson.curGameID = Config.curGameId;
-            //    require('SMLSocketIO').getInstance().emitSIOWithValue(dataJson, "JoinPacket", false);
-            //    require("UIManager").instance.onShowGame();
             Config.tableId = (int)data["tableid"];
             Debug.Log("tableId2=" + Config.tableId);
             JObject dataJson = new JObject();
@@ -194,11 +181,6 @@ public class HandleData
         }
         else
         {
-            //    cc.NGWlog('hide load ben vao` ban` ko thanh cong====')
-            //        require('UIManager').instance.onHideLoad();
-            //    var _str = Config.getTextConfig(
-            //        "show_join_error"
-            //    );
             string _str = "";
             switch ((int)data["code"])
             {
@@ -221,18 +203,11 @@ public class HandleData
                     break;
             }
 
-            //    let dataJson = { };
-            //    dataJson.codeError = packet.code;
-            //    dataJson.msgError = _str;
-            //    require('SMLSocketIO').getInstance().emitSIOWithValue(dataJson, "JoinPacket", false);
 
             JObject dataJson = new JObject();
             dataJson["codeError"] = data["code"];
             dataJson["msgError"] = _str;
-            //if (Config.curGameId != (int)GAMEID.BANDAR_QQ && Config.curGameId == (int)GAMEID.RONGHO) //din case baner het tien join ban van hien thi o game playnow
-            //{
             SocketIOManager.getInstance().emitSIOWithValue(dataJson, "JoinPacket", false);
-            //}
             if (_str != "")
                 UIManager.instance.showMessageBox(_str);
         }
@@ -277,3 +252,4 @@ public class HandleData
         }
     }
 }
+

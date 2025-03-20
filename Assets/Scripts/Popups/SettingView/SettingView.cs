@@ -69,18 +69,6 @@ public class SettingView : BaseView
         Application.OpenURL(linkPage);
 
     }
-    public void onClickSupport()
-    {
-
-        if (!Config.fanpageID.Equals("") && Config.is_bl_fb)
-        {
-            SoundManager.instance.soundClick();
-            Application.OpenURL("https://" + Config.u_chat_fb);
-        }
-        else
-        {
-        }
-    }
     public void onClickPolicy()
     {
         Application.OpenURL(Config.url_privacy_policy); //Config.url_privacy_policy
@@ -130,6 +118,7 @@ public class SettingView : BaseView
         SoundManager.instance.soundClick();
         var url_h = Globals.Config.url_help.Replace("%language%", "thai");
 
+        UIManager.instance.showWebView(url_h);
     }
 
     public void onClickLogout()

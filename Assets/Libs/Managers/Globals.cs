@@ -5,15 +5,22 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Newtonsoft.Json.Linq;
+using Newtonsoft.Json;
 using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.UI;
 using DG.Tweening;
 using UnityEngine.EventSystems;
+using System.IO;
 using TMPro;
 using System.Globalization;
+using System.Threading;
+using Spine.Unity;
+using System.Runtime.InteropServices;
 using System.Linq;
 using Cysharp.Threading.Tasks;
+//using Facebook.Unity;
+
 
 namespace Globals
 {
@@ -225,6 +232,21 @@ namespace Globals
         public const string buyBonusGame = "buyBonusGame";
         public const string exitGame = "exit";
     }
+    public class TYPEWIN_BACCARAT
+    {
+        public const int BANKER = 1;
+        public const int PLAYER = 2;
+        public const int TIE = 3;
+        public const int PLAYER_P = 102;
+        public const int PLAYER_B = 12;
+        public const int PLAYER_PB = 112;
+        public const int BANKER_P = 101;
+        public const int BANKER_B = 11;
+        public const int BANKER_PB = 111;
+        public const int TIE_P = 103;
+        public const int TIE_B = 13;
+        public const int TIE_PB = 113;
+    }
     public enum GAMEID
     {
         GAOGEA = 8100,//show
@@ -263,6 +285,10 @@ namespace Globals
         RONGHO = 8009,
         KARTU_QIU = 8805,
         MINE_FINDING = 8804
+    }
+    public enum DOTWEEN_TAG
+    {
+        PROFILE_COUNTTIME = 1000,
     }
     public enum EFFECT_POPUP
     {
@@ -421,6 +447,49 @@ namespace Globals
 
 
     }
+    public class SOUND_DUMMY
+    {
+        public const string BURNED = "Sounds/DUMMY/effect_burned";
+        public const string DUMMY = "Sounds/DUMMY/effect_dummy";
+        public const string FINISH = "Sounds/DUMMY/effect_finish";
+        public const string FULL_DUMMY = "Sounds/DUMMY/effect_fulldummy";
+        public const string KEEP_HEAD = "Sounds/DUMMY/effect_keephead";
+        public const string KNOCK_COLOR = "Sounds/DUMMY/effect_knockcolor";
+        public const string KNOCK_DARK = "Sounds/DUMMY/effect_knockdark";
+        public const string KNOCK_DARK_COLOR = "Sounds/DUMMY/effect_knockdarkcolor";
+        public const string KNOCK_OUT = "Sounds/DUMMY/effect_knockout";
+        public const string CHIABAI = "Sounds/DUMMY/effect_lc";
+        public const string MELD = "Sounds/DUMMY/effect_meld";
+        public const string SHOW = "Sounds/DUMMY/effect_show";
+
+    }
+    public class SOUND_DOMINO
+    {
+        public const string CHIP_WIN = "Sounds/Domino/chips_winner";
+        public const string REWARD = "Sounds/Domino/reward";
+        public const string FOLD = "Sounds/Domino/burned";
+        public const string SINGLE = "Sounds/Domino/fold";
+        public const string SHOW_RESULTS = "Sounds/Domino/PopUpOpen";
+        public const string CHIA_DOMINO = "Sounds/Domino/chiaDomino";
+        public const string DC_DOMINO = "Sounds/Domino/dominoAudio";
+    }
+
+    public class SOUND_BINH
+    {
+        public const string WIN_BANKER = "Sounds/Binh/win_banker";
+        public const string COMPARE_WIN = "Sounds/Binh/compare_win";
+        public const string COMPARE_LOSE = "Sounds/Binh/compare_lose";
+    }
+
+    public class SOUND_TONGITS
+    {
+        public const string TgFightMusic = "Sounds/Tongits/fight";
+        public const string TgFoldMusic = "Sounds/Tongits/fold";
+        public const string TgChallengetMusic = "Sounds/Tongits/challenge";
+        public const string TgBurnedMusic = "Sounds/Tongits/burned";
+        public const string TgTongitsMusic = "Sounds/Tongits/tongits";
+        public const string TgEatcardMusic = "Sounds/Tongits/eat_card";
+    }
 
     public class User
     {
@@ -521,7 +590,7 @@ namespace Globals
         public static LOGIN_TYPE typeLogin = LOGIN_TYPE.NORMAL;
 
         public static string curServerIp = "";
-        public static int curGameId = (int)GAMEID.SICBO;
+        public static int curGameId = (int)GAMEID.SLOT_SIXIANG;
         public static bool isBackGame = false;
         public static string TELEGRAM_TOKEN = "";
         public static string TELEGRAM_WALLET_ADDRESS = "";
@@ -611,7 +680,7 @@ namespace Globals
         public static JArray arrOnlistTrue = new JArray();
         public static JArray arrBannerLobby = new JArray();
 
-        public static List<int> listGamePlaynow = new() { (int)GAMEID.RONGHO, (int)GAMEID.BANDAR_QQ, (int)GAMEID.ROULETTE, (int)GAMEID.SLOT_SIXIANG, (int)GAMEID.SLOT20FRUIT, (int)GAMEID.SLOT_INCA, (int)GAMEID.SLOTNOEL, (int)GAMEID.SLOT_JUICY_GARDEN, (int)GAMEID.SLOTTARZAN, (int)GAMEID.XOCDIA, (int)GAMEID.BAUCUA, (int)GAMEID.MINE_FINDING };
+        public static List<int> listGamePlaynow = new List<int>() { (int)GAMEID.RONGHO, (int)GAMEID.BANDAR_QQ, (int)GAMEID.ROULETTE, (int)GAMEID.SLOT_SIXIANG, (int)GAMEID.SLOT20FRUIT, (int)GAMEID.SLOT_INCA, (int)GAMEID.SLOTNOEL, (int)GAMEID.SLOT_JUICY_GARDEN, (int)GAMEID.SLOTTARZAN, (int)GAMEID.XOCDIA, (int)GAMEID.BAUCUA, (int)GAMEID.MINE_FINDING };
 
 
         public static bool isShowTableWithGameId(int gameID)
@@ -671,6 +740,32 @@ namespace Globals
             PlayerPrefs.Save();
         }
 
+        public static void decodeCard(int code, ref int N, ref int S)
+        {
+            if (code == CODE_JOKER_RED || code == CODE_JOKER_BLACK)
+            {
+                S = code;
+                N = code;
+                return;
+            }
+            // // mỗi game có 1 điều decode # nhau
+            S = ((code - 1) / 13) + 1; //>=1 <=4
+            N = ((code - 1) % 13) + 2; // >=2 , <=14
+
+            if (curGameId == (int)GAMEID.LUCKY_89
+                || curGameId == (int)GAMEID.KEANG
+                || curGameId == (int)GAMEID.RONGHO)
+            {
+                N = ((code - 1) % 13) + 1;
+            }
+
+            if (curGameId == (int)GAMEID.TONGITS_JOKER ||
+                curGameId == (int)GAMEID.TONGITS11)
+            {
+                if (N == 14) N = 1;
+            }
+            //nameCard = N + getSuitInVN();
+        }
 
         public static byte[] getByte(string str)
         {
@@ -691,6 +786,21 @@ namespace Globals
             //return (new UTF8Encoding(false)).GetString(Convert.FromBase64String(base64EncodedData));
         }
 
+        public static bool checkContainBoundingBox(GameObject gameObject, PointerEventData eventData)
+        {
+            List<RaycastResult> results = new List<RaycastResult>();
+            EventSystem.current.RaycastAll(eventData, results);
+            foreach (var c in results)
+            {
+                Globals.Logging.Log("RaycastResult " + c.gameObject.name);
+                if (gameObject == c.gameObject)
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
         public static void saveLoginAccount()
         {
             PlayerPrefs.SetString("username", user_name);
@@ -908,6 +1018,7 @@ namespace Globals
             .AppendInterval(timeRun * 0.45f)
             .Append(lbText.transform.DOScale(normalScale, timeRun * 0.1f));
         }
+        private static Guid lbTweenGuid = Guid.NewGuid();
         public static void tweenNumberToNumber(TMPro.TextMeshProUGUI lbText, long toNumber, long startNumber = 0, float timeRun = 0.5f, bool isLowerCase = false)
         {
             DOTween.To(() => startNumber, x => startNumber = x, toNumber, timeRun).OnUpdate(() => { if (isLowerCase) lbText.text = FormatNumber(startNumber).ToLower(); else lbText.text = FormatNumber(startNumber); }).OnComplete(() =>
@@ -933,6 +1044,13 @@ namespace Globals
             }
 
         }
+        //public static void tweenNumberToMoney(TMPro.TextMeshProUGUI lbText, long toNumber, long startNumber = 0, float timeRun = 0.3f)
+        //{
+        //    if (toNumber < 10000)
+        //    {
+
+        //    }
+        //}
         public static void tweenNumberTo(Text lbText, int toNumber, int startNumber = 0, float timeRun = 0.3f)
         {
 
@@ -1006,7 +1124,36 @@ namespace Globals
 
             return image;
         }
+        public static Vector2 getPosInOtherNode(Vector2 nodePosition, GameObject otherNode)
+        {
+            return otherNode.transform.InverseTransformPoint(nodePosition);
+        }
 
+        //Vector3 linePoint1 A, Vector3 lineVec1 A1, Vector3 linePoint2 B, Vector3 lineVec2B1
+        public static Vector2 LineLineIntersection(Vector2 A, Vector2 A1, Vector2 B, Vector2 B1)
+        {
+            Vector2 intersectionPoint = new Vector2(0, 0);
+            Vector3 lineVec3 = B - A;
+            Vector3 crossVec1and2 = Vector3.Cross(A1, B1);
+            Vector3 crossVec3and2 = Vector3.Cross(lineVec3, B1);
+            float planarFactor = Vector3.Dot(lineVec3, crossVec1and2);
+            //is coplanar, and not parallel
+
+            if (Mathf.Abs(planarFactor) < 0.0001f
+                    && crossVec1and2.sqrMagnitude > 0.0001f)
+            {
+                float s = Vector3.Dot(crossVec3and2, crossVec1and2)
+                        / crossVec1and2.sqrMagnitude;
+                intersectionPoint = A + (A1 * s);
+                return intersectionPoint;
+            }
+            else
+            {
+                intersectionPoint = Vector2.zero;
+                return intersectionPoint;
+            }
+
+        }
         public static bool pLineIntersect(Vector2 A, Vector2 B, Vector2 C, Vector2 D, Vector2 retP)
         {
             if ((A.x == B.x && A.y == B.y) || (C.x == D.x && C.y == D.y))
@@ -1041,7 +1188,48 @@ namespace Globals
 
             return true;
         }
+        public static Vector2 pIntersectPoint(Vector2 A, Vector2 B, Vector2 C, Vector2 D)
+        {
+            Vector2 retP = Vector2.zero;
+            if (pLineIntersect(A, B, C, D, retP))
+            {
+                Vector2 P = Vector2.zero;
+                P.x = A.x + retP.x * (B.x - A.x);
+                P.y = A.y + retP.x * (B.y - A.y);
+                return P;
+            }
 
+            return Vector2.zero;
+        }
+
+        public static Button createNodeButton(Sprite _spriteFrame = null, string _title = "")
+        {
+            if (_spriteFrame == null) return null;
+            var nodeButton = Config.createSprite(_spriteFrame);
+            var btnCom = nodeButton.gameObject.AddComponent<Button>();
+            btnCom.interactable = true;
+            if (_title != "")
+            {
+                var lbCom = Config.createLabel(_title, 25);
+                lbCom.rectTransform.SetParent(nodeButton.rectTransform);
+            }
+
+            return btnCom;
+        }
+
+        //public static Text createLabel(string _string, int _fontSize, Transform parent = null)
+        //{
+        //    var nodeLb = new GameObject("Label");
+        //    RectTransform trans = nodeLb.AddComponent<RectTransform>();
+
+        //    var lbCom = nodeLb.AddComponent<Text>();
+        //    lbCom.text = _string;
+        //    lbCom.font = UIManager.instance.fontDefault;
+        //    lbCom.fontSize = _fontSize;
+        //    lbCom.alignment = TextAnchor.MiddleCenter;
+
+        //    return lbCom;
+        //}
 
         public static TextMeshProUGUI createLabel(string _string, int _fontSize, Transform parent = null)
         {
@@ -1059,6 +1247,55 @@ namespace Globals
         }
         public static string url_log = "http://192.168.1.132:3000";
 
+        public static IEnumerator sendLog(string str, bool isDel)
+        {
+            WWWForm form = new WWWForm();
+            form.AddField("id", User.userMain.Userid);
+            form.AddField("name", User.userMain.Username);
+            if (!isDel)
+                form.AddField("data", str);
+
+            using (UnityWebRequest www = UnityWebRequest.Post(url_log + (isDel ? "clearlog" : "/savelog"), form))
+            {
+                yield return www.SendWebRequest();
+
+                if (www.result != UnityWebRequest.Result.Success)
+                {
+                    Debug.Log(www.error);
+                }
+                else
+                {
+                    Debug.Log("Form upload complete!");
+                }
+            }
+        }
+
+        //public static async Task<Texture2D> GetRemoteTexture(string url)
+        //{
+        //    using (UnityWebRequest www = UnityWebRequestTexture.GetTexture(url))
+        //    {
+        //        // begin request:
+        //        var asyncOp = www.SendWebRequest();
+        //        //// await until it's done: 
+        //        while (!asyncOp.isDone)
+        //        {
+        //            //await Task.Yield();
+        //            await Task.Delay(200);//30 hertz
+        //        }
+
+        //        // read results:
+        //        if (www.result == UnityWebRequest.Result.ConnectionError || www.result == UnityWebRequest.Result.ProtocolError || www.result == UnityWebRequest.Result.DataProcessingError)
+        //        {
+        //            // nothing to return on error:
+        //            return null;
+        //        }
+        //        else
+        //        {
+        //            // return valid results:
+        //            return DownloadHandlerTexture.GetContent(www);
+        //        }
+        //    }
+        //}
 
 
         public class DataLoadImage
@@ -1565,7 +1802,60 @@ namespace Globals
 
             return float.Parse(strNum, System.Globalization.CultureInfo.InvariantCulture);
         }
+        //public static IEnumerator ShareImageShot()
+        //{
+        //var Screenshot_Name = DateTimeOffset.Now.ToUnixTimeMilliseconds() + ".png";
+
+        //yield return new WaitForEndOfFrame();
+        //Texture2D screenTexture = new Texture2D(Screen.width, Screen.height, TextureFormat.RGB24, true);
+
+        //screenTexture.ReadPixels(new Rect(0f, 0f, Screen.width, Screen.height), 0, 0);
+
+        //screenTexture.Apply();
+
+        //byte[] dataToSave = screenTexture.EncodeToPNG();
+
+        //string destination = Path.Combine(Application.persistentDataPath, Screenshot_Name);
+
+        //File.WriteAllBytes(destination, dataToSave);
+
+        //var wwwForm = new WWWForm();
+        //wwwForm.AddBinaryData("image", dataToSave, Screenshot_Name);
+
+        //FB.API("me/photos", HttpMethod.POST, (IGraphResult result)=> {
+        //    if (result.Error != null)
+        //    {
+        //        UIManager.instance.showToast(getTextConfig("txt_share_error"));
+        //    }
+        //    else
+        //    {
+        //        UIManager.instance.showToast(getTextConfig("txt_share_success"));
+        //    }
+        //}, wwwForm);
+        //}
+
+        //public static Type getData(Type t, JObject jData, string key)
+        //{
+        //    return (Type)jData[key];
+        //}
+
+        //void ahaha()
+        //{
+        //    ReadJson<bool>.getData(null, "");
+        //}
     }
+    //public class ReadJson<T>
+    //{
+    //    public static T getData(JObject jData, string key)
+    //    {
+    //        if(typeof(T) is bool)
+    //        {
+    //            return jData[key];
+    //        }
+    //       //return (T)(jData.GetType().get.GetProperty(key).ToString());
+    //        //return (T)jData;
+    //    }
+    //}
     public class CMD
     {
         public const string OK = "OK";
@@ -1654,6 +1944,14 @@ namespace Globals
                 DailyPromotionSpecial = JObject.Parse((string)jsonData["DailyPromotionSpecial"]);
                 Globals.Logging.Log(DailyPromotionSpecial);
 
+                // if (DailyBonusView.instance != null && DailyBonusView.instance.gameObject.activeSelf == true)
+                // {
+                //     DailyBonusView.instance.reloadHistory();
+                //     if (time == 0)
+                //     {
+                //         DailyBonusView.instance.setInfo();
+                //     }
+                // }
             }
 
             countMailAg = 0;
@@ -1699,6 +1997,45 @@ namespace Globals
 
             }
         }
+        //static DisplayMetricsAndroid()
+        //{
+        //    // Early out if we're not on an Android device
+        //    if (Application.platform != RuntimePlatform.Android)
+        //    {
+        //        return;
+        //    }
+
+        //    // The following is equivalent to this Java code:
+        //    //
+        //    // metricsInstance = new DisplayMetrics();
+        //    // UnityPlayer.currentActivity.getWindowManager().getDefaultDisplay().getMetrics(metricsInstance);
+        //    //
+        //    // ... which is pretty much equivalent to the code on this page:
+        //    // http://developer.android.com/reference/android/util/DisplayMetrics.html
+
+        //    using (
+        //      AndroidJavaClass unityPlayerClass = new AndroidJavaClass("com.unity3d.player.UnityPlayer"),
+        //      metricsClass = new AndroidJavaClass("android.util.DisplayMetrics")
+        //    )
+        //    {
+        //        using (
+        //         AndroidJavaObject metricsInstance = new AndroidJavaObject("android.util.DisplayMetrics"),
+        //         activityInstance = unityPlayerClass.GetStatic<AndroidJavaObject>("currentActivity"),
+        //         windowManagerInstance = activityInstance.Call<AndroidJavaObject>("getWindowManager"),
+        //         displayInstance = windowManagerInstance.Call<AndroidJavaObject>("getDefaultDisplay")
+        //        )
+        //        {
+        //            displayInstance.Call("getMetrics", metricsInstance);
+        //            Density = metricsInstance.Get<float>("density");
+        //            DensityDPI = metricsInstance.Get<int>("densityDpi");
+        //            HeightPixels = metricsInstance.Get<int>("heightPixels");
+        //            WidthPixels = metricsInstance.Get<int>("widthPixels");
+        //            ScaledDensity = metricsInstance.Get<float>("scaledDensity");
+        //            XDPI = metricsInstance.Get<float>("xdpi");
+        //            YDPI = metricsInstance.Get<float>("ydpi");
+        //        }
+        //    }
+        //}
     }
 
     public class AssetBundleName
