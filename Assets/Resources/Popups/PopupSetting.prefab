@@ -3500,7 +3500,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &6063590153037649757
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3692,7 +3692,6 @@ MonoBehaviour:
   btnFanpage: {fileID: 6063590153037649756}
   btnLogout: {fileID: 6921386113451793842}
   btnDeleteAc: {fileID: 6522678293866073449}
-  m_ChangeLanguageD: {fileID: 448207770533627012}
 --- !u!114 &1378288888194405225
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3741,7 +3740,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &6063590153775499093
 RectTransform:
   m_ObjectHideFlags: 0

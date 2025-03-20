@@ -175,7 +175,6 @@ public class HandleService
                         foreach (JToken item in listFreeChip) mailIds.Add((int)item["Id"]);
                         SocketSend.OpenMultipleMailsContainChip(mailIds);
                     }
-                    if (Config.curGameId == (int)GAMEID.SLOT_SIXIANG) UIManager.instance.playVideoSiXiang();
                     SocketSend.sendSelectGame(Config.curGameId);
                     break;
                 case "31":
@@ -564,7 +563,6 @@ public class HandleService
                 case ACTION_SLOT_SIXIANG.goldPick:
                 case ACTION_SLOT_SIXIANG.luckyDraw:
                 case ACTION_SLOT_SIXIANG.selectBonusGame:
-                    handleGameSiXiang(jsonData);
                     break;
                 case "farmInfo":
                     {
@@ -591,10 +589,6 @@ public class HandleService
                     if ((bool)jsonData["isSuccess"])
                     {
                         //cc.sys.localStorage.setItem("isLogOut", "true");
-                        if (SettingView.instance != null)
-                        {
-                            SettingView.instance.handleDeleteAcount();
-                        }
                         // GameManager.getInstance().onShowConfirmDialog("true");
                     }
                     else
@@ -698,48 +692,6 @@ public class HandleService
 
 
             }
-        }
-    }
-    public static void handleGameSiXiang(JObject data)
-    {
-        JObject dataGame = JObject.Parse((string)data["data"]);
-        if (SiXiangView.Instance == null)
-        {
-            Debug.Log("clm chua co game sixiang la sao");
-        }
-        switch ((string)data["evt"])
-        {
-            case ACTION_SLOT_SIXIANG.getInfo:
-                //dataGame = JObject.Parse(SiXiangFakeData.Instance.getInfoDragonPearl);
-                SiXiangView.Instance.handleGetInfo(dataGame);
-                break;
-            case ACTION_SLOT_SIXIANG.getBonusGames:
-                SiXiangView.Instance.handleBonusInfo(dataGame);
-                break;
-            case ACTION_SLOT_SIXIANG.normalSpin:
-                SiXiangView.Instance.handleNormalSpin(dataGame);
-                break;
-            case ACTION_SLOT_SIXIANG.scatterSpin:
-                SiXiangView.Instance.handleScatterSpin(dataGame);
-                break;
-            case ACTION_SLOT_SIXIANG.buyBonusGame:
-                SiXiangView.Instance.handleBuyBonusGame(dataGame);
-                break;
-            case ACTION_SLOT_SIXIANG.dragonPearlSpin:
-                SiXiangView.Instance.handleDragonPealsSpin(dataGame);
-                break;
-            case ACTION_SLOT_SIXIANG.rapidPay:
-                SiXiangView.Instance.handleRapidPay(dataGame);
-                break;
-            case ACTION_SLOT_SIXIANG.goldPick:
-                SiXiangView.Instance.handleGoldPick(dataGame);
-                break;
-            case ACTION_SLOT_SIXIANG.luckyDraw:
-                SiXiangView.Instance.handleLuckyDraw(dataGame);
-                break;
-            case ACTION_SLOT_SIXIANG.selectBonusGame:
-                SiXiangView.Instance.handleSelectBonusGame(dataGame);
-                break;
         }
     }
 }

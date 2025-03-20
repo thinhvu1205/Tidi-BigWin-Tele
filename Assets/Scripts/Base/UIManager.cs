@@ -70,56 +70,7 @@ public class UIManager : MonoBehaviour
             bgVideoRT.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, ratio * 720);
         }
     }
-    VideoPlayer.EventHandler videoStartedListener;
-    VideoPlayer.EventHandler videoEndedListener;
-    public void playVideoSiXiang()
-    {
-        if (!videoPlayer.isPlaying)
-        {
-            videoBg.SetActive(false);
-            videoBg.GetComponent<RawImage>().color = new Color32(255, 255, 225, 0);
-            videoPlayer.gameObject.SetActive(true);
 
-            videoPlayer.prepareCompleted += (vp) =>
-            {
-                Debug.Log("videoPlayer.prepareCompleted is run " + (float)videoPlayer.length);
-                videoPlayer.Play();
-
-                DOTween.Sequence().AppendInterval(1.4f).AppendCallback(() =>
-                {
-                    Debug.Log("showGame is run");
-                    showGame();
-                });
-            };
-
-            videoStartedListener = delegate
-            {
-                Debug.Log("videoStartedListener is run");
-                videoBg.SetActive(true);
-                videoBg.GetComponent<RawImage>().color = new Color32(255, 255, 225, 255);
-                videoPlayer.started -= videoStartedListener;
-            };
-
-            videoEndedListener = delegate
-            {
-                Debug.Log("videoEndedListener is run");
-                videoBg.SetActive(false);
-                videoPlayer.gameObject.SetActive(false);
-                videoPlayer.loopPointReached -= videoEndedListener;
-            };
-
-            videoPlayer.started += videoStartedListener;
-            videoPlayer.loopPointReached += videoEndedListener;
-
-            videoPlayer.errorReceived += (vp, message) =>
-            {
-                Debug.LogError("Error: " + message);
-                showGame();
-            };
-
-            videoPlayer.Prepare();
-        }
-    }
 
 
 
@@ -222,10 +173,10 @@ public class UIManager : MonoBehaviour
         gameView = null;
         switch (curGameId)
         {
-            case (int)Globals.GAMEID.SLOT_SIXIANG:
+            case (int)Globals.GAMEID.SLOT20FRUIT:
                 {
-                    Globals.Logging.Log("showGame SLOT_SIXIANG");
-                    gameView = Instantiate(loadPrefabGame("SiXiangView"), parentGame).GetComponent<SiXiangView>();
+                    Globals.Logging.Log("showGame SLOT20FRUIT");
+                    gameView = Instantiate(loadPrefabGame("SlotFruitView"), parentGame).GetComponent<SlotFruitView>();
                     break;
                 }
             default:

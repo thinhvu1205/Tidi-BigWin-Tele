@@ -142,6 +142,11 @@ public class HandleGame
         }
         switch (Globals.Config.curGameId)
         {
+            case (int)Globals.GAMEID.SLOT20FRUIT:
+                {
+                    HandleSlotFruit.processData(jData);
+                    break;
+                }
         }
     }
     public static void nextEvt()

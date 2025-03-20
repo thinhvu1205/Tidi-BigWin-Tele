@@ -600,7 +600,7 @@ public class BaseSlotView : GameView
     }
     protected async UniTask showLineOneByOne()
     {
-        if (autoSpinRemain == 0 || (spintype == SPIN_TYPE.AUTO && spinPayLines.Count == 1))
+        if (autoSpinRemain == 0)
         {
             setStateSpin(GAME_STATE.SHOWING_RESULT);
 
