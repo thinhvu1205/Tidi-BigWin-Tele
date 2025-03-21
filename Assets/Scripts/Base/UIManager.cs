@@ -10,8 +10,6 @@ using System.Collections.Generic;
 using UnityEngine.Networking;
 using static Globals.Config;
 using System.Linq;
-using Unity.Services.Core;
-using Unity.Services.Core.Environments;
 using System.Collections;
 using UnityEngine.Video;
 
@@ -35,8 +33,6 @@ public class UIManager : MonoBehaviour
     [SerializeField] Canvas canvasGame;
     [HideInInspector] public GameView gameView;
     [SerializeField] AlertMessage alertMessage;
-    [SerializeField] VideoPlayer videoPlayer;
-    [SerializeField] GameObject videoBg;
 
     public List<DialogView> dialogPool = new List<DialogView>();
     public List<DialogView> listDialogOne = new List<DialogView>();
@@ -58,17 +54,6 @@ public class UIManager : MonoBehaviour
     void Start()
     {
         lobbyView.hide(false);
-        videoPlayer.Prepare();
-        if (Screen.width <= Screen.height)
-        {
-            RectTransform videoRT = videoPlayer.GetComponent<RectTransform>();
-            RectTransform bgVideoRT = videoBg.GetComponent<RectTransform>();
-            float ratio = Mathf.Max(Screen.width / 720f, Screen.height / 1280f);
-            videoRT.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, ratio * 1280);
-            videoRT.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, ratio * 720);
-            bgVideoRT.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, ratio * 1280);
-            bgVideoRT.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, ratio * 720);
-        }
     }
 
 
@@ -173,10 +158,10 @@ public class UIManager : MonoBehaviour
         gameView = null;
         switch (curGameId)
         {
-            case (int)Globals.GAMEID.SLOT_JUICY_GARDEN:
+            case (int)Globals.GAMEID.SLOTTARZAN:
                 {
-                    Globals.Logging.Log("showGame SLOT_9900");
-                    gameView = Instantiate(loadPrefabGame("SlotJuicyGardenView"), parentGame).GetComponent<SlotJuicyGardenView>();
+                    Globals.Logging.Log("showGame SLOTTARZAN");
+                    gameView = Instantiate(loadPrefabGame("SlotTarzanView"), parentGame).GetComponent<SlotTarzanView>();
                     break;
                 }
             default:
