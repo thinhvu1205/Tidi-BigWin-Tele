@@ -28,13 +28,11 @@ public class InputPassView : BaseView
         base.OnEnable();
         isOne = true;
     }
-    public void setTableID(int _tableID)
-    {
+    public void setTableID(int _tableID){
         tableID = _tableID;
     }
 
-    public void onClickConfirm()
-    {
+    public void onClickConfirm() {
         SoundManager.instance.soundClick();
         string pass = edbPass.text;
         if (pass.Equals(""))
@@ -55,4 +53,27 @@ public class InputPassView : BaseView
         tableID = -1;
     }
 
+    KeyboardController keyboardController;
+    public void onClickInput()
+    {
+        edbPass.text = "";
+        if (keyboardController != null)
+        {
+            keyboardController.setShow(true);
+        }
+        else
+        {
+            keyboardController = UIManager.instance.showKeyboardCustom(transform);
+        }
+
+        keyboardController.setTextAction(Globals.Config.getTextConfig("txt_done").ToUpper());
+        keyboardController.setCharacterLimit(edbPass.characterLimit);
+        keyboardController.addListernerCallback((str) =>
+        {
+            edbPass.text = str;
+        }, (strIn) =>
+        {
+            edbPass.text = strIn;
+        });
+    }
 }

@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -6,6 +7,8 @@ using Spine.Unity;
 using DG.Tweening;
 using Newtonsoft.Json.Linq;
 using System.Linq;
+using UnityEngine.EventSystems;
+using Globals;
 public class GaoGeaView : GameView
 {
     // Start is called before the first frame update
@@ -142,6 +145,10 @@ public class GaoGeaView : GameView
         {
             Destroy(chip);
         });
+        if ((Globals.Config.typeLogin == Globals.LOGIN_TYPE.PLAYNOW && Globals.User.userMain.VIP == 0) || Globals.Config.typeLogin == Globals.LOGIN_TYPE.FACEBOOK)
+        {
+            UIManager.instance.showListBannerOnLobby();
+        }
 
     }
     public void onClickFake(Button btnFake)
@@ -783,8 +790,7 @@ public class GaoGeaView : GameView
                 players[i].isFold = false;
                 players[i].playerView.setDark(false);
             }
-        }
-        ;
+        };
         checkAutoExit();
     }
     private void handleCardsFinish()

@@ -1,29 +1,48 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
 using Newtonsoft.Json.Linq;
 public class FriendInfoView : BaseView
 {
 
     public static FriendInfoView instance = null;
-    [SerializeField] TextMeshProUGUI lbNameUser, lbChips, lbUserId, lbStatus;
+    [SerializeField]
+    TextMeshProUGUI lbNameUser, lbChips, lbUserId, lbStatus;
 
-    [SerializeField] Avatar avatar;
+    [SerializeField]
+    Avatar avatar;
 
-    [SerializeField] VipContainer vipContainer;
-    [HideInInspector] public string idFriend;
+    [SerializeField]
+    VipContainer vipContainer;
+    [HideInInspector]
+    public string idFriend;
     JObject dataFriend = new JObject();
 
-    [SerializeField] GameObject btnMessage, btnSendGift;
+    [SerializeField]
+    GameObject btnMessage, btnSendGift;
     // Start is called before the first frame update
     protected override void Awake()
     {
         base.Awake();
         instance = this;
         transform.eulerAngles = new Vector3(0, 0, 0);
+        //if (UIManager.instance.gameView && (Globals.Config.curGameId == (int)Globals.GAMEID.SICBO
+        //    || Globals.Config.curGameId == (int)Globals.GAMEID.DUMMY
+        //    || Globals.Config.curGameId == (int)Globals.GAMEID.KEANG))
+        //{
+        //  transform.eulerAngles = new Vector3(0, 0, -90);
+        //}
     }
 
     public void setInfo(JObject jsonData)
     {
+        //        {
+        //            "evt": "followfind",
+        //  "data": "{\"name\":\"ตา แลนน\",\"namelq\":\"\",\"avatar\":2,\"online\":0,\"vip\":2,\"ag\":1300,\"uid\":245943,\"idtable\":0,\"status\":\"ว่าไงวัยรุ่น\",\"level\":0,\"fbid\":717288562770412}",
+        //  "status": true
+        //}
         dataFriend = jsonData;
         string name = (string)jsonData["name"];
         int avatarId = (int)jsonData["avatar"];
@@ -56,10 +75,24 @@ public class FriendInfoView : BaseView
         dataChat["Avatar"] = dataFriend["avatar"];
         dataChat["FaceID"] = dataFriend["fbid"];
         dataChat["vip"] = dataFriend["vip"];
+        if (ChatWorldView.instance != null)
+        {
+            PlayerPrefs.DeleteKey("dataPrivatePlayer");
+            ChatWorldView.instance.showChatPrivate(dataChat);
+        }
+        else
+        {
+            PlayerPrefs.SetString("dataPrivatePlayer", dataChat.ToString());
+            UIManager.instance.clickTabChatWorld();
+            if (LeaderBoardView.instance != null)
+            {
+                LeaderBoardView.instance.onClickClose();
+            }
+        }
         hide();
     }
     public void onClickSendGift()
     {
-        // UIManager.instance.openSendGift(idFriend);
+        UIManager.instance.openSendGift(idFriend);
     }
 }

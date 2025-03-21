@@ -65,15 +65,18 @@ public class GameView : BaseView
         else if (Config.curGameId == (int)GAMEID.SLOT_JUICY_GARDEN) soundBg = SOUND_SLOT.BG_JUICY_GARDEN;
         else if (Config.curGameId == (int)GAMEID.SLOT_SIXIANG) soundBg = SOUND_SLOT_BASE.BG_GAME;
         SoundManager.instance.playMusicInGame(soundBg);
-        for (var i = 0; i < listPosView.Count; i++)
+        if (Config.TELEGRAM_TOKEN.Equals(""))
         {
-            if (i == 0) continue;
-            GameObject btnInvite;
-            btnInvite = Instantiate(invitePrefab, inviteContainer == null ? transform : inviteContainer);
-            btnInvite.transform.localScale = Vector3.one;
-            btnInvite.transform.localPosition = listPosView[i];
-            btnInvite.GetComponent<Button>().onClick.AddListener(() => { onClickInvite(); });
-            listBtnInvite.Add(btnInvite);
+            for (var i = 0; i < listPosView.Count; i++)
+            {
+                if (i == 0) continue;
+                GameObject btnInvite;
+                btnInvite = Instantiate(invitePrefab, inviteContainer == null ? transform : inviteContainer);
+                btnInvite.transform.localScale = Vector3.one;
+                btnInvite.transform.localPosition = listPosView[i];
+                btnInvite.GetComponent<Button>().onClick.AddListener(() => { onClickInvite(); });
+                listBtnInvite.Add(btnInvite);
+            }
         }
         if (txtGameName != null) txtGameName.text = Config.getTextConfig(Config.curGameId.ToString());
     }
@@ -88,6 +91,7 @@ public class GameView : BaseView
     {
         Logging.Log("-=-=OnDestroy ");
         Config.lastGameIDSave = Config.curGameId;
+        UIManager.instance.lobbyView.setQuickPlayGame(Config.lastGameIDSave);
         User.userMain.lastGameID = 0;
         foreach (var c in cardPool)
         {
@@ -163,6 +167,7 @@ public class GameView : BaseView
     }
     public void checkAutoExit()
     {
+        return;
         Globals.Logging.Log("Check Auto Exit:" + Config.isBackGame);
         if (Config.isBackGame)
         {

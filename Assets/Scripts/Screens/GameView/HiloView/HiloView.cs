@@ -93,10 +93,34 @@ public class HiloView : GameView
     protected JObject dataFinish;
     protected List<string> listDataFake = new List<string>();
 
+    public void forceDisconnect()
+    {
+        Debug.Log("forceDisconnect");
+        UIManager.instance.forceDisconnect();
+    }
     protected override void Start()
     {
         base.Start();
         listDataFake.Clear();
+        //listDataFake.Add("{\"evt\":\"stable\",\"data\":\"{\\\"N\\\":\\\"รับโชคและชนะด้วย ไฮโลไทย!\\\",\\\"M\\\":5000,\\\"ArrP\\\":[{\\\"id\\\":69320,\\\"N\\\":\\\"fb.1075968683255893\\\",\\\"Url\\\":\\\"fb.1075968683255893\\\",\\\"AG\\\":285000,\\\"A\\\":true,\\\"LQ\\\":50,\\\"VIP\\\":2,\\\"isStart\\\":true,\\\"IK\\\":0,\\\"sIP\\\":\\\"10.148.0.4\\\",\\\"Av\\\":0,\\\"FId\\\":1075968683255893,\\\"D\\\":0,\\\"Arr\\\":[],\\\"MB\\\":{\\\"M\\\":0,\\\"T\\\":0,\\\"W\\\":0},\\\"level\\\":0,\\\"displayName\\\":\\\"อะอะ โอ๊ตโอ๊ต\\\",\\\"keyObjectInGame\\\":0},{\\\"id\\\":8240,\\\"N\\\":\\\"hienndm\\\",\\\"Url\\\":\\\"\\\",\\\"AG\\\":136916,\\\"A\\\":true,\\\"LQ\\\":0,\\\"VIP\\\":3,\\\"isStart\\\":true,\\\"IK\\\":0,\\\"sIP\\\":\\\"10.148.0.4\\\",\\\"Av\\\":4,\\\"FId\\\":0,\\\"D\\\":0,\\\"Arr\\\":[],\\\"MB\\\":{\\\"M\\\":0,\\\"T\\\":0,\\\"W\\\":0},\\\"level\\\":0,\\\"displayName\\\":\\\"hienndm\\\",\\\"keyObjectInGame\\\":0}],\\\"Id\\\":4828,\\\"T\\\":0,\\\"V\\\":0,\\\"AG\\\":50000,\\\"S\\\":0,\\\"History\\\":[[2,3,4]]}\"}");
+        //listDataFake.Add("{\"evt\":\"start\",\"data\":\"4000\"}");
+        //listDataFake.Add("{\"evt\":\"lc\",\"data\":\"15000\"}");
+        //listDataFake.Add("{\"evt\":\"bet\",\"data\":\"{\\\"N\\\":\\\"hienndm\\\",\\\"Num\\\":[[1],[2],[1,1],[2,2],[4,4],[5,5],[6,6],[30]],\\\"M\\\":[5000,5000,10000,20000,5000,10000,5000,50000],\\\"T\\\":[1,1,10,10,10,10,10,30]}\"}");
+        //listDataFake.Add("{\"evt\":\"finish\",\"data\":\"{\\\"listDice\\\":[1,4,6],\\\"listNumberWin\\\":[{\\\"N\\\":\\\"1 nut\\\",\\\"typewin\\\":6},{\\\"N\\\":\\\"4 nut\\\",\\\"typewin\\\":6},{\\\"N\\\":\\\"6 nut\\\",\\\"typewin\\\":6},{\\\"N\\\":\\\"11HiLo\\\",\\\"typewin\\\":7},{\\\"N\\\":\\\"1-6\\\",\\\"typewin\\\":5},{\\\"N\\\":\\\"4-6\\\",\\\"typewin\\\":5},{\\\"N\\\":\\\"4-1\\\",\\\"typewin\\\":5},{\\\"N\\\":\\\"4-5-6\\\",\\\"typewin\\\":7}],\\\"listUser\\\":[{\\\"pid\\\":69320,\\\"ag\\\":309100,\\\"vip\\\":2,\\\"listNumWin\\\":[{\\\"M\\\":25000,\\\"N\\\":\\\"4-6\\\",\\\"T\\\":5,\\\"W\\\":25000},{\\\"M\\\":20000,\\\"N\\\":\\\"4-5-6\\\",\\\"T\\\":7,\\\"W\\\":20000}]},{\\\"pid\\\":8240,\\\"ag\\\":136916,\\\"vip\\\":3,\\\"listNumWin\\\":[]}],\\\"History\\\":[[2,3,4],[1,4,6]]}\"}");
+        //listDataFake.Add("{\"evt\":\"HETROI\",\"data\":\"15000\"}");
+        //fakDataHIstory = new List<List<int>> { new List<int> { 2, 4, 5 } };
+        //for (int i = 0; i < 154; i++)
+        //{
+        //    fakDataHIstory.Add(new List<int> { Random.Range(1, 6), Random.Range(1, 6), Random.Range(1, 6) });
+        //}
+        //fakDataHIstory.Add(new List<int> { 6, 6, 6 });
+        //fakDataHIstory.Add(new List<int> { 6, 4, 1 });
+        //fakDataHIstory.Add(new List<int> { 6, 4, 1 });
+        //fakDataHIstory.Add(new List<int> { 6, 4, 1 });
+        //fakDataHIstory.Add(new List<int> { 6, 6, 6 });
+        //fakDataHIstory.Add(new List<int> { 6, 4, 1 });
+        //fakDataHIstory.Add(new List<int> { 6, 4, 1 });
+        //fakDataHIstory.Add(new List<int> { 1, 1, 1 });
     }
 
     public virtual void onClickFake(Button btnFake)

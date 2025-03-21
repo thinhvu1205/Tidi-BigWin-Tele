@@ -5,13 +5,14 @@ using UnityEngine;
 
 public class HandleDummy
 {
-	public static void processData(JObject jData)
-	{
-		var gameView = (DummyView)UIManager.instance.gameView;
-		if (gameView == null) return;
-		string evt = (string)jData["evt"];
+    public static void processData(JObject jData)
+    {
+        var gameView = (DummyView) UIManager.instance.gameView;
+        if (gameView == null) return;
+        string evt = (string)jData["evt"];
 
 		Globals.Logging.Log("-=-=EVT Game DUMMY  " + evt);
+		UIManager.instance.sendLog(jData.ToString(), false);
 
 		try
 		{
@@ -93,10 +94,9 @@ public class HandleDummy
 					}
 
 			}
-		}
-		catch (System.Exception e)
-		{
+		}catch(System.Exception e)
+        {
 			Globals.Logging.LogException(e);
-		}
-	}
+        }
+    }
 }

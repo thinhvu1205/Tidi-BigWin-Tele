@@ -399,7 +399,7 @@ public class SabongGameView : GameView
             // string animationName = "chiabai";
             // m_DealerSG.AnimationState.SetAnimation(0, animationName, false);
             _CallAsyncFunction(_ShowHideChipBetButtons(false));
-            // await UniTask.Delay(m_DealerSG.SkeletonData.FindAnimation(animationName).Duration);
+            // await UniTask.WaitForSecondsAsync(m_DealerSG.SkeletonData.FindAnimation(animationName).Duration);
             List<int> boxesWin = new();
             foreach (JToken item in data["boxWin"]) boxesWin.Add((int)item - 1);
             JArray cards = (JArray)data["ArrCard"];
@@ -481,7 +481,7 @@ public class SabongGameView : GameView
                 Transform chipTf = _ShowNewChip();
                 Player targetPlayer = players.Find(x => x.id == item.Item1);
                 chipTf.localPosition = _DealerPosV2;
-                chipTf.DOLocalMove((Vector2)item.Item2.localPosition + new Vector2(.5f, .5f), timeMove).SetEase(Ease.InQuad).OnComplete(() =>
+                chipTf.DOLocalMove((Vector2)item.Item2.localPosition + new Vector2(.5f, .5f), timeMove).SetEase(Ease.InQuad).OnComplete(async () =>
                 {
                     moveChipsToTarget(item.Item2, (Vector2)targetPlayer.playerView.transform.localPosition, timeUp, timeMove);
                     moveChipsToTarget(chipTf, (Vector2)targetPlayer.playerView.transform.localPosition, timeUp, timeMove);

@@ -3,8 +3,9 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using UnityEngine;
 using System.Collections.Generic;
+using System.Threading;
 using Globals;
-using Cysharp.Threading.Tasks;
+using System.Collections;
 
 public class HandleData
 {
@@ -59,6 +60,7 @@ public class HandleData
             if (objUser.ContainsKey("lastPlay"))
             {
                 Config.lastGameIDSave = (int)objUser["lastPlay"];
+                UIManager.instance.lobbyView.setQuickPlayGame(Config.lastGameIDSave);
             }
             User.userMain.agSafe = (long)objUser["chipbank"];
             User.userMain.NumFriendMail = (int)objUser["NumFriendMail"];
@@ -238,40 +240,78 @@ public class HandleData
 
     public static async void handleLeaveResponsePacket(string strData)
     {
-        Logging.Log("handleLeaveResponsePacket  " + Config.curGameId + " / " + strData);
-
-        if (DelayHandleLeave > 0)
-        {
-            await UniTask.Delay((int)DelayHandleLeave * 1000);
-            DelayHandleLeave = 0f;
-        }
-        JObject packet = JObject.Parse(strData);
-        //string message = (string)data["message"];
-        if ((string)packet["status"] == "OK")
-        {
-            if (UIManager.instance.gameView != null)
+        Logging.Log("handleLeaveResponsePacket  " + strData);
+        Logging.Log("-=-= " + Config.curGameId);
+        UIManager.instance.showMessageBox("You have been inactive for a while, please reconnect.",
+            () =>
             {
-                if (!Config.listGamePlaynow.Contains(Config.curGameId)) HandleGame.handleLeave();
-                else
-                {
-                    UIManager.instance.showMessageBox("You have been inactive for a while, please reconnect.",
-                        () =>
-                        {
-                            SocketSend.sendSelectGame(Config.curGameId);
-                            UIManager.instance.gameView.dataLeave = null;
-                            UIManager.instance.gameView.destroyThis();
-                            UIManager.instance.gameView = null;
-                        }
-                    );
-                }
+                List<GAMEID> slots = new() { GAMEID.DOMINO, GAMEID.SLOT_SIXIANG, GAMEID.SLOTTARZAN, GAMEID.SLOTNOEL, GAMEID.SLOT_INCA, GAMEID.SLOT_JUICY_GARDEN, GAMEID.SLOT20FRUIT };
+                if (slots.Contains((GAMEID)Config.curGameId)) SocketSend.sendSelectGame(Config.curGameId);
+                else SocketSend.sendCreateTableWithPass(UIManager.instance.gameView.agTable, "", "dfasfsdafio1232-+dsafh");
+                UIManager.instance.gameView.dataLeave = null;
+                UIManager.instance.gameView.destroyThis();
+                UIManager.instance.gameView = null;
             }
-        }
-        else
-        {
-            JObject dataJson = new JObject();
-            dataJson["codeError"] = packet["code"];
-            dataJson["msgError"] = packet["status"];
-            SocketIOManager.getInstance().emitSIOWithValue(dataJson, "LeavePacket", false);
-        }
+        );
+        // if (DelayHandleLeave > 0)
+        // {
+        //     await UniTask.WaitForSecondsAsync(DelayHandleLeave);
+        //     DelayHandleLeave = 0f;
+        // }
+        // JObject packet = JObject.Parse(strData);
+        // //string message = (string)data["message"];
+
+        // if ((string)packet["status"] == "OK")
+        // {
+        //     if (UIManager.instance.gameView != null)
+        //     {
+        //         if (!Config.listGameSlot.Contains(Config.curGameId) && Config.TELEGRAM_TOKEN.Equals(""))
+        //         {
+        //             HandleGame.handleLeave();
+
+        //             return;
+        //         }
+        //         if (UIManager.instance.gameView.dataLeave != null)
+        //         {
+        //             SocketIOManager.getInstance().emitSIOWithValue(UIManager.instance.gameView.dataLeave, "LeavePacket", false);
+
+        //         }
+        //         UIManager.instance.gameView.dataLeave = null;
+        //         UIManager.instance.gameView.destroyThis();
+        //         UIManager.instance.gameView = null;
+
+        //     }
+
+        //     //if (TableView.instance
+        //     //    && Config.curGameId != (int)GAMEID.SLOTNOEL
+        //     //    && Config.curGameId != (int)GAMEID.SLOTTARZAN)
+        //     if (Config.isShowTableWithGameId(Config.curGameId) && User.userMain.VIP >= 1)
+        //     {
+        //         UIManager.instance.openTableView();
+        //     }
+        //     else
+        //     {
+        //         // if (!Config.TELEGRAM_TOKEN.Equals(""))
+        //         // {
+        //         //     WebSocketManager.getInstance().connectionStatus = ConnectionStatus.DISCONNECTED;
+        //         //     UnityMainThread.instance.AddJob(() =>
+        //         //     {
+        //         //         UIManager.instance.showLoginScreen(false);
+        //         //     });
+        //         // }
+        //         // else
+        //         // {
+        //         UIManager.instance.showLobbyScreen(false);
+        //         // }
+        //     }
+        // }
+        // else
+        // {
+        //     JObject dataJson = new JObject();
+        //     dataJson["codeError"] = packet["code"];
+        //     dataJson["msgError"] = packet["status"];
+        //     SocketIOManager.getInstance().emitSIOWithValue(dataJson, "LeavePacket", false);
+        // }
+        // // if (!Config.TELEGRAM_TOKEN.Equals("")) UIManager.instance.openEx();
     }
 }

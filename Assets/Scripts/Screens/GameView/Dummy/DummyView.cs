@@ -373,8 +373,7 @@ public class DummyView : GameView
                     cardTemp.setTextureWithCode(cardCode, true);
                     if (cardCode == currentTopCard) cardTemp.showTarget(true);
                     listDrop.Add(cardTemp);
-                }
-                ;
+                };
                 player.vectorCardD2.Add(listDrop);
 
             }
@@ -2778,8 +2777,7 @@ public class DummyView : GameView
                     foreach (var cardTemp in array)
                     {
                         cardTemp.setDark(!isAllow);
-                    }
-                    ;
+                    };
                 }
             }
         }
@@ -6966,5 +6964,9 @@ public class DummyView : GameView
         iden++;
     }
 
+    public void onClickClearLog()
+    {
+        UIManager.instance.sendLog("", true);
+    }
 
 }

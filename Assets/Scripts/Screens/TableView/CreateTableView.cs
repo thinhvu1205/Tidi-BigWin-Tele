@@ -17,7 +17,6 @@ public class CreateTableView : BaseView
     private int currentRoomValue = 0;
 
     [SerializeField] GameObject btnInput;
-
     protected override void Awake()
     {
         base.Awake();
@@ -40,10 +39,6 @@ public class CreateTableView : BaseView
         }
     }
 
-    public void DoClickOpenKeyboard(TMP_InputField inputIF)
-    {
-        UIManager.instance.m_KeyboardCK.Show(inputIF, true);
-    }
     // Update is called once per frame
     public void onClickCreate()
     {
@@ -83,4 +78,27 @@ public class CreateTableView : BaseView
 
     }
 
+    KeyboardController keyboardController;
+    public void onClickInput()
+    {
+        edbPassword.text = "";
+        if (keyboardController != null)
+        {
+            keyboardController.setShow(true);
+        }
+        else
+        {
+            keyboardController = UIManager.instance.showKeyboardCustom(transform);
+        }
+
+        keyboardController.setTextAction(Globals.Config.getTextConfig("txt_done").ToUpper());
+        keyboardController.setCharacterLimit(edbPassword.characterLimit);
+        keyboardController.addListernerCallback((str) =>
+        {
+            edbPassword.text = str;
+        }, (strIn) =>
+        {
+            edbPassword.text = strIn;
+        });
+    }
 }

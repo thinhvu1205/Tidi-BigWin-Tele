@@ -60,7 +60,10 @@ public class Player
         setAvatar();
         setAg();
         playerView.isThisPlayer = Globals.User.userMain.Userid == id;
-        playerView.setCallbackClick(() => { UIManager.instance.gameView.onClickInfoPlayer(this); });
+        if (Config.TELEGRAM_TOKEN.Equals(""))
+        {
+            playerView.setCallbackClick(() => { UIManager.instance.gameView.onClickInfoPlayer(this); });
+        }
     }
 
     public void clearAllCard()

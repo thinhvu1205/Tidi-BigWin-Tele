@@ -33,6 +33,8 @@ public class TableView : BaseView
         base.Awake();
         instance = this;
         Config.lastGameIDSave = Config.curGameId;
+        UIManager.instance.lobbyView.setQuickPlayGame(Config.lastGameIDSave);
+        //var spacingY = 30.0f;
         var rectContent = scrBet.content.GetComponent<GridLayoutGroup>();
         rectContent.spacing = new Vector2(rectContent.spacing.x, (scrBet.GetComponent<RectTransform>().rect.height - rectContent.cellSize.y * 2) / 3.0f);
         scrBet.DOHorizontalNormalizedPos(0, 0.2f).SetEase(Ease.OutSine);
@@ -42,7 +44,7 @@ public class TableView : BaseView
     public override void OnDestroy()
     {
         base.OnDestroy();
-        instance = null;
+        TableView.instance = null;
     }
 
     protected override void OnEnable()
@@ -120,10 +122,6 @@ public class TableView : BaseView
             txtJackpot[i].text = (indexRun >= 0) ? jackpotString[indexRun] + "" : "0";
             indexRun--;
         }
-    }
-    public void OnClickOpenKeyboard(TMP_InputField inputIF)
-    {
-        UIManager.instance.m_KeyboardCK.Show(inputIF, false);
     }
     public void onClickRuleJP()
     {
@@ -232,6 +230,7 @@ public class TableView : BaseView
             objButton.SetActive(true);
             objButton.transform.SetParent(scrTabBet.content);
             objButton.transform.localScale = Vector3.one;
+            //objButton.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = Config.FormatMoney(isMark);
             objButton.GetComponent<ItemTabBet>().setInfo(isMark, 0);
             int tabBet = indexRun;
             objButton.GetComponent<Button>().onClick.RemoveAllListeners();
@@ -307,11 +306,30 @@ public class TableView : BaseView
     {
         Logging.Log("onClickItemTable:" + objData.ToString());
         SoundManager.instance.soundClick();
+        //itemVip.mark = jsData[i].mark;
+        //itemVip.player = jsData[i].player;
+        //itemVip.chip_require = jsData[i].minAgCon;
+        //itemVip.table_id = jsData[i].id;
+        //itemVip.isPrivate = jsData[i].isPrivate;
+        //itemVip.name = jsData[i].N;
+        //itemVip.size = jsData[i].size;
+        //itemVip.hitPot = jsData[i].H;
         if ((int)objData["id"] != 0)
         {
+            //require('NetworkManager').getInstance().sendCheckPass(this.table_id);
             SocketSend.sendCheckPass((int)objData["id"]);
         }
+        else
+        {
+            //require('NetworkManager').getInstance().sendChangeTable(this.cur_mark, 0);
+        }
 
+        //if ((bool)objData["isPrivate"])
+        //{
+        //    UIManager.instance.openInputPass();
+        //}
+        //else {
+        //}
     }
 
     public void onClickBack() { }
@@ -327,7 +345,9 @@ public class TableView : BaseView
         SoundManager.instance.soundClick();
         scrTable.gameObject.SetActive(false);
         scrBet.gameObject.SetActive(true);
+        //btnTabBet.gameObject.SetActive(false);
         btnTabBet.GetComponent<Image>().color = Color.white;
+        //btnTabTable.gameObject.SetActive(true);
         btnTabTable.GetComponent<Image>().color = Color.gray;
         currentTab = 0;
     }
@@ -336,9 +356,12 @@ public class TableView : BaseView
         currentTab = 1;
         SoundManager.instance.soundClick();
         SocketSend.sendRoomTable();
+        //SocketSend.sendRoomVip();
         scrTable.gameObject.SetActive(true);
         scrBet.gameObject.SetActive(false);
+        //btnTabBet.gameObject.SetActive(true);
         btnTabBet.GetComponent<Image>().color = Color.gray;
+        //btnTabTable.gameObject.SetActive(false);
         btnTabTable.GetComponent<Image>().color = Color.white;
     }
 
@@ -351,6 +374,7 @@ public class TableView : BaseView
     {
         UIManager.instance.openCreateTableView();
     }
+
     public void onClickFindTablle()
     {
         SoundManager.instance.soundClick();
@@ -370,23 +394,37 @@ public class TableView : BaseView
     {
         SoundManager.instance.soundClick();
         hide(true);
+        //transform.SetParent(null); //de tam
         UIManager.instance.showLobbyScreen();
+    }
+
+    public void onClickShop()
+    {
+        SoundManager.instance.soundClick();
+        UIManager.instance.openShop();
     }
 
     DialogView dialogInvite = null;
     public void showInvite(JObject jData)
     {
+        //jData = new JObject();
+        //jData["N"] = "ashdjas";
+        //jData["AG"] = 1000;
+        //jData["AGU"] = 1000;
+        //jData["TID"] = 1;
         if (!getIsShow()) return;
         if (dialogInvite != null)
         {
             dialogInvite.hide();
             dialogInvite = null;
         }
+        //"Player %s chip %s\n table bets: %s\n invite friends to play",
         var msg = Config.formatStr(Config.getTextConfig("invite_join_game"), (string)jData["N"], Config.FormatNumber((long)jData["AG"]), Config.FormatNumber((long)jData["AGU"]));
 
         var lb1 = Config.getTextConfig("ok");
         var lb3 = Config.getTextConfig("refuse_all");
 
+        //dialogInvite =
         UIManager.instance.showDialog(msg, lb1, () =>
     {
         SocketSend.sendCheckPass((int)jData["TID"]);
@@ -419,9 +457,36 @@ public class TableView : BaseView
     }
     public void onScrollScrBet()
     {
+        //Logging.Log(scrBet.horizontalNormalizedPosition);
         float posX = scrBet.horizontalNormalizedPosition;
         if (isHideBtnScroll) return;
         btnPrevious.gameObject.SetActive(posX > 0.5f);
         btnNext.gameObject.SetActive(posX < 0.5f);
+    }
+
+    //[SerializeField]
+    KeyboardController keyboardController;
+    public void onClickInputSearch()
+    {
+        edbPass.text = "";
+        if (keyboardController != null)
+        {
+            keyboardController.setShow(true);
+        }
+        else
+        {
+            keyboardController = UIManager.instance.showKeyboardCustom(transform);
+            keyboardController.setTextAction(Config.getTextConfig("txt_search_1").ToUpper());
+        }
+
+        keyboardController.setPortrait(!isHorizontal);
+        keyboardController.addListernerCallback((str) =>
+        {
+            edbPass.text = str;
+            onClickFindTablle();
+        }, (strIn) =>
+        {
+            edbPass.text = strIn;
+        });
     }
 }

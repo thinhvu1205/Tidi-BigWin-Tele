@@ -9,6 +9,7 @@ using UnityEngine.UI;
 public class GroupMenuView : BaseView
 {
     public static GroupMenuView instance;
+    [SerializeField] GameObject m_LeaveButton;
     [SerializeField] Button btnSetting;
     [SerializeField] Button btnChangeTable;
     [SerializeField] Button btnFightTongits;
@@ -20,14 +21,14 @@ public class GroupMenuView : BaseView
     public void onClickSwitchTable()
     {
         SoundManager.instance.soundClick();
-        if (UIManager.instance.gameView.stateGame == STATE_GAME.PLAYING)
+        if (UIManager.instance.gameView.stateGame == Globals.STATE_GAME.PLAYING)
         {
-            UIManager.instance.showToast(Config.getTextConfig("txt_intable"));
+            UIManager.instance.showToast(Globals.Config.getTextConfig("txt_intable"));
         }
         else
         {
             //Global.MainView._isClickGame = false;
-            Config.isChangeTable = true;
+            Globals.Config.isChangeTable = true;
             onClickBack();
         }
         hide();
@@ -36,49 +37,63 @@ public class GroupMenuView : BaseView
     {
         GroupMenuView.instance = this;
         base.Start();
-        var curGameId = Config.curGameId;
-        if (curGameId == (int)GAMEID.KEANG || curGameId == (int)GAMEID.DUMMY)
+        var curGameId = Globals.Config.curGameId;
+        if (curGameId == (int)Globals.GAMEID.KEANG || curGameId == (int)Globals.GAMEID.DUMMY)
         {
             btnSetting.gameObject.SetActive(false);
         }
-        if (curGameId == (int)GAMEID.SLOT20FRUIT || curGameId == (int)GAMEID.SLOTNOEL || (curGameId == (int)GAMEID.SLOTTARZAN) || (curGameId == (int)GAMEID.SLOT_JUICY_GARDEN) || (curGameId == (int)GAMEID.SLOT_SIXIANG) || (curGameId == (int)GAMEID.SLOT_INCA))
+        if (curGameId == (int)Globals.GAMEID.SLOT20FRUIT || curGameId == (int)Globals.GAMEID.SLOTNOEL || (curGameId == (int)Globals.GAMEID.SLOTTARZAN) || (curGameId == (int)Globals.GAMEID.SLOT_JUICY_GARDEN) || (curGameId == (int)Globals.GAMEID.SLOT_SIXIANG) || (curGameId == (int)Globals.GAMEID.SLOT_INCA))
         {
             btnChangeTable.gameObject.SetActive(false);
         }
-        if (curGameId == (int)GAMEID.RONGHO)
+        if (curGameId == (int)Globals.GAMEID.RONGHO)
         {
             btnRule.gameObject.SetActive(false);
         }
-        if (curGameId == (int)GAMEID.TONGITS || curGameId == (int)GAMEID.TONGITS_OLD || curGameId == (int)GAMEID.TONGITS11 || curGameId == (int)GAMEID.TONGITS_JOKER)
+        if (curGameId == (int)Globals.GAMEID.TONGITS || curGameId == (int)Globals.GAMEID.TONGITS_OLD || curGameId == (int)Globals.GAMEID.TONGITS11 || curGameId == (int)Globals.GAMEID.TONGITS_JOKER)
         {
             btnFightTongits.transform.Find("on").GetComponent<Image>().sprite = TongitsView.IsFight ? listCheck[0] : listCheck[1];
             btnSetting.gameObject.SetActive(false);
             btnFightTongits.gameObject.SetActive(true);
             btnMusic.gameObject.SetActive(true);
             btnSound.gameObject.SetActive(true);
-            btnSound.transform.Find("on").GetComponent<Image>().sprite = Config.isSound ? listCheck[0] : listCheck[1];
-            btnMusic.transform.Find("on").GetComponent<Image>().sprite = Config.isMusic ? listCheck[0] : listCheck[1];
+            btnSound.transform.Find("on").GetComponent<Image>().sprite = Globals.Config.isSound ? listCheck[0] : listCheck[1];
+            btnMusic.transform.Find("on").GetComponent<Image>().sprite = Globals.Config.isMusic ? listCheck[0] : listCheck[1];
         }
 
         background.GetComponent<LayoutSizeControl>().updateSizeContent();
         var sizee2 = background.GetComponent<RectTransform>().sizeDelta;
         setOriginPosition(-transform.parent.GetComponent<RectTransform>().rect.width * .5f + sizee2.x * .5f + 10f, 720.0f * .5f - sizee2.y * .5f - 30f);
         show();
+        if (!Config.TELEGRAM_TOKEN.Equals(""))
+        {
+            btnChangeTable.gameObject.SetActive(false);
+            m_LeaveButton.SetActive(false);
+        }
     }
 
     public void onClickRule()
     {
         SoundManager.instance.soundClick();
         hide();
-        var curGameId = Config.curGameId;
-        var urlRule = Config.url_rule.Replace("%gameid%", curGameId + "");
+        var curGameId = Globals.Config.curGameId;
+        var urlRule = Globals.Config.url_rule.Replace("%gameid%", curGameId + "");
         //var langLocal = cc.sys.localStorage.getItem("language_client");
         //var language = langLocal == LANGUAGE_TEXT_CONFIG.LANG_EN ? "en" : "thai"
         var language = "thai";
         urlRule = urlRule.Replace("%language%", language);
         // https://conf.topbangkokclub.com/rule/index.html?gameid=%gameid%&language=%language%&list=true
-        List<int> listGameOther = new List<int> { (int)GAMEID.SLOT20FRUIT, (int)GAMEID.SLOT_SIXIANG, (int)GAMEID.SLOT_INCA, (int)GAMEID.SLOTNOEL, (int)GAMEID.SLOTTARZAN, (int)GAMEID.LUCKY9, (int)GAMEID.SICBO, (int)GAMEID.SABONG, (int)GAMEID.SLOT_INCA, (int)GAMEID.GAOGEA, (int)GAMEID.SLOT_JUICY_GARDEN, (int)GAMEID.BANDAR_QQ, (int)GAMEID.LUCKY9 };
-        UIManager.instance.gameView.onClickRule();
+        List<int> listGameOther = new List<int> { (int)Globals.GAMEID.SLOT20FRUIT, (int)Globals.GAMEID.SLOT_SIXIANG, (int)Globals.GAMEID.SLOT_INCA, (int)Globals.GAMEID.SLOTNOEL, (int)Globals.GAMEID.SLOTTARZAN, (int)Globals.GAMEID.LUCKY9, (int)Globals.GAMEID.SICBO, (int)Globals.GAMEID.SABONG, (int)Globals.GAMEID.SLOT_INCA, (int)Globals.GAMEID.GAOGEA, (int)Globals.GAMEID.SLOT_JUICY_GARDEN, (int)Globals.GAMEID.BANDAR_QQ, (int)Globals.GAMEID.LUCKY9 };
+        if (listGameOther.Contains(curGameId))
+        {
+            UIManager.instance.gameView.onClickRule();
+        }
+        else
+        {
+            //require("Util").onCallWebView(urlRule);
+            UIManager.instance.showWebView(urlRule);
+
+        }
     }
 
     public void onClickSetting()
@@ -96,48 +111,48 @@ public class GroupMenuView : BaseView
     }
     public void onClickSound()
     {
-        Config.isSound = !Config.isSound;
-        if (Config.isSound)
+        Globals.Config.isSound = !Globals.Config.isSound;
+        if (Globals.Config.isSound)
         {
             SoundManager.instance.soundClick();
         }
-        Config.updateConfigSetting();
-        btnSound.transform.Find("on").GetComponent<Image>().sprite = Config.isSound ? listCheck[0] : listCheck[1];
+        Globals.Config.updateConfigSetting();
+        btnSound.transform.Find("on").GetComponent<Image>().sprite = Globals.Config.isSound ? listCheck[0] : listCheck[1];
     }
     public void onClickMusic()
     {
-        Config.isMusic = !Config.isMusic;
+        Globals.Config.isMusic = !Globals.Config.isMusic;
         SoundManager.instance.soundClick();
-        Config.updateConfigSetting();
+        Globals.Config.updateConfigSetting();
         SoundManager.instance.playMusic();
-        btnMusic.transform.Find("on").GetComponent<Image>().sprite = Config.isMusic ? listCheck[0] : listCheck[1];
+        btnMusic.transform.Find("on").GetComponent<Image>().sprite = Globals.Config.isMusic ? listCheck[0] : listCheck[1];
     }
 
     public void onClickBack()
     {
         SoundManager.instance.soundClick();
-        if (Config.curGameId == (int)GAMEID.SLOTNOEL || Config.curGameId == (int)GAMEID.SLOTTARZAN || Config.curGameId == (int)GAMEID.SLOT_SIXIANG) //cac game playnow
+        if (Globals.Config.curGameId == (int)Globals.GAMEID.SLOTNOEL || Globals.Config.curGameId == (int)Globals.GAMEID.SLOTTARZAN || Globals.Config.curGameId == (int)Globals.GAMEID.SLOT_SIXIANG) //cac game playnow
         {
 
             hide();
-            if (Config.curGameId == (int)GAMEID.SLOT_SIXIANG)
+            if (Globals.Config.curGameId == (int)Globals.GAMEID.SLOT_SIXIANG)
             {
-                SocketSend.sendExitSlotSixiang(ACTION_SLOT_SIXIANG.exitGame);
-                //string dataLTable = "{\"evt\":\"ltable\",\"Name\":\"${User.userMain.displayName}\",\"errorCode\":0}";
+                SocketSend.sendExitSlotSixiang(Globals.ACTION_SLOT_SIXIANG.exitGame);
+                //string dataLTable = "{\"evt\":\"ltable\",\"Name\":\"${Globals.User.userMain.displayName}\",\"errorCode\":0}";
                 JObject dataLTable = new JObject();
 
                 dataLTable["evt"] = "ltable";
-                dataLTable["Name"] = User.userMain.displayName;
+                dataLTable["Name"] = Globals.User.userMain.displayName;
                 dataLTable["errorCode"] = 0;
                 JObject dataLeave = new JObject();
-                dataLeave["tableid"] = Config.tableId;
-                dataLeave["curGameID"] = (int)GAMEID.SLOT_SIXIANG;
+                dataLeave["tableid"] = Globals.Config.tableId;
+                dataLeave["curGameID"] = (int)Globals.GAMEID.SLOT_SIXIANG;
                 dataLeave["stake"] = 0;
                 dataLeave["reason"] = 0;
                 //UIManager.instance.gameView.dataLeave=dataLeave;
                 HandleGame.processData(dataLTable);
                 JObject dataLeavePackage = new JObject();
-                dataLeavePackage["tableid"] = Config.tableId;
+                dataLeavePackage["tableid"] = Globals.Config.tableId;
                 dataLeavePackage["status"] = "OK";
                 dataLeavePackage["code"] = 0;
                 dataLeavePackage["classId"] = 37;
@@ -152,14 +167,14 @@ public class GroupMenuView : BaseView
         }
         else
         {
-            Logging.Log("Chay vao day!! gameView.stateGame=" + UIManager.instance.gameView.stateGame);
-            if (UIManager.instance.gameView.stateGame == STATE_GAME.PLAYING)
+            Globals.Logging.Log("Chay vao day!! gameView.stateGame=" + UIManager.instance.gameView.stateGame);
+            if (UIManager.instance.gameView.stateGame == Globals.STATE_GAME.PLAYING)
             {
-                Config.isBackGame = !Config.isBackGame;
-                UIManager.instance.gameView.thisPlayer.playerView.setExit(Config.isBackGame);
-                string msg = Config.isBackGame ? Config.getTextConfig("wait_game_end_to_leave") : Config.getTextConfig("minidice_unsign_leave_table");
+                Globals.Config.isBackGame = !Globals.Config.isBackGame;
+                UIManager.instance.gameView.thisPlayer.playerView.setExit(Globals.Config.isBackGame);
+                string msg = Globals.Config.isBackGame ? Globals.Config.getTextConfig("wait_game_end_to_leave") : Globals.Config.getTextConfig("minidice_unsign_leave_table");
                 UIManager.instance.showToast(msg);
-                Debug.Log("back game " + Config.isBackGame);
+                Debug.Log("back game " + Globals.Config.isBackGame);
 
             }
             else//con moi 1 minh minh thi cung cho thoat

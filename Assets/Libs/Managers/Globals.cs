@@ -5,15 +5,22 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Newtonsoft.Json.Linq;
+using Newtonsoft.Json;
 using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.UI;
 using DG.Tweening;
 using UnityEngine.EventSystems;
+using System.IO;
 using TMPro;
 using System.Globalization;
+using System.Threading;
+using Spine.Unity;
+using System.Runtime.InteropServices;
 using System.Linq;
 using Cysharp.Threading.Tasks;
+//using Facebook.Unity;
+
 
 namespace Globals
 {
@@ -21,37 +28,44 @@ namespace Globals
     public class CURRENT_VIEW
     {
         public const string LOGIN_VIEW = "LOGIN_VIEW",
-        LOBBY = "LOBBY",
-        PAYMENT = "PAYMENT",
-        MAIL = "MAIL",
-        PERSONAL = "PERSONAL",
-        CHAT_FRIEND = "CHAT_FRIEND",
-        RULE_VIEW = "RULE_VIEW",
-        GAMELIST_VIEW = "GAMELIST_VIEW",
-        FEEDBACK_VIEW = "FEEDBACK_VIEW",
-        NEWS_VIEW = "NEWS_VIEW",
-        SETTING_VIEW = "SETTING_VIEW",
-        JACKPOT_VIEW = "JACKPOT_VIEW",
-        GUIDE_INGAME = "GUIDE_INGAME",
-        COUNTDOWN = "COUNTDOWN",
-        REGISTER_VIEW = "REGISTER_VIEW",
-        RANK_VIEW = "RANK_VIEW",
-        INVITE_PLAYERVIEW = "INVITE_PLAYERVIEW",
-        DT_VIEW = "DT_VIEW",
-        KET_VIEW = "KET_VIEW",
-        CHATWORLD = "CHATWORLD",
-        TOP_VIEW = "TOP_VIEW",
-        FRIEND_VIEW = "FRIEND_VIEW",
-        INFO_FRIEND_VIEW = "INFO_FRIEND_VIEW",
-        CREATE_TABLE_GAME = "CREATE_TABLE_GAME",
-        GIFT_CODE_VIEW = "GIFT_CODE_VIEW",
-        MISSION_VIEW = "MISSION_VIEW",
-        SEND_GIFT_VIEW = "SEND_GIFT_VIEW",
-        MAIL_CHIP_VIEW = "MAIL_CHIP_VIEW",
-        FREECHIP_VIEW = "FREECHIP_VIEW",
-        PROFILE_VIEW = "PROFILE_VIEW",
-        TOPRICH_VIEW = "TOPRICH_VIEW",
-        LOTO = "LOTO";
+    LOBBY = "LOBBY",
+    PAYMENT = "PAYMENT",
+    MAIL = "MAIL",
+    PERSONAL = "PERSONAL",
+    CHAT_FRIEND = "CHAT_FRIEND",
+    RULE_VIEW = "RULE_VIEW",
+    GAMELIST_VIEW = "GAMELIST_VIEW",
+    FEEDBACK_VIEW = "FEEDBACK_VIEW",
+    NEWS_VIEW = "NEWS_VIEW",
+    SETTING_VIEW = "SETTING_VIEW",
+    JACKPOT_VIEW = "JACKPOT_VIEW",
+    GUIDE_INGAME = "GUIDE_INGAME",
+    COUNTDOWN = "COUNTDOWN",
+    REGISTER_VIEW = "REGISTER_VIEW",
+    RANK_VIEW = "RANK_VIEW",
+    INVITE_FRIEND_VIEW = "INVITE_FRIEND_VIEW",
+    INVITE_PLAYERVIEW = "INVITE_PLAYERVIEW",
+    DT_VIEW = "DT_VIEW",
+    KET_VIEW = "KET_VIEW",
+    CHATWORLD = "CHATWORLD",
+    TOP_VIEW = "TOP_VIEW",
+    FRIEND_VIEW = "FRIEND_VIEW",
+    INFO_FRIEND_VIEW = "INFO_FRIEND_VIEW",
+    CREATE_TABLE_GAME = "CREATE_TABLE_GAME",
+    GIFT_CODE_VIEW = "GIFT_CODE_VIEW",
+    MISSION_VIEW = "MISSION_VIEW",
+    GAME_VIEW = "GAME_VIEW",
+    SPECIAL_OFFER = "SPECIAL_OFFER",
+    SEND_GIFT_VIEW = "SEND_GIFT_VIEW",
+    MAIL_CHIP_VIEW = "MAIL_CHIP_VIEW",
+    FREECHIP_VIEW = "FREECHIP_VIEW",
+    PROFILE_VIEW = "PROFILE_VIEW",
+    TOPRICH_VIEW = "TOPRICH_VIEW",
+    CHECKPASS_VIEW = "CHECKPASS_VIEW",
+    INFO_PLAYER_VIEW = "INFO_PLAYER_VIEW",
+    GROUP_OPTION_INGAME = "GROUP_OPTION_INGAME",
+    LIST_PLAYER_VIEW = "LIST_PLAYER_VIEW",
+    LOTO = "LOTO";
 
 
         public static string currentView = "";
@@ -272,6 +286,10 @@ namespace Globals
         KARTU_QIU = 8805,
         MINE_FINDING = 8804
     }
+    public enum DOTWEEN_TAG
+    {
+        PROFILE_COUNTTIME = 1000,
+    }
     public enum EFFECT_POPUP
     {
         NONE,
@@ -426,6 +444,8 @@ namespace Globals
         public const string WIN_JACKPOT_START = "GameView/SiXiang/Sound/bgm_jackpot_start";
         public const string WIN_JACKPOT_END = "GameView/SiXiang/Sound/bgm_jackpot_end";
         public const string SCATTER_SPIN = "GameView/SiXiang/Sound/Scatter_spin";
+
+
     }
     public class SOUND_DUMMY
     {
@@ -441,6 +461,7 @@ namespace Globals
         public const string CHIABAI = "Sounds/DUMMY/effect_lc";
         public const string MELD = "Sounds/DUMMY/effect_meld";
         public const string SHOW = "Sounds/DUMMY/effect_show";
+
     }
     public class SOUND_DOMINO
     {
@@ -473,9 +494,19 @@ namespace Globals
     public class User
     {
         public User() { }
+        //static User instance = null;
         public static User userMain = null;
         static public string AccessToken = "";
         static public string FacebookID;
+        //{
+        //    if (instance == null)
+        //        instance = new User();
+        //    return instance;
+        //}
+
+        //public int id;
+
+        //public string UserName = "";
         public string Password = "";
 
         public int Userid;
@@ -547,13 +578,14 @@ namespace Globals
         public static string username_normal = "";
         public static string password_normal = "";
         public static string chat_support_link = "https://m.me/100087270858966";
+        //public static string IP = "app1.topbangkokclub.com";
         public const string PORT = "443";
         public static bool isSound;
         public static bool isMusic;
         public static bool isVibration = true;
         public static bool invitePlayGame = true;
         public static bool isErrorNet = false;
-        public static string language = "EN";
+        public static string language = "THAI";
         public static bool isReconnect = false;
         public static LOGIN_TYPE typeLogin = LOGIN_TYPE.NORMAL;
 
@@ -581,6 +613,7 @@ namespace Globals
 
         public static string deviceId = "";
         public static string versionGame = Application.version;
+        // public static string publisher = "diamond_domino_slots_" + versionGame.Replace('.', '_');
         public static string publisher = "win777_unity_tele_100";
         public static string package_name = Application.identifier;
         public static string versionDevice = getVersionDevice();
@@ -737,8 +770,8 @@ namespace Globals
 
         public static byte[] getByte(string str)
         {
-            var result = Regex.Replace(str, @"[^\x00-\x7F]",
-                c => string.Format(@"\u{0:x4}", (int)c.Value[0]));
+            var result = Regex.Replace(str, @"[^\x00-\x7F]", c =>
+      string.Format(@"\u{0:x4}", (int)c.Value[0]));
             return Encoding.UTF8.GetBytes(result);
         }
 
@@ -751,6 +784,7 @@ namespace Globals
         public static string Base64Decode(string base64EncodedData)
         {
             return Encoding.UTF8.GetString(Convert.FromBase64String(base64EncodedData));
+            //return (new UTF8Encoding(false)).GetString(Convert.FromBase64String(base64EncodedData));
         }
 
         public static bool checkContainBoundingBox(GameObject gameObject, PointerEventData eventData)
@@ -759,7 +793,7 @@ namespace Globals
             EventSystem.current.RaycastAll(eventData, results);
             foreach (var c in results)
             {
-                Logging.Log("RaycastResult " + c.gameObject.name);
+                Globals.Logging.Log("RaycastResult " + c.gameObject.name);
                 if (gameObject == c.gameObject)
                 {
                     return true;
@@ -985,6 +1019,7 @@ namespace Globals
             .AppendInterval(timeRun * 0.45f)
             .Append(lbText.transform.DOScale(normalScale, timeRun * 0.1f));
         }
+        private static Guid lbTweenGuid = Guid.NewGuid();
         public static void tweenNumberToNumber(TMPro.TextMeshProUGUI lbText, long toNumber, long startNumber = 0, float timeRun = 0.5f, bool isLowerCase = false)
         {
             DOTween.To(() => startNumber, x => startNumber = x, toNumber, timeRun).OnUpdate(() => { if (isLowerCase) lbText.text = FormatNumber(startNumber).ToLower(); else lbText.text = FormatNumber(startNumber); }).OnComplete(() =>
@@ -1010,6 +1045,13 @@ namespace Globals
             }
 
         }
+        //public static void tweenNumberToMoney(TMPro.TextMeshProUGUI lbText, long toNumber, long startNumber = 0, float timeRun = 0.3f)
+        //{
+        //    if (toNumber < 10000)
+        //    {
+
+        //    }
+        //}
         public static void tweenNumberTo(Text lbText, int toNumber, int startNumber = 0, float timeRun = 0.3f)
         {
 
@@ -1024,14 +1066,17 @@ namespace Globals
         }
         public static string FormatNumber(int number)
         {
+            //return o.toString().replace(/\B(?= (\d{ 3})+(? !\d))/ g, ",")
             return String.Format("{0:n0}", number);
         }
         public static string FormatNumber(long number)
         {
+            //return o.toString().replace(/\B(?= (\d{ 3})+(? !\d))/ g, ",")
             return String.Format("{0:n0}", number);
         }
         public static string FormatNumber(float number)
         {
+            //return o.toString().replace(/\B(?= (\d{ 3})+(? !\d))/ g, ",")
             return String.Format("{0:n0}", number);
         }
 
@@ -1085,6 +1130,7 @@ namespace Globals
             return otherNode.transform.InverseTransformPoint(nodePosition);
         }
 
+        //Vector3 linePoint1 A, Vector3 lineVec1 A1, Vector3 linePoint2 B, Vector3 lineVec2B1
         public static Vector2 LineLineIntersection(Vector2 A, Vector2 A1, Vector2 B, Vector2 B1)
         {
             Vector2 intersectionPoint = new Vector2(0, 0);
@@ -1172,6 +1218,19 @@ namespace Globals
             return btnCom;
         }
 
+        //public static Text createLabel(string _string, int _fontSize, Transform parent = null)
+        //{
+        //    var nodeLb = new GameObject("Label");
+        //    RectTransform trans = nodeLb.AddComponent<RectTransform>();
+
+        //    var lbCom = nodeLb.AddComponent<Text>();
+        //    lbCom.text = _string;
+        //    lbCom.font = UIManager.instance.fontDefault;
+        //    lbCom.fontSize = _fontSize;
+        //    lbCom.alignment = TextAnchor.MiddleCenter;
+
+        //    return lbCom;
+        //}
 
         public static TextMeshProUGUI createLabel(string _string, int _fontSize, Transform parent = null)
         {
@@ -1211,6 +1270,33 @@ namespace Globals
                 }
             }
         }
+
+        //public static async Task<Texture2D> GetRemoteTexture(string url)
+        //{
+        //    using (UnityWebRequest www = UnityWebRequestTexture.GetTexture(url))
+        //    {
+        //        // begin request:
+        //        var asyncOp = www.SendWebRequest();
+        //        //// await until it's done: 
+        //        while (!asyncOp.isDone)
+        //        {
+        //            //await Task.Yield();
+        //            await Task.Delay(200);//30 hertz
+        //        }
+
+        //        // read results:
+        //        if (www.result == UnityWebRequest.Result.ConnectionError || www.result == UnityWebRequest.Result.ProtocolError || www.result == UnityWebRequest.Result.DataProcessingError)
+        //        {
+        //            // nothing to return on error:
+        //            return null;
+        //        }
+        //        else
+        //        {
+        //            // return valid results:
+        //            return DownloadHandlerTexture.GetContent(www);
+        //        }
+        //    }
+        //}
 
 
         public class DataLoadImage
@@ -1266,6 +1352,11 @@ namespace Globals
                 dataLoadImage.callback = callback;
                 UIManager.instance.addJobLoadImage(dataLoadImage);
             }
+            //Texture2D texture = await GetRemoteTexture(url);
+            //if (callback != null)
+            //{
+            //    callback.Invoke(texture);
+            //}
         }
 
         public static async void loadImgFromUrlAsync(Image _sprite = null, string url = "", Action callback = null, bool isLoadBanner = false)
@@ -1289,10 +1380,25 @@ namespace Globals
                     {
                         callback.Invoke();
                     }
+                    //DataLoadImage dataLoadImage = new DataLoadImage();
+                    //dataLoadImage.nameSave = nameIMG;
+                    //dataLoadImage.www = UnityWebRequestTexture.GetTexture(url);
+                    //dataLoadImage.www.SendWebRequest();
+                    //dataLoadImage.sprite = _sprite;
+                    //dataLoadImage.callback2 = callback;
+                    //UIManager.instance.addJobLoadImage(dataLoadImage);
+
                 }
             }
             else
             {
+                //DataLoadImage dataLoadImage = new DataLoadImage();
+                //dataLoadImage.nameSave = "";
+                //dataLoadImage.www = UnityWebRequestTexture.GetTexture(url);
+                //dataLoadImage.www.SendWebRequest();
+                //dataLoadImage.sprite = _sprite;
+                //dataLoadImage.callback2 = callback;
+                //UIManager.instance.addJobLoadImage(dataLoadImage);
                 _sprite.sprite = await GetRemoteSprite(url);
                 if (callback != null)
                 {
@@ -1501,18 +1607,17 @@ namespace Globals
         {
             // isSound = (PlayerPrefs.GetInt("sound", 1) == 1);
             // isMusic = (PlayerPrefs.GetInt("music", 1) == 1);
-            // isVibration = (PlayerPrefs.GetInt("vibration", 1) == 1);
             isSound = false;
             isMusic = false;
-            isVibration = false;
+            isVibration = (PlayerPrefs.GetInt("vibration", 1) == 1);
         }
 
         public static void updateConfigSetting()
         {
-            // PlayerPrefs.SetInt("sound", isSound ? 1 : 0);
-            // PlayerPrefs.SetInt("music", isMusic ? 1 : 0);
-            // PlayerPrefs.SetInt("vibration", isVibration ? 1 : 0);
-            // PlayerPrefs.Save();
+            PlayerPrefs.SetInt("sound", isSound ? 1 : 0);
+            PlayerPrefs.SetInt("music", isMusic ? 1 : 0);
+            PlayerPrefs.SetInt("vibration", isVibration ? 1 : 0);
+            PlayerPrefs.Save();
         }
 
         public static string Utf16ToUtf8(string utf16String)
@@ -1530,6 +1635,7 @@ namespace Globals
 
         public static void loadTextConfig(string lang = "EN")
         {
+            if (!TELEGRAM_TOKEN.Equals("")) lang = "EN";
             jsonConfig = null;
             language = PlayerPrefs.GetString("language_client", "");
             if (language == "")
@@ -1698,7 +1804,60 @@ namespace Globals
 
             return float.Parse(strNum, System.Globalization.CultureInfo.InvariantCulture);
         }
+        //public static IEnumerator ShareImageShot()
+        //{
+        //var Screenshot_Name = DateTimeOffset.Now.ToUnixTimeMilliseconds() + ".png";
+
+        //yield return new WaitForEndOfFrame();
+        //Texture2D screenTexture = new Texture2D(Screen.width, Screen.height, TextureFormat.RGB24, true);
+
+        //screenTexture.ReadPixels(new Rect(0f, 0f, Screen.width, Screen.height), 0, 0);
+
+        //screenTexture.Apply();
+
+        //byte[] dataToSave = screenTexture.EncodeToPNG();
+
+        //string destination = Path.Combine(Application.persistentDataPath, Screenshot_Name);
+
+        //File.WriteAllBytes(destination, dataToSave);
+
+        //var wwwForm = new WWWForm();
+        //wwwForm.AddBinaryData("image", dataToSave, Screenshot_Name);
+
+        //FB.API("me/photos", HttpMethod.POST, (IGraphResult result)=> {
+        //    if (result.Error != null)
+        //    {
+        //        UIManager.instance.showToast(getTextConfig("txt_share_error"));
+        //    }
+        //    else
+        //    {
+        //        UIManager.instance.showToast(getTextConfig("txt_share_success"));
+        //    }
+        //}, wwwForm);
+        //}
+
+        //public static Type getData(Type t, JObject jData, string key)
+        //{
+        //    return (Type)jData[key];
+        //}
+
+        //void ahaha()
+        //{
+        //    ReadJson<bool>.getData(null, "");
+        //}
     }
+    //public class ReadJson<T>
+    //{
+    //    public static T getData(JObject jData, string key)
+    //    {
+    //        if(typeof(T) is bool)
+    //        {
+    //            return jData[key];
+    //        }
+    //       //return (T)(jData.GetType().get.GetProperty(key).ToString());
+    //        //return (T)jData;
+    //    }
+    //}
     public class CMD
     {
         public const string OK = "OK";
@@ -1785,8 +1944,16 @@ namespace Globals
             {
 
                 DailyPromotionSpecial = JObject.Parse((string)jsonData["DailyPromotionSpecial"]);
-                Logging.Log(DailyPromotionSpecial);
+                Globals.Logging.Log(DailyPromotionSpecial);
 
+                if (DailyBonusView.instance != null && DailyBonusView.instance.gameObject.activeSelf == true)
+                {
+                    DailyBonusView.instance.reloadHistory();
+                    if (time == 0)
+                    {
+                        DailyBonusView.instance.setInfo();
+                    }
+                }
             }
 
             countMailAg = 0;
@@ -1832,6 +1999,45 @@ namespace Globals
 
             }
         }
+        //static DisplayMetricsAndroid()
+        //{
+        //    // Early out if we're not on an Android device
+        //    if (Application.platform != RuntimePlatform.Android)
+        //    {
+        //        return;
+        //    }
+
+        //    // The following is equivalent to this Java code:
+        //    //
+        //    // metricsInstance = new DisplayMetrics();
+        //    // UnityPlayer.currentActivity.getWindowManager().getDefaultDisplay().getMetrics(metricsInstance);
+        //    //
+        //    // ... which is pretty much equivalent to the code on this page:
+        //    // http://developer.android.com/reference/android/util/DisplayMetrics.html
+
+        //    using (
+        //      AndroidJavaClass unityPlayerClass = new AndroidJavaClass("com.unity3d.player.UnityPlayer"),
+        //      metricsClass = new AndroidJavaClass("android.util.DisplayMetrics")
+        //    )
+        //    {
+        //        using (
+        //         AndroidJavaObject metricsInstance = new AndroidJavaObject("android.util.DisplayMetrics"),
+        //         activityInstance = unityPlayerClass.GetStatic<AndroidJavaObject>("currentActivity"),
+        //         windowManagerInstance = activityInstance.Call<AndroidJavaObject>("getWindowManager"),
+        //         displayInstance = windowManagerInstance.Call<AndroidJavaObject>("getDefaultDisplay")
+        //        )
+        //        {
+        //            displayInstance.Call("getMetrics", metricsInstance);
+        //            Density = metricsInstance.Get<float>("density");
+        //            DensityDPI = metricsInstance.Get<int>("densityDpi");
+        //            HeightPixels = metricsInstance.Get<int>("heightPixels");
+        //            WidthPixels = metricsInstance.Get<int>("widthPixels");
+        //            ScaledDensity = metricsInstance.Get<float>("scaledDensity");
+        //            XDPI = metricsInstance.Get<float>("xdpi");
+        //            YDPI = metricsInstance.Get<float>("ydpi");
+        //        }
+        //    }
+        //}
     }
 
     public class AssetBundleName

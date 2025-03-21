@@ -11,6 +11,51 @@ using Globals;
 
 public class SicboView : HiloView
 {
+    [SerializeField] private GameObject m_ButtonEmoji, m_ButtonVipFarm;
+    [SerializeField] private Button m_ShopBtn, m_ExchangeBtn;
+
+    #region Button
+    public void DoClickShop()
+    {
+        UIManager.instance.openShop();
+    }
+    public void DoClickExchange()
+    {
+        SocketSend.sendExitGame();
+    }
+    #endregion
+    public override void handleCTable(string objData)
+    {
+        base.handleCTable(objData);
+        _SetInteractableButtonShopAndExchange();
+    }
+    public override void handleSTable(string objData)
+    {
+        base.handleSTable(objData);
+        _SetInteractableButtonShopAndExchange();
+    }
+    public override void handleRJTable(string strData)
+    {
+        base.handleRJTable(strData);
+        _SetInteractableButtonShopAndExchange();
+    }
+    public override void handleBet(string objData)
+    {
+        base.handleBet(objData);
+        _SetInteractableButtonShopAndExchange();
+    }
+    public override void handleFinish(string objData)
+    {
+        base.handleFinish(objData);
+        m_ShopBtn.interactable = true;
+        m_ExchangeBtn.interactable = true;
+    }
+    private void _SetInteractableButtonShopAndExchange()
+    {
+        bool isNotPlaying = stateGame == STATE_GAME.WAITING || stateGame == STATE_GAME.VIEWING;
+        m_ShopBtn.interactable = isNotPlaying;
+        m_ExchangeBtn.interactable = isNotPlaying;
+    }
     protected override void updatePositionPlayerView()
     {
         listPlayerSicbo = new List<Player>();
@@ -51,5 +96,24 @@ public class SicboView : HiloView
                 players[i].updateItemVip(players[i].vip);
             }
         }
+    }
+    protected override void Start()
+    {
+        base.Start();
+        if (!Config.TELEGRAM_TOKEN.Equals(""))
+        {
+            avatar_chung.SetActive(false);
+            m_ButtonEmoji.SetActive(false);
+            Destroy(m_ButtonVipFarm);
+        }
+        else
+        {
+            m_ShopBtn.gameObject.SetActive(false);
+            m_ExchangeBtn.gameObject.SetActive(false);
+        }
+    }
+    protected override void Awake()
+    {
+        base.Awake();
     }
 }

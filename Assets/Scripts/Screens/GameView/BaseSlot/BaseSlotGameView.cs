@@ -1599,6 +1599,10 @@ public class BaseSlotGameView : GameView
     {
         Logging.Log("onSpinHold:");
     }
+    public void onClickShop()
+    {
+        UIManager.instance.openShop();
+    }
     public override void onClickRule()
     {
         GameObject ruleView = Instantiate(rulePr, transform);
