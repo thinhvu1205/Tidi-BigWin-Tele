@@ -142,9 +142,9 @@ public class HandleGame
         }
         switch (Globals.Config.curGameId)
         {
-            case (int)Globals.GAMEID.SLOTNOEL:
+            case (int)Globals.GAMEID.SLOT_INCA:
                 {
-                    HandleSlotNoelView.processData(jData);
+                    HandleSlotInCa.processData(jData);
                     break;
                 }
         }

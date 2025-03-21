@@ -173,10 +173,10 @@ public class UIManager : MonoBehaviour
         gameView = null;
         switch (curGameId)
         {
-            case (int)Globals.GAMEID.SLOTNOEL:
+            case (int)Globals.GAMEID.SLOT_INCA:
                 {
-                    Globals.Logging.Log("showGame SLOTNOEL");
-                    gameView = Instantiate(loadPrefabGame("SlotNoelView"), parentGame).GetComponent<SlotNoelView>();
+                    Globals.Logging.Log("showGame SLOTINCA");
+                    gameView = Instantiate(loadPrefabGame("SlotInCaView"), parentGame).GetComponent<SlotInCaView>();
                     break;
                 }
             default:

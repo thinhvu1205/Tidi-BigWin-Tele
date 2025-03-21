@@ -590,7 +590,7 @@ namespace Globals
         public static LOGIN_TYPE typeLogin = LOGIN_TYPE.NORMAL;
 
         public static string curServerIp = "";
-        public static int curGameId = (int)GAMEID.SLOTNOEL;
+        public static int curGameId = (int)GAMEID.SLOT_INCA;
         public static bool isBackGame = false;
         public static string TELEGRAM_TOKEN = "";
         public static string TELEGRAM_WALLET_ADDRESS = "";
