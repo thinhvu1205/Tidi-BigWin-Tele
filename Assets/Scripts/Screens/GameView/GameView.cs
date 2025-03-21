@@ -37,10 +37,7 @@ public class GameView : BaseView
     public int agTable;
     public int maxbet = 0;
 
-    protected List<Card> cardPool = new List<Card>();
     protected List<JObject> listDelayEvt = new List<JObject>();
-    protected List<Card> cardsOnTable = new List<Card>();
-    protected List<ChipBet> chipPool = new List<ChipBet>();
     protected List<GameObject> listBtnInvite = new List<GameObject>();
     public List<string> delayEvents = new List<string>();
     public STATE_GAME stateGame = STATE_GAME.WAITING;
@@ -89,21 +86,11 @@ public class GameView : BaseView
         Logging.Log("-=-=OnDestroy ");
         Config.lastGameIDSave = Config.curGameId;
         User.userMain.lastGameID = 0;
-        foreach (var c in cardPool)
-        {
-            Destroy(c.gameObject);
-        }
-        cardPool.Clear();
         //foreach (var c in chipPool)
         //{
         //    Destroy(c.gameObject);
         //}
-        chipPool.ForEach(chip =>
-        {
-            Destroy(chip.gameObject);
-        });
         UIManager.instance.destroyAllPopup();
-        chipPool.Clear();
         HandleGame.listDelayEvt.Clear();
         SoundManager.instance.playMusic();
         SoundManager.instance.stopAllCurrentEffect();
@@ -559,38 +546,6 @@ public class GameView : BaseView
                 });
         }
     }
-    public virtual void onCardClick(Card card)
-    {
-
-        Logging.Log("Click Card:" + card.code);
-    }
-    public void congTienAm(string name, int money)
-    {
-        var pl = getPlayer(name);
-        //cc.NGWlog("cong tien AM trong gameVIew");
-        if (pl != null)
-        {
-            pl.ag += money;
-            pl.setAg();
-            pl.playerView.effectFlyMoney(money);
-            if (pl == thisPlayer)
-            {
-                User.userMain.AG += money;
-                var msg = Config.getTextConfig("nhan_ag_tu_server").Replace("%s", Config.FormatNumber(money)); ;
-                UIManager.instance.showToast(msg, transform);
-                //require('SMLSocketIO').getInstance().emitUpdateInfo();
-            }
-        }
-    }
-    public JArray getArrIdsCard(List<Card> cards)
-    {
-        JArray arrIds = new JArray();
-        foreach (Card card in cards)
-        {
-            arrIds.Add(card.code);
-        }
-        return arrIds;
-    }
     public void handleAutoExit(JObject data)
     {
         if (data.ContainsKey("reg") && data["reg"].GetType() == typeof(bool))
@@ -817,107 +772,11 @@ public class GameView : BaseView
 
         switch (Config.curGameId)
         {
-            case (int)GAMEID.DUMMY:
-                {
-                    return plView.GetComponent<PlayerViewDummy>();
-                }
-            case (int)GAMEID.LUCKY_89:
-                {
-                    return plView.GetComponent<PlayerViewLucky89>();
-                }
-            case (int)GAMEID.KEANG:
-                {
-                    return plView.GetComponent<PlayerViewKeang>();
-                }
-            //case (int)GAMEID.RONGHO:
-            //    {
-            //        plView.transform.localScale = new Vector2(0.8f, 0.8f);
-            //        return plView.GetComponent<PlayerViewDragonTiger>();
-            //    }
-            case (int)GAMEID.SABONG:
-                {
-                    plView.transform.localScale = new Vector2(.75f, .75f);
-                    return plView.GetComponent<PlayerViewSabong>();
-                }
         }
 
         return plView.GetComponent<PlayerView>();
     }
 
-    protected void removerCard(Card card)
-    {
-        if (card != null)
-            Destroy(card.gameObject);
-        //card.transform.SetParent(null);
-        //card.gameObject.SetActive(false);
-        //card.setDark(false);
-        //cardPool.Add(card);
-        //cardsOnTable.RemoveAt(cardsOnTable.IndexOf(card));
-    }
-
-    protected Card getCard(Transform parent = null, float scale = 1)
-    {
-        Card card;
-        //if (cardPool.Count < 1)
-        //{
-        if (parent != null)
-            card = Instantiate(UIManager.instance.loadPrefab("GameView/Card"), parent).GetComponent<Card>();
-        else
-            card = Instantiate(UIManager.instance.loadPrefab("GameView/Card")).GetComponent<Card>();
-        //}
-        //else
-        //{
-        //    card = cardPool[0].GetComponent<Card>();
-        //    cardPool.RemoveAt(0);
-        //    if (parent != null)
-        //    {
-        //        card.transform.SetParent(parent);
-        //    }
-        //}
-        ////card.GameController = this;
-        //card.transform.DOKill();
-
-        card.resetDefaul();
-        card.gameObject.SetActive(true);
-        card.transform.localScale = new Vector3(scale, scale, scale);
-        //cardsOnTable.Add(card);
-        return card;
-    }
-
-
-    protected ChipBet getChipBet(Transform parent = null)
-    {
-        ChipBet chip;
-        if (chipPool.Count < 1)
-        {
-            if (parent != null)
-                chip = Instantiate(UIManager.instance.loadPrefab("GameView/ChipBet"), parent).GetComponent<ChipBet>();
-            else
-                chip = Instantiate(UIManager.instance.loadPrefab("GameView/ChipBet"), transform).GetComponent<ChipBet>();
-
-        }
-        else
-        {
-            chip = chipPool[0].GetComponent<ChipBet>();
-            chipPool.RemoveAt(0);
-            if (parent != null)
-            {
-                chip.transform.SetParent(parent);
-            }
-        }
-
-        chip.transform.DOKill();
-        chip.gameObject.SetActive(true);
-        chip.transform.localScale = Vector2.one;
-        return chip;
-    }
-    protected void removerChip(ChipBet chip)
-    {
-        //this.cardPool.put(card);
-        chip.transform.SetParent(null);
-        chip.gameObject.SetActive(false);
-        chipPool.Add(chip);
-    }
 
     public void updateVip()
     {

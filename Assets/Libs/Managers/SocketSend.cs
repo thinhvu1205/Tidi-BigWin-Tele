@@ -377,9 +377,8 @@ public class SocketSend
             PlayerPrefs.Save();
 
             Globals.Config.curServerIp = severIp;
-            Globals.Config.curGameId = gameId;
+            // Globals.Config.curGameId = gameId;
         }
-
     }
 
     public static void sendSelectG2(int gameId)
@@ -1107,6 +1106,7 @@ public class SocketSend
 
     public static void getFarmInfo()
     {
+        return;
         JObject data = new JObject();
         data["evt"] = "farmInfo";
         WebSocketManager.getInstance().sendService(data.ToString(Newtonsoft.Json.Formatting.None));

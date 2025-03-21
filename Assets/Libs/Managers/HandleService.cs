@@ -26,7 +26,7 @@ public class HandleService
                     break;
                 case "reconnect":
                     User.userMain.lastGameID = (int)jsonData["gameid"];
-                    Config.curGameId = (int)jsonData["gameid"];
+                    // Config.curGameId = (int)jsonData["gameid"];
                     break;
                 case "promotion":
                     break;
@@ -80,12 +80,21 @@ public class HandleService
                 case "followlist":
                     break;
                 case "follow":
+                    //    if (!jsonData.data) return;
+                    //    require('GameManager').getInstance().onShowToast(require('GameManager').getInstance().getTextConfig('friend_add_success'));
                     break;
                 case "10":
                     {
                         if (jsonData.ContainsKey("data"))
                         {
                             UIManager.instance.showMessageBox((string)jsonData["data"]);
+                        }
+                        else
+                        {
+                            //UIManager.instance.showMessageBox((string)jsonData["Cmd"]);
+                            UIManager.instance.showDialog((string)jsonData["Cmd"], Config.getTextConfig("ok"), () =>
+                            {
+                            });
                         }
                         break;
                     }
@@ -125,6 +134,7 @@ public class HandleService
                         }
                     });
                     User.userMain.mailUnRead = User.userMain.listMailAdmin.FindAll(data => (int)data["S"] == 0).Count;
+
                     break;
                 case "22":
                     JArray listFreeChip = JArray.Parse((string)jsonData["data"]);
@@ -157,7 +167,6 @@ public class HandleService
                         foreach (JToken item in listFreeChip) mailIds.Add((int)item["Id"]);
                         SocketSend.OpenMultipleMailsContainChip(mailIds);
                     }
-                    if (Config.curGameId == (int)GAMEID.SLOT_SIXIANG) UIManager.instance.playVideoSiXiang();
                     SocketSend.sendSelectGame(Config.curGameId);
                     break;
                 case "31":
@@ -273,6 +282,8 @@ public class HandleService
                     {
                         UIManager.instance.openInputPass((int)jsonData["tid"]);
                     }
+
+
                     break;
 
                 case "getChatWorld":
@@ -324,6 +335,9 @@ public class HandleService
                     }
                 case "salert":
                     {
+
+                        // jsonData= JObject.Parse("{\"evt\":\"salert\",\"data\":\"ขอแสดงความยินดี! ตุณ ตา'ไนท์ท' ข้าว หลาม'ซิ่ง'ง แลกรางวัลสำเร็จ 5000.0 บาท\",\"gameId\":0,\"title\":\"ตา'ไนท์ท' ข้าว หลาม'ซิ่ง'ง\",\"content\":\"แลกเปลี่ยน 5000.0 baht สำเหร็จแล้ว\",\"urlAvatar\":\"fb.560999282058245\",\"isfb\":true,\"vip\":5}");
+
                         if (Config.show_new_alert)
                         {
 
@@ -342,10 +356,12 @@ public class HandleService
                                 }
                             }
                         }
+
                         break;
                     }
                 case "SAON":
                     {
+
                         break;
                     }
                 case "uag":
@@ -364,12 +380,15 @@ public class HandleService
                     }
                 case "uvip":
                     {
+                        //GameManager.getInstance().userUpVip(jsonData);
                         User.userMain.VIP = 1;
                         User.userMain.AG += (long)jsonData["AG"];
                         UIManager.instance.updateVip();
 
                         SocketIOManager.getInstance().emitUpdateInfo();
                         UIManager.instance.showMessageBox(Config.getTextConfig("archive_vip1"));
+
+
                         break;
                     }
                 case "changepass":
@@ -394,7 +413,6 @@ public class HandleService
                         {
                             User.userMain.Username = (string)jsonData["U"];
                             User.userMain.displayName = (string)jsonData["U"];
-
                             UIManager.instance.showDialog(
                                 Config.getTextConfig("change_name_success") + " " + jsonData["U"], Config.getTextConfig("ok"),
                                 () =>
@@ -423,6 +441,7 @@ public class HandleService
                     }
                 case "iapResult":
                     {
+                        ////{"evt":"iapResult","msg":"លេខកូដនេះត្រូវបានប្រើរួចហើយ។","verified":"false","goldPlus":0,"signature":"tKRMRLaaD3tDrrrGxwR58laVFW36bLvEyryT/kTK6ovSiG23y3SaO8q19kY25r1RuV2T2FAUFxx1EXqnQ5ofgMHFN4gxP8Nm70HbkP7s/ni2jMNRfujzH2hVF51rpJdyrtpGLNDqChZsJaOcw+RTDIDl3eetzrQbeacmf3N3YlF2xSo7MBPSZ9EyRPBq/ru5QWFLGencGT6Szy1AlJcxlS2lraMBL/6LA+NXIaG0wwyVeZOiohI4ky/NuTkKKyilmCw7xpVQ5IC4SwKkVMBSRgxDuNAsoX9D5LUufZa2Qx+y5NMoYXabjftl"}
                         var chip = (int)jsonData["goldPlus"];
                         var msg = (string)jsonData["msg"];
                         var signature = (string)jsonData["signature"];
@@ -491,10 +510,12 @@ public class HandleService
                     break;
                 case "jackpotwin":
                     {
+                        //GameManager.getInstance().handleJackPotWin(jsonData);
                         break;
                     }
                 case "updatejackpot":
                     {
+                        //GameManager.getInstance().handleUpdateJackPot(jsonData);
                         if (jsonData != null && jsonData.ContainsKey("M"))
                         {
                             UIManager.instance.PusoyJackPot = (long)jsonData["M"];
@@ -503,18 +524,10 @@ public class HandleService
                         {
                             TableView.instance.UpdateJackpot();
                         }
-                        if (Config.curGameId == (int)GAMEID.PUSOY && UIManager.instance.gameView != null)
-                        {
-                            ((BinhGameView)UIManager.instance.gameView).UpdateJackPot();
-                        }
                         break;
                     }
                 case "jackpothistory":
                     {
-                        if (BinhJackpotView.instance != null && BinhJackpotView.instance.gameObject.activeSelf)
-                        {
-                            BinhJackpotView.instance.SetInfo(jsonData);
-                        }
                         break;
                     }
                 case "cashOutHistory":
@@ -542,11 +555,15 @@ public class HandleService
                             });
                         }
 
+                        // if(jsonData.status)
+                        //     require('NetworkManager').getInstance().sendDTHistory(require('GameManager').getInstance().user.id);
                         break;
                     }
 
                 case "autoExit":
                     {
+                        ////require("GameManager").getInstance().onShowToast(jsonData.data);
+                        //require("GameManager").getInstance().gameView.handleAutoExit(jsonData);
                         if (UIManager.instance.gameView != null)
                         {
                             UIManager.instance.gameView.handleAutoExit(jsonData);
@@ -555,6 +572,8 @@ public class HandleService
                     }
                 case "shareImageFb":
                     {
+                        //GameManager.getInstance().onShowConfirmDialog(jsonData.Msg);
+                        //require('NetworkManager').getInstance().getMail(12);
                         break;
                     }
                 case "getWalletInfo":
@@ -566,6 +585,7 @@ public class HandleService
                         break;
                     }
                 case "payment_success":
+                    //GameManager.getInstance().userNapTienSuccess(jsonData);
                     break;
 
                 /* LOTO */
@@ -593,26 +613,10 @@ public class HandleService
                 case ACTION_SLOT_SIXIANG.goldPick:
                 case ACTION_SLOT_SIXIANG.luckyDraw:
                 case ACTION_SLOT_SIXIANG.selectBonusGame:
-                    handleGameSiXiang(jsonData);
                     break;
                 case "farmInfo":
                     {
                         Config.dataVipFarm = jsonData;
-                        float farmPercent = (float)jsonData["farmPercent"];
-                        if (farmPercent >= 100f)
-                        {
-                            if (UIManager.instance.gameView != null) return;
-                            if (Config.is_First_CheckVIPFarms)
-                            {
-                                Config.is_First_CheckVIPFarms = false;
-                            }
-                            else if (TableView.instance != null && TableView.instance.gameObject.activeSelf)
-                            {
-                            }
-                            else if (UIManager.instance.lobbyView.gameObject.activeSelf)
-                            {
-                            }
-                        }
                         break;
                     }
                 case "farmReward":
@@ -622,12 +626,16 @@ public class HandleService
                 case "deleteAccount":
                     if ((bool)jsonData["isSuccess"])
                     {
+                        //cc.sys.localStorage.setItem("isLogOut", "true");
                         if (SettingView.instance != null)
                         {
+                            SettingView.instance.handleDeleteAcount();
                         }
+                        // GameManager.getInstance().onShowConfirmDialog("true");
                     }
                     else
                     {
+                        // GameManager.getInstance().onShowConfirmDialog("false");
                     }
                     break;
             }
@@ -690,9 +698,12 @@ public class HandleService
                     if ((bool)jsonData["status"])
                     {
                         User.userMain.displayName = Config.user_name_temp;
+                        //Config.user_name = Config.user_name_temp;
+                        //Config.user_pass = Config.user_pass_temp;
 
                         User.userMain.Username = Config.user_name_temp;
                         PlayerPrefs.SetInt("isReg", 1);
+
                         SocketIOManager.getInstance().emitUpdateInfo();
                     }
 
@@ -715,52 +726,11 @@ public class HandleService
                     UIManager.instance.showMessageBox((string)jsonData["msg"]);
                     break;
                 case 801:
+
                     break;
 
 
             }
-        }
-    }
-    public static void handleGameSiXiang(JObject data)
-    {
-        JObject dataGame = JObject.Parse((string)data["data"]);
-        if (SiXiangView.Instance == null)
-        {
-            Debug.Log("clm chua co game sixiang la sao");
-        }
-        switch ((string)data["evt"])
-        {
-            case ACTION_SLOT_SIXIANG.getInfo:
-                //dataGame = JObject.Parse(SiXiangFakeData.Instance.getInfoDragonPearl);
-                SiXiangView.Instance.handleGetInfo(dataGame);
-                break;
-            case ACTION_SLOT_SIXIANG.getBonusGames:
-                SiXiangView.Instance.handleBonusInfo(dataGame);
-                break;
-            case ACTION_SLOT_SIXIANG.normalSpin:
-                SiXiangView.Instance.handleNormalSpin(dataGame);
-                break;
-            case ACTION_SLOT_SIXIANG.scatterSpin:
-                SiXiangView.Instance.handleScatterSpin(dataGame);
-                break;
-            case ACTION_SLOT_SIXIANG.buyBonusGame:
-                SiXiangView.Instance.handleBuyBonusGame(dataGame);
-                break;
-            case ACTION_SLOT_SIXIANG.dragonPearlSpin:
-                SiXiangView.Instance.handleDragonPealsSpin(dataGame);
-                break;
-            case ACTION_SLOT_SIXIANG.rapidPay:
-                SiXiangView.Instance.handleRapidPay(dataGame);
-                break;
-            case ACTION_SLOT_SIXIANG.goldPick:
-                SiXiangView.Instance.handleGoldPick(dataGame);
-                break;
-            case ACTION_SLOT_SIXIANG.luckyDraw:
-                SiXiangView.Instance.handleLuckyDraw(dataGame);
-                break;
-            case ACTION_SLOT_SIXIANG.selectBonusGame:
-                SiXiangView.Instance.handleSelectBonusGame(dataGame);
-                break;
         }
     }
 }

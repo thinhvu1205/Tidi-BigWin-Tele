@@ -42,7 +42,7 @@ public class TableView : BaseView
     public override void OnDestroy()
     {
         base.OnDestroy();
-        instance = null;
+        TableView.instance = null;
     }
 
     protected override void OnEnable()
@@ -99,7 +99,7 @@ public class TableView : BaseView
             nodeJackpot.Stop();
             nodeJackpot.gameObject.SetActive(false);
         }
-        btnCreateTable.interactable = User.userMain.VIP > 1;
+        // btnCreateTable.interactable = User.userMain.VIP > 1;
         if (Config.isPlayNowFromLobby)
         {
             SocketSend.sendPlayNow(Config.curGameId);
@@ -124,17 +124,6 @@ public class TableView : BaseView
     public void OnClickOpenKeyboard(TMP_InputField inputIF)
     {
         UIManager.instance.m_KeyboardCK.Show(inputIF, false);
-    }
-    public void onClickRuleJP()
-    {
-        if (Config.curGameId == (int)GAMEID.KARTU_QIU)
-        {
-            UIManager.instance.openRuleJPBork();
-        }
-        if (Config.curGameId == (int)GAMEID.PUSOY)
-        {
-            UIManager.instance.openRuleJPBinh();
-        }
     }
     void updateInfo()
     {
@@ -232,6 +221,7 @@ public class TableView : BaseView
             objButton.SetActive(true);
             objButton.transform.SetParent(scrTabBet.content);
             objButton.transform.localScale = Vector3.one;
+            //objButton.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = Config.FormatMoney(isMark);
             objButton.GetComponent<ItemTabBet>().setInfo(isMark, 0);
             int tabBet = indexRun;
             objButton.GetComponent<Button>().onClick.RemoveAllListeners();
@@ -309,9 +299,13 @@ public class TableView : BaseView
         SoundManager.instance.soundClick();
         if ((int)objData["id"] != 0)
         {
+            //require('NetworkManager').getInstance().sendCheckPass(this.table_id);
             SocketSend.sendCheckPass((int)objData["id"]);
         }
-
+        else
+        {
+            //require('NetworkManager').getInstance().sendChangeTable(this.cur_mark, 0);
+        }
     }
 
     public void onClickBack() { }
@@ -327,7 +321,9 @@ public class TableView : BaseView
         SoundManager.instance.soundClick();
         scrTable.gameObject.SetActive(false);
         scrBet.gameObject.SetActive(true);
+        //btnTabBet.gameObject.SetActive(false);
         btnTabBet.GetComponent<Image>().color = Color.white;
+        //btnTabTable.gameObject.SetActive(true);
         btnTabTable.GetComponent<Image>().color = Color.gray;
         currentTab = 0;
     }
@@ -336,9 +332,12 @@ public class TableView : BaseView
         currentTab = 1;
         SoundManager.instance.soundClick();
         SocketSend.sendRoomTable();
+        //SocketSend.sendRoomVip();
         scrTable.gameObject.SetActive(true);
         scrBet.gameObject.SetActive(false);
+        //btnTabBet.gameObject.SetActive(true);
         btnTabBet.GetComponent<Image>().color = Color.gray;
+        //btnTabTable.gameObject.SetActive(false);
         btnTabTable.GetComponent<Image>().color = Color.white;
     }
 
@@ -349,6 +348,14 @@ public class TableView : BaseView
     }
     public void onClickCreateTablle()
     {
+        if (User.userMain.VIP <= 1)
+        {
+            UIManager.instance.showDialog(
+                "Your Vip must be greater than 1 to use this feature!",
+                isShowClose: true
+            );
+            return;
+        }
         UIManager.instance.openCreateTableView();
     }
     public void onClickFindTablle()
@@ -370,23 +377,32 @@ public class TableView : BaseView
     {
         SoundManager.instance.soundClick();
         hide(true);
+        //transform.SetParent(null); //de tam
         UIManager.instance.showLobbyScreen();
     }
+
 
     DialogView dialogInvite = null;
     public void showInvite(JObject jData)
     {
+        //jData = new JObject();
+        //jData["N"] = "ashdjas";
+        //jData["AG"] = 1000;
+        //jData["AGU"] = 1000;
+        //jData["TID"] = 1;
         if (!getIsShow()) return;
         if (dialogInvite != null)
         {
             dialogInvite.hide();
             dialogInvite = null;
         }
+        //"Player %s chip %s\n table bets: %s\n invite friends to play",
         var msg = Config.formatStr(Config.getTextConfig("invite_join_game"), (string)jData["N"], Config.FormatNumber((long)jData["AG"]), Config.FormatNumber((long)jData["AGU"]));
 
         var lb1 = Config.getTextConfig("ok");
         var lb3 = Config.getTextConfig("refuse_all");
 
+        //dialogInvite =
         UIManager.instance.showDialog(msg, lb1, () =>
     {
         SocketSend.sendCheckPass((int)jData["TID"]);
@@ -419,6 +435,7 @@ public class TableView : BaseView
     }
     public void onScrollScrBet()
     {
+        //Logging.Log(scrBet.horizontalNormalizedPosition);
         float posX = scrBet.horizontalNormalizedPosition;
         if (isHideBtnScroll) return;
         btnPrevious.gameObject.SetActive(posX > 0.5f);

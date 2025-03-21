@@ -3,7 +3,9 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using UnityEngine;
 using System.Collections.Generic;
+using System.Threading;
 using Globals;
+using System.Collections;
 using Cysharp.Threading.Tasks;
 
 public class HandleData
@@ -112,7 +114,7 @@ public class HandleData
             SocketIOManager.getInstance().emitLogin();
             SocketIOManager.getInstance().emitSIOWithValue(objLogin, "LoginPacket", false);
 
-            if (Config.curGameId == 0) Config.curGameId = (int)objUser["gameid"];
+            // if (Config.curGameId == 0) Config.curGameId = (int)objUser["gameid"];
             LoadConfig.instance.getConfigInfo();
             LoadConfig.instance.isLoadedConfig = false;
             LoadConfig.instance.getInfoUser(strUser);
