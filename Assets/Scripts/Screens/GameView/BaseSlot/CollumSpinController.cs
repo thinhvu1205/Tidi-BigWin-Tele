@@ -82,7 +82,7 @@ public class CollumSpinController : MonoBehaviour
         for (int i = 0; i < 3; i++)
         {
             listIdView.Add((int)arrId[i]["id"]);
-            // ((SlotJuicyGardenItemSpin)listItem[0]).arrValuePackage.Add((int)arrId[i]["value"]);
+            ((SlotJuicyGardenItemSpin)listItem[0]).arrValuePackage.Add((int)arrId[i]["value"]);
         }
         listItem[0].setItemData(listIdView);
         for (int i = 0; i < 3; i++)
@@ -106,8 +106,8 @@ public class CollumSpinController : MonoBehaviour
         foreach (ItemSpinController item in listItem)
         {
             item.arrID.Clear();
-            // SlotJuicyGardenItemSpin itemSpinJuicy = (SlotJuicyGardenItemSpin)item;
-            // itemSpinJuicy.arrValuePackage.Clear();
+            SlotJuicyGardenItemSpin itemSpinJuicy = (SlotJuicyGardenItemSpin)item;
+            itemSpinJuicy.arrValuePackage.Clear();
 
         }
         List<int> listIdView = new List<int>();
@@ -126,8 +126,8 @@ public class CollumSpinController : MonoBehaviour
         foreach (ItemSpinController item in listItem)
         {
             item.arrID = listIdView;
-            // SlotJuicyGardenItemSpin itemSpinJuicy = (SlotJuicyGardenItemSpin)item;
-            // itemSpinJuicy.arrValuePackage = listIdValuePackage;
+            SlotJuicyGardenItemSpin itemSpinJuicy = (SlotJuicyGardenItemSpin)item;
+            itemSpinJuicy.arrValuePackage = listIdValuePackage;
         }
     }
     public void setDarkItem(bool state, int index = 3)
