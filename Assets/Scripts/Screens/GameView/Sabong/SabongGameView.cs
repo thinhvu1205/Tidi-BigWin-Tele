@@ -11,6 +11,7 @@ using UnityEngine.UI;
 using Newtonsoft.Json;
 using Random = UnityEngine.Random;
 using Cysharp.Threading.Tasks;
+using System.Collections;
 
 public class SabongGameView : GameView
 {
@@ -232,7 +233,7 @@ public class SabongGameView : GameView
         }
         int timeLeft = (int)data["timeLeft"];
         if (timeLeft > 0)
-            _CallAsyncFunction(_ShowTime(timeLeft));
+            StartCoroutine(_ShowTime(timeLeft));
     }
     public override void handleSTable(string strData)
     {
@@ -347,7 +348,7 @@ public class SabongGameView : GameView
             }
         }
         int timeLeft = (int)data["timeLeft"];
-        if (timeLeft > 0) _CallAsyncFunction(_ShowTime(timeLeft));
+        if (timeLeft > 0) StartCoroutine(_ShowTime(timeLeft));
     }
     public override void handleLTable(JObject data)
     {
@@ -380,7 +381,7 @@ public class SabongGameView : GameView
     public void HandleTimeBet(JObject data)
     {
         foreach (Transform tf in m_ChipsContainerTf) tf.gameObject.SetActive(false);
-        _CallAsyncFunction(_ShowTime((int)data["time"]));
+        StartCoroutine(_ShowTime((int)data["time"]));
     }
     public void HandleBet(JObject data)
     {
@@ -411,11 +412,11 @@ public class SabongGameView : GameView
             _RevealCard(m_CardCs[0], (int)cards[0]["I"], isMeronWin || isDraw);
             _RevealCard(m_CardCs[1], (int)cards[1]["I"], isWalaWin || isDraw);
             int countFlashTimes = 3;
+            playSound(SOUND_GAME.WIN);
             while (countFlashTimes-- > 0)
             {
                 foreach (int num in boxesWin) m_BetOptionsBOs[num].m_ClickAreaBtn.enabled = false;
                 await UniTask.Delay(300);
-                playSound(SOUND_GAME.WIN);
                 foreach (int num in boxesWin) m_BetOptionsBOs[num].m_ClickAreaBtn.enabled = true;
                 await UniTask.Delay(300);
             }
@@ -621,7 +622,7 @@ public class SabongGameView : GameView
         chipTf.gameObject.SetActive(true);
         return chipTf;
     }
-    private async UniTask _ShowTime(int time)
+    private IEnumerator _ShowTime(int time)
     {
         GameObject clock = m_ClockTimeTMP.transform.parent.gameObject;
         clock.SetActive(true);
@@ -630,10 +631,10 @@ public class SabongGameView : GameView
         {
             if (stateGame != STATE_GAME.VIEWING && time == 3) Config.Vibration();
             bool isHurry = time <= 5;
-            playSound(isHurry ? SOUND_GAME.CLOCK_HURRY : SOUND_GAME.CLOCK_TICK);
+            playSound(isHurry ? SOUND_GAME.CLOCK_HURRY : SOUND_GAME.TICKTOK);
             m_ClockTimeTMP.color = isHurry ? new(162, 0, 0, 255) : Color.white;
             m_ClockTimeTMP.text = time--.ToString();
-            await UniTask.Delay(1000);
+            yield return new WaitForSeconds(1f);
         }
         clock.SetActive(false);
         _CallAsyncFunction(_ShowHideChipBetButtons(false));

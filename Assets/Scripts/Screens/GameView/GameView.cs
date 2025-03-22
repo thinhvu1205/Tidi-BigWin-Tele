@@ -817,23 +817,6 @@ public class GameView : BaseView
 
         switch (Config.curGameId)
         {
-            case (int)GAMEID.DUMMY:
-                {
-                    return plView.GetComponent<PlayerViewDummy>();
-                }
-            case (int)GAMEID.LUCKY_89:
-                {
-                    return plView.GetComponent<PlayerViewLucky89>();
-                }
-            case (int)GAMEID.KEANG:
-                {
-                    return plView.GetComponent<PlayerViewKeang>();
-                }
-            //case (int)GAMEID.RONGHO:
-            //    {
-            //        plView.transform.localScale = new Vector2(0.8f, 0.8f);
-            //        return plView.GetComponent<PlayerViewDragonTiger>();
-            //    }
             case (int)GAMEID.SABONG:
                 {
                     plView.transform.localScale = new Vector2(.75f, .75f);

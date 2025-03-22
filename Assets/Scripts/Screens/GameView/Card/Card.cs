@@ -270,19 +270,10 @@ public class Card : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHand
 
     public void showShanCard()
     {
-        if (imgShan == null) return;
-        string suitName = getSuitInVN();
-        imgShan.SetActive(true);
-        CardShan cardShanComponent = imgShan.GetComponent<CardShan>();
-        if (cardShanComponent != null)
-        {
-            cardShanComponent.SetInfo(S, N, suitName, imgSuitSmall.sprite, imgValue.sprite);
-        }
     }
 
     public void showShanCorner(bool isShow, float time = 0.4f)
     {
-        if (imgShan != null) imgShan.GetComponent<CardShan>().showCorner(isShow, time);
     }
 
 

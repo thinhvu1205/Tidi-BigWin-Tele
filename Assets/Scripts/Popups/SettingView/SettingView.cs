@@ -31,8 +31,8 @@ public class SettingView : BaseView
         btnSound.transform.GetChild(0).gameObject.SetActive(Config.isSound);
         btnVibration.transform.GetChild(0).gameObject.SetActive(Config.isVibration);
 
-        btnGroup.gameObject.SetActive(Config.is_bl_fb);
-        btnFanpage.gameObject.SetActive(Config.is_bl_fb);
+        // btnGroup.gameObject.SetActive(Config.is_bl_fb);
+        // btnFanpage.gameObject.SetActive(Config.is_bl_fb);
         btnLogout.gameObject.SetActive(false);
         if (UIManager.instance.gameView != null && UIManager.instance.gameView.gameObject.activeSelf)
         {
