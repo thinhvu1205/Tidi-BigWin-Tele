@@ -49,16 +49,6 @@ public class GroupMenuView : BaseView
         {
             btnRule.gameObject.SetActive(false);
         }
-        if (curGameId == (int)GAMEID.TONGITS || curGameId == (int)GAMEID.TONGITS_OLD || curGameId == (int)GAMEID.TONGITS11 || curGameId == (int)GAMEID.TONGITS_JOKER)
-        {
-            btnFightTongits.transform.Find("on").GetComponent<Image>().sprite = TongitsView.IsFight ? listCheck[0] : listCheck[1];
-            btnSetting.gameObject.SetActive(false);
-            btnFightTongits.gameObject.SetActive(true);
-            btnMusic.gameObject.SetActive(true);
-            btnSound.gameObject.SetActive(true);
-            btnSound.transform.Find("on").GetComponent<Image>().sprite = Config.isSound ? listCheck[0] : listCheck[1];
-            btnMusic.transform.Find("on").GetComponent<Image>().sprite = Config.isMusic ? listCheck[0] : listCheck[1];
-        }
 
         background.GetComponent<LayoutSizeControl>().updateSizeContent();
         var sizee2 = background.GetComponent<RectTransform>().sizeDelta;
@@ -91,8 +81,6 @@ public class GroupMenuView : BaseView
     public void onClickFightConfirm()
     {
         SoundManager.instance.soundClick();
-        TongitsView.IsFight = !TongitsView.IsFight;
-        btnFightTongits.transform.Find("on").GetComponent<Image>().sprite = TongitsView.IsFight ? listCheck[0] : listCheck[1];
     }
     public void onClickSound()
     {
