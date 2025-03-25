@@ -22579,10 +22579,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b33308221aff48308100c3ad38f820b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  listItemMess:
-  - {fileID: 460558714}
-  - {fileID: 1962290008}
-  - {fileID: 1039943885}
 --- !u!1 &1746500050
 GameObject:
   m_ObjectHideFlags: 0
@@ -26993,7 +26989,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 200}
-  m_SizeDelta: {x: 365, y: 178}
+  m_SizeDelta: {x: 329, y: 202}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2131783866
 MonoBehaviour:
@@ -27015,7 +27011,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -8492336567695241739, guid: 5ebd23823e6fbad44af822665eebb82c, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 5ebd23823e6fbad44af822665eebb82c, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
