@@ -47,7 +47,6 @@ public class TableView : BaseView
 
     protected override void OnEnable()
     {
-        UpdateJackpot();
         CURRENT_VIEW.setCurView(CURRENT_VIEW.LOBBY);
         DOTween.Sequence().AppendInterval(0.5f).AppendCallback(() => { UIManager.instance.showPopupWhenLostChip(); });
         if (currentTab == 0) onClickSelectBet();
@@ -78,27 +77,6 @@ public class TableView : BaseView
             SocketSend.sendSelectGame(Config.curGameId);
         }
 
-        if (Config.curGameId == (int)GAMEID.PUSOY || Config.curGameId == (int)GAMEID.THREE_CARD_POKER || Config.curGameId == (int)GAMEID.KARTU_QIU)
-        {
-            nodeJackpot.Stop();
-            nodeJackpot.gameObject.SetActive(true);
-            nodeJackpot.transform.localScale = Vector2.zero;
-            var pos = nodeJackpot.transform.localPosition;
-            var parent = nodeJackpot.transform.parent.GetComponent<RectTransform>();
-            DOTween.Sequence().Append(nodeJackpot.transform.DOScale(Vector2.one, .2f).SetEase(Ease.OutBack)).AppendInterval(1).AppendCallback(() =>
-            {
-                nodeJackpot.Play();
-            });
-            DOTween.Sequence().AppendCallback(() =>
-            {
-                SocketSend.sendUpdateJackpot(Config.curGameId);
-            }).AppendInterval(5.0f).SetLoops(-1).SetId("updateJackpot");
-        }
-        else
-        {
-            nodeJackpot.Stop();
-            nodeJackpot.gameObject.SetActive(false);
-        }
         // btnCreateTable.interactable = User.userMain.VIP > 1;
         if (Config.isPlayNowFromLobby)
         {
@@ -111,16 +89,6 @@ public class TableView : BaseView
         DOTween.Kill("updateJackpot");
     }
 
-    public void UpdateJackpot()
-    {
-        string jackpotString = UIManager.instance.PusoyJackPot.ToString();
-        var indexRun = jackpotString.Length - 1;
-        for (var i = txtJackpot.Count - 1; i >= 0; i--)
-        {
-            txtJackpot[i].text = (indexRun >= 0) ? jackpotString[indexRun] + "" : "0";
-            indexRun--;
-        }
-    }
     public void OnClickOpenKeyboard(TMP_InputField inputIF)
     {
         UIManager.instance.m_KeyboardCK.Show(inputIF, false);
