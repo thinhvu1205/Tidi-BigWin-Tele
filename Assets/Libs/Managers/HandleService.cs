@@ -520,10 +520,6 @@ public class HandleService
                         {
                             UIManager.instance.PusoyJackPot = (long)jsonData["M"];
                         }
-                        if (TableView.instance != null && TableView.instance.gameObject.activeSelf)
-                        {
-                            TableView.instance.UpdateJackpot();
-                        }
                         break;
                     }
                 case "jackpothistory":
