@@ -1,0 +1,51 @@
+var UnityInstance;
+    var script = document.createElement("script");
+    script.src = loaderUrl;
+    script.onload = () => {
+      createUnityInstance(canvas, config, (progress) => {
+        progressBarFull.style.width = 100 * progress + "%";
+      }).then((unityInstance) => {
+        UnityInstance = unityInstance;
+        loadingBar.style.display = "none";
+        fullscreenButton.onclick = () => {
+          unityInstance.SetFullscreen(1);
+        };
+        this.GetInputParamsFromTelegramUrl();
+      }).catch((message) => {
+        alert(message);
+      });
+    };
+
+    document.body.appendChild(script);
+
+    var socket;
+    var objName = "WebSocketManager";
+    function createWebSocket() {
+      socket = new WebSocket("wss://app3.davaogames.com"); // phil
+      // socket = new WebSocket("wss://app-003.ngwcasino.com"); //cam
+      socket.onopen = function (e) { UnityInstance.SendMessage(objName, "HandleOnOpenWebSocket"); };
+      socket.onerror = function (e) { UnityInstance.SendMessage(objName, "HandleOnErrorWebSocket"); };
+      socket.onclose = function (e) { UnityInstance.SendMessage(objName, "HandleOnCloseWebSocket"); };
+      socket.onmessage = function (e) { UnityInstance.SendMessage(objName, "HandleOnMessageWebSocket", e.data); };
+    }
+    function closeWebSocket() {
+      if (socket) socket.close();
+    }
+    function checkWebSocketReady() {
+      if (socket) {
+        var isReady = socket.readyState === WebSocket.OPEN;
+        UnityInstance.SendMessage(objName, "CheckWebSocketReady", isReady.toString());
+      }
+    }
+    function SendData(data) {
+      socket.send(data);
+    }
+    function GetInputParamsFromTelegramUrl() {
+      var url = new URL(window.location.href);
+      var token = url.toString().split("?token=")[1].split("#")[0];
+      // var token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3NDI1NDY4MjcsInVpZCI6ODM0ODk4OX0.QCyp6N-0_xEwsOH6gFzinVlm1JtjZ3PmKIkBf-fPNXc";
+      if (UnityInstance !== undefined && token !== "") {
+        UnityInstance.SendMessage(objName, "GetTelegramToken", token);
+        // UnityInstance.SendMessage(objName, "GetTelegramGameId", 8818);
+      }
+    }
