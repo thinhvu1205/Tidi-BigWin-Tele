@@ -374,7 +374,7 @@ public class TongitsView : GameView
         _IsDraw = (bool)data["isDaBoc"];
         if (!_IsDraw && _CurrentPlayerP == thisPlayer)
         {
-            await Task.Delay(200);
+            await UniTask.Delay(200);
             showArrow();
             showEatHint();
         }
@@ -399,7 +399,7 @@ public class TongitsView : GameView
         initCardStack(_CountCards[Globals.Config.curGameId], true);
         updateGroupBanner();
         toggleResultTable(true);
-        await Task.Delay(1500);
+        await UniTask.Delay(1500);
         List<int> listCards = getListInt(data, "Arr");
         if (listCards.Count == 12)
         {
@@ -445,7 +445,7 @@ public class TongitsView : GameView
         }
         int idPlayer = (int)data["NName"];
         if (idPlayer != User.userMain.Userid) setPlayerTurn(idPlayer, 16);
-        await Task.Delay(600);
+        await UniTask.Delay(600);
         for (var i = 0; i < players.Count(); i++)
         {
             limit = listCards.Count;
@@ -459,14 +459,14 @@ public class TongitsView : GameView
                 }
             }
         }
-        await Task.Delay(2500);
+        await UniTask.Delay(2500);
         for (var i = 0; i < _CardStackCs.Count(); i++)
         {
             var card = _CardStackCs[i];
             card.transform.DOLocalMove(new Vector2(-400 + i / 10f, 60 + i / 6), 0.3f);
             activeAllButton(true);
         }
-        await Task.Delay(1000);
+        await UniTask.Delay(1000);
         autoSortCard(1, true);
         m_SortBtn.interactable = true;
         for (var i = 0; i < thisPlayer.vectorCard.Count; i++)
@@ -572,7 +572,7 @@ public class TongitsView : GameView
                     if (_CheckAutoDc)
                     {
                         _CheckAutoDc = false;
-                        await Task.Delay(430);
+                        await UniTask.Delay(430);
                     }
                     dumpCard = thisPlayer.vectorCard[i];
                     dumpCard.transform.DOKill();
@@ -616,7 +616,7 @@ public class TongitsView : GameView
             setPlayerTurn((int)data["NN"], 20);
             if (pl == thisPlayer)
             {
-                await Task.Delay(700);
+                await UniTask.Delay(700);
                 showEatHint();
             }
         }
@@ -695,7 +695,7 @@ public class TongitsView : GameView
         card.transform.DORotate(new Vector3(0f, 0f, 0f), 0.25f).SetEase(Ease.OutCubic);
         if (playerP != thisPlayer)
         {
-            await Task.Delay(600);
+            await UniTask.Delay(600);
             putCard(card);
         }
         m_SortBtn.interactable = false;
@@ -786,7 +786,7 @@ public class TongitsView : GameView
                 if (idCardEat != 0 && arr[i] == idCardEat) cardC.showBorder(true);
             }
             dropedCardCs = dropedCardCs.OrderBy(x => x.N % 14).ToList();
-            await Task.Delay(50);
+            await UniTask.Delay(50);
             for (int i = 0; i < dropedCardCs.Count; i++)
             {
                 dropedCardCs[i].transform.localPosition = pos;
@@ -798,16 +798,16 @@ public class TongitsView : GameView
                 dropedCardCs[i].turnHighlightYellow(false);
                 if (dId == 1 && Config.curGameId != (int)GAMEID.TONGITS11) dropedCardCs[i].transform.SetSiblingIndex(z--);
                 else dropedCardCs[i].transform.SetSiblingIndex(i);
-                await Task.Delay(100);
+                await UniTask.Delay(100);
             }
             turnOffTouchForLimitedTime(0.6f);
             reSetZOrder();
-            await Task.Delay(dropedCardCs.Count * 100);
+            await UniTask.Delay(dropedCardCs.Count * 100);
             await reOrganizeCardPosition(0);
             updatePlayerPoint();
             showScHint();
         }
-        await Task.Delay(dId != 0 ? 100 : 50 + (arr.Count - 1) * 100);
+        await UniTask.Delay(dId != 0 ? 100 : 50 + (arr.Count - 1) * 100);
         _CardsInDeck[dId].Add(temp);
         callNextEvt();
         reSetZOrder();
@@ -993,7 +993,7 @@ public class TongitsView : GameView
         {
             m_SortBtn.interactable = false;
         }
-        await Task.Delay((int)time);
+        await UniTask.Delay((int)time);
         List<List<int>> arr = getDeclareData();
         SocketSend.sendTgUpdateCard(arr);
     }
@@ -1087,9 +1087,9 @@ public class TongitsView : GameView
             showOtherResult(listPl);
         }
 
-        await Task.Delay(hitPotDelay + 1000);
+        await UniTask.Delay(hitPotDelay + 1000);
         showWinLose(listPl);
-        await Task.Delay(3000);
+        await UniTask.Delay(3000);
         showResultTable(listPl);
     }
     public void handleHitpot(JObject data)
@@ -1242,7 +1242,7 @@ public class TongitsView : GameView
         }
         showNumbOfCard((int)data["cardNoc"], otherPlayerCard);
         SoundManager.instance.playEffectFromPath(Globals.SOUND_GAME.START_GAME);
-        await Task.Delay(600);
+        await UniTask.Delay(600);
         m_SortBtn.interactable = true;
     }
     void viewHand(List<List<int>> ArrC)
@@ -1490,7 +1490,7 @@ public class TongitsView : GameView
                 card.transform.DOLocalMove(pos, 0.3f).SetEase(Ease.InOutCubic);
                 card.transform.DORotate(newRotation.eulerAngles, 0.3f).SetEase(Ease.InOutCubic);
             }
-            await Task.Delay(300);
+            await UniTask.Delay(300);
             for (var i = 0; i < _CountCards[Globals.Config.curGameId]; i++)
             {
                 var card = _CardStackCs[i];
@@ -1534,7 +1534,7 @@ public class TongitsView : GameView
             _CardCs = _CardCs.OrderBy(x => x.N % 14).ThenBy(x => x.S).ToList();
             foreach (Card card in _CardCs) _CardCodes.Add(card.code);
         }
-        await Task.Delay(200);
+        await UniTask.Delay(200);
         for (int i = 0; i < thisPlayer.vectorCard.Count; i++)
         {
             Card card = thisPlayer.vectorCard[i];
@@ -1776,7 +1776,7 @@ public class TongitsView : GameView
         }
         else
         {
-            await Task.Delay(200);
+            await UniTask.Delay(200);
             _FightObjFS.playerFight(player, type);
         }
     }
@@ -2252,7 +2252,7 @@ public class TongitsView : GameView
     }
     public async void showTongitsScene(int pId, List<List<int>> arrC)
     {
-        await Task.Delay(300);
+        await UniTask.Delay(300);
         TongitsScene scene = Instantiate(m_TongitsSceneTS, m_TongitsSceneParent.transform);
 
         scene.transform.localPosition = Vector2.zero;
@@ -2287,13 +2287,13 @@ public class TongitsView : GameView
             listCardTongit.Add(cardTemp);
             foldCardUp(cardTemp, tongitsCode[i], 0.3f, false, 0.8f, i / 10f);
         }
-        await Task.Delay(2000);
+        await UniTask.Delay(2000);
         _CodeGroups.Clear();
         _CodeGroups.AddRange(saveGroup);
         _CardCodes.Clear();
         _CardCodes.AddRange(saveCodes);
         SoundManager.instance.playEffectFromPath(Globals.SOUND_TONGITS.TgTongitsMusic);
-        await Task.Delay(1500);
+        await UniTask.Delay(1500);
         foreach (Card card in listCardTongit)
         {
             card.StopAllCoroutines();
@@ -2463,7 +2463,7 @@ public class TongitsView : GameView
         {
             SoundManager.instance.playEffectFromPath(Globals.SOUND_HILO.WIN);
             m_HitPotSG.transform.DOLocalMove(new Vector2(60, -250), 1f).SetEase(Ease.InOutCubic);
-            await Task.Delay(1200);
+            await UniTask.Delay(1200);
             dimon.gameObject.SetActive(false);
             dimon1.gameObject.SetActive(false);
             m_HitPotSG.gameObject.SetActive(true);
@@ -2474,7 +2474,7 @@ public class TongitsView : GameView
             //{
             //    hitPot_ani.gameObject.SetActive(false);
             //};
-            await Task.Delay(1800);
+            await UniTask.Delay(1800);
             //chipEject.SetSiblingIndex(999);
             m_ChipEjectSG.gameObject.SetActive(true);
             m_ChipEjectSG.AnimationState.SetAnimation(0, "animation", false);
@@ -2483,7 +2483,7 @@ public class TongitsView : GameView
             {
                 m_ChipEjectSG.gameObject.SetActive(false);
             };
-            await Task.Delay(500);
+            await UniTask.Delay(500);
             m_HitPotSG.gameObject.SetActive(true);
             m_HitPotSG.startingAnimation = "stay";
             m_HitPotSG.AnimationState.SetAnimation(0, "stay", false);
@@ -2906,7 +2906,7 @@ public class TongitsView : GameView
     {
         ShowNumbOfCard item = Instantiate(m_CardNumberSNOC, m_CardNumber.transform);
 
-        await Task.Delay(600);
+        await UniTask.Delay(600);
         item.setInfo(numbCardStack, numbOfCardPlayer);
         item.gameObject.SetActive(true);
         _CardNumberSNOC = item;
@@ -2963,7 +2963,7 @@ public class TongitsView : GameView
     }
     async void updatePlayerPoint()
     {
-        await Task.Delay(500);
+        await UniTask.Delay(500);
         m_PointTMP.gameObject.SetActive(true);
         int point = calculatePoint();
         m_PointTMP.text = point.ToString();
@@ -3032,7 +3032,7 @@ public class TongitsView : GameView
     {
         m_DrawArrow.SetActive(true);
         StartCoroutine(moveEatArrow(m_DrawArrow));
-        await Task.Delay(200);
+        await UniTask.Delay(200);
         allowDraw(true);
     }
     void hideArrow()
@@ -3835,7 +3835,7 @@ public class TongitsView : GameView
         {
             doGuiCard(gui);
         }
-        await Task.Delay(10);
+        await UniTask.Delay(10);
         if (_CheckClick)
             OnEndDrag(eventData, card);
     }
