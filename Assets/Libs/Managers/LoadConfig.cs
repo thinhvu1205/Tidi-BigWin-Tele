@@ -26,6 +26,7 @@ public class LoadConfig : MonoBehaviour
     public bool isLoadedConfig = false;
     void Awake()
     {
+        Config.publisher = "unity_tongit_1_0";
         instance = this;
         //if (Application.platform == RuntimePlatform.Android)
         //{
@@ -191,8 +192,8 @@ public class LoadConfig : MonoBehaviour
         wWForm["version"] = Globals.Config.versionGame + "";
         wWForm["operatorID"] = Globals.Config.OPERATOR + "";
         // wWForm["bundleID"] = "tongits11.game.cocos"; //old
-        wWForm["bundleID"] = "win777.unity.tele"; //luồng vào từ telegram bằng WebGL
-        // wWForm["bundleID"] = "win777.unity.apk"; //luồng vào bt
+        // wWForm["bundleID"] = "win777.unity.tele"; //luồng vào từ telegram bằng WebGL
+        wWForm["bundleID"] = "unity.tongit.online.com";
         wWForm["publisher"] = Config.publisher;
         wWForm["os"] = osName;
         wWForm["mcc"] = "[0,0]";
